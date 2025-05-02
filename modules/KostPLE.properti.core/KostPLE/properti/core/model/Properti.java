@@ -1,0 +1,22 @@
+package KostPLE.properti.core;
+import vmj.routing.route.Route;
+import vmj.routing.route.VMJExchange;
+import java.util.*;
+
+import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+
+public interface Properti {
+	public String getIdProperti();
+	public void setIdProperti(int idProperti);
+	public String getNamaProperti();
+	public void setNamaProperti(String namaProperti);
+	public String getDeskripsiProperti();
+	public void setDeskripsiProperti(String deskripsiProperti);
+	public String getLokasiProperti();
+	public void setLokasiProperti(String lokasiProperti);
+	public String getFotoUrlProperti();
+	public void setFotoUrlProperti(String fotoUrlProperti);
+	public ProfilPenggunaImpl getProfilpenggunaimpl();
+	public void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl);
+	HashMap<String, Object> toHashMap();
+}
