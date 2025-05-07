@@ -13,13 +13,13 @@ public abstract class PemesananServiceComponent implements PemesananService{
     }	
 
     public abstract List<HashMap<String,Object>> savePemesanan(VMJExchange vmjExchange);
-    public abstract Pemesanan createPemesanan(Map<String, Object> requestBodye);
+    public abstract Pemesanan createPemesanan(Map<String, Object> requestBody);
 	public abstract Pemesanan createPemesanan(Map<String, Object> requestBody, Map<String, Object> response);    
 	public abstract HashMap<String, Object> updatePemesanan(Map<String, Object> requestBody);
     public abstract HashMap<String, Object> getPemesanan(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> getAllPemesanan(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> transformListToHashMap(List<Pemesanan> List);
     public abstract List<HashMap<String,Object>> deletePemesanan(Map<String, Object> requestBody);
-	public abstract HashMap<String, Object> getPemesananById(int id);
+	public abstract HashMap<String, Object> getPemesananById(String id);
 
 }

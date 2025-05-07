@@ -1,22 +1,23 @@
 package KostPLE.pemesanan.sewaviaapp;
 import java.util.*;
 
-import vmj.routing.annotation.Route;
-import vmj.routing.exchange.VMJExchange;
+import vmj.routing.route.Route;
+import vmj.routing.route.VMJExchange;
 
 import KostPLE.pemesanan.core.PemesananResourceDecorator;
 import KostPLE.pemesanan.core.repository.PemesananRepository;
 import KostPLE.pemesanan.PemesananFactory;
+import KostPLE.pemesanan.core.Pemesanan;
 import KostPLE.pemesanan.core.PemesananImpl;
 import KostPLE.pemesanan.core.PemesananResourceComponent;
-import vmj.routing.annotation.Route;
-import vmj.routing.exchange.VMJExchange;
-import KostPLE.pemesanan.repository.Repository;
 
 public class PemesananResourceImpl extends PemesananResourceDecorator {
-    public PemesananResourceImpl (PemesananResourceComponent record) {
-        super(record);
-    }
+	private PemesananResourceComponent record;
+
+	public PemesananResourceImpl (PemesananResourceComponent record) {
+		super(record);
+		this.record = record;
+	}
 
     // @Restriced(permission = "")
 	@Route(url="call/sewaviaapp/save")
@@ -28,22 +29,23 @@ public class PemesananResourceImpl extends PemesananResourceDecorator {
 
 	public Pemesanan create(VMJExchange vmjExchange){
 		// Ensure 'record' is properly initialized or passed to the class
-		Pemesanan pemesanan = record.create(vmjExchange);
+		Pemesanan pemesanan = record.createPemesanan(vmjExchange);
 		
 		// Ensure 'Factory' and 'downPayment' are properly defined or imported
-		PemesananImpl deco = (PemesananImpl) Factory.create("KostPLE.sewaviaapp.core.PemesananImpl", pemesanan, downPayment);
+		PemesananImpl deco = (PemesananImpl) PemesananFactory.createPemesanan(pemesanan.getIdPemesanan(), pemesanan);
 		
 		return deco;
 	}
 
-	public Pemesanan create(VMJExchange vmjExchange, int id) {
+	public Pemesanan create(VMJExchange vmjExchange, String id) {
 		// Ensure PemesananRepository and Pemesanan are properly defined or imported
 		Pemesanan saved = (Pemesanan) PemesananRepository.getObject(id);
-		int recordId = ((Decorator) saved.getRecord()).getId();
+		String recordId = (String) saved.getIdPemesanan();
+		String downPayment = (String) vmjExchange.getRequestBodyForm("downPayment");
 
 		// Ensure 'record' is initialized and 'downPayment' is defined
-		Pemesanan pemesanan = record.create(vmjExchange);
-		PemesananImpl deco = (PemesananImpl) PemesananFactory.create("KostPLE.sewaviaapp.core.PemesananImpl", id, pemesanan, downPayment);
+		Pemesanan pemesanan = record.createPemesanan(vmjExchange);
+		PemesananImpl deco = (PemesananImpl) PemesananFactory.createPemesanan(id, pemesanan, downPayment);
 
 		return deco;
 	}
@@ -54,8 +56,7 @@ public class PemesananResourceImpl extends PemesananResourceDecorator {
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		String idStr = (String) vmjExchange.getRequestBodyForm("id");
-		int id = Integer.parseInt(idStr);
+		String id = (String) vmjExchange.getRequestBodyForm("id");
 		
 		Pemesanan existingPemesanan = (Pemesanan) PemesananRepository.getObject(id);
 		Pemesanan updatedPemesanan = create(vmjExchange, id);
@@ -108,5 +109,11 @@ public class PemesananResourceImpl extends PemesananResourceDecorator {
 
 	public void addNewPesanan() {
 		// TODO: implement this method
+	}
+
+	@Override
+	public List<HashMap<String, Object>> savePemesanan(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'savePemesanan'");
 	}
 }

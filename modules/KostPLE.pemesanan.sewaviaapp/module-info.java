@@ -1,5 +1,7 @@
 module KostPLE.pemesanan.sewaviaapp {
 	requires KostPLE.pemesanan.core;
+	requires KostPLE.kamar.core;
+	requires KostPLE.profilpengguna.core;
     exports KostPLE.pemesanan.sewaviaapp;
 
 	requires vmj.routing.route;

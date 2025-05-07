@@ -25,7 +25,7 @@ public abstract class PropertiDecorator extends PropertiComponent{
 		this.record = record;
 	}
 
-	public PropertiDecorator (int idProperti, PropertiComponent record) {
+	public PropertiDecorator (String idProperti, PropertiComponent record) {
 		this.idProperti =  idProperti;
 		this.record = record;
 	}
@@ -35,8 +35,6 @@ public abstract class PropertiDecorator extends PropertiComponent{
 		this.record = record;	
 		this.objectName=objectName;
 	}
-
-	public PropertiDecorator() { }
 
 
 

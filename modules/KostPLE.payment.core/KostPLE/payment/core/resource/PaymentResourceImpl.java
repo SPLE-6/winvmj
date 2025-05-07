@@ -1,12 +1,14 @@
-package KostPLE.payment.core;
+package KostPLE.payment.core.resource;
 import java.util.*;
 
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.payment.PaymentFactory;
-//import prices.auth.vmj.annotations.Restricted;
+import KostPLE.payment.core.model.Payment;
+import vmj.auth.annotations.Restricted;
 //add other required packages
+import KostPLE.payment.core.service.PaymentServiceImpl;
 
 public class PaymentResourceImpl extends PaymentResourceComponent{
 	
@@ -14,11 +16,11 @@ public class PaymentResourceImpl extends PaymentResourceComponent{
 
 	// @Restriced(permission = "")
     @Route(url="call/payment")
-    public HashMap<String,Object> create(VMJExchange vmjExchange){
+    public Payment create(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			 result = ServiceImpl.create(requestBody);
-			return result.toHashMap();
+			Payment result = ServiceImpl.create(requestBody);
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -66,5 +68,41 @@ public class PaymentResourceImpl extends PaymentResourceComponent{
 
 	public void Cancel() {
 		// TODO: implement this method
+	}
+
+	@Override
+	public List<HashMap<String, Object>> savePayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'savePayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> updatePayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> getPayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getPayment'");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getAllPayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getAllPayment'");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> deletePayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'deletePayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> createPayment(VMJExchange vmjExhange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
 	}
 }

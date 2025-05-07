@@ -1,4 +1,4 @@
-package KostPLE.payment.core;
+package KostPLE.payment.core.model;
 
 import java.util.*;
 import vmj.routing.route.Route;
@@ -16,35 +16,32 @@ public abstract class PaymentDecorator extends PaymentComponent{
 
 	public PaymentDecorator () {
 		super();
-		this.record = record;
-		this.idPayment =  idPayment.randomUUID();
+		this.idPayment =  UUID.randomUUID().toString();
 	}
 
 	public PaymentDecorator (PaymentComponent record) {
-		this.idPayment =  idPayment.randomUUID();
+		this.idPayment =  UUID.randomUUID().toString();
 		this.record = record;
 	}
 
-	public PaymentDecorator (int idPayment, PaymentComponent record) {
+	public PaymentDecorator (String idPayment, PaymentComponent record) {
 		this.idPayment =  idPayment;
 		this.record = record;
 	}
 	
 	public PaymentDecorator (PaymentComponent record, String objectName) {
-		this.idPayment =  idPayment.randomUUID();
+		this.idPayment =  UUID.randomUUID().toString();
 		this.record = record;	
 		this.objectName=objectName;
 	}
 
-	public PaymentDecorator() { }
-
 
 	public void Pay() {
-		return record.Pay();
+		// return record.Pay();
 	}
 
 	public void Cancel() {
-		return record.Cancel();
+		// return record.Cancel();
 	}
 
 	public HashMap<String, Object> toHashMap() {

@@ -10,7 +10,7 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
         this.record = record;
     }
 
-	public PemesananImpl createPemesanan(Map<String, Object> requestBody){
+	public Pemesanan createPemesanan(Map<String, Object> requestBody){
 		return record.createPemesanan(requestBody);
 	}
 
@@ -42,7 +42,7 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
 		return record.deletePemesanan(requestBody);
 	}
 
-	public HashMap<String, Object> getPemesananById(int id){
+	public HashMap<String, Object> getPemesananById(String id){
         return record.getPemesananById(id);
     }
 

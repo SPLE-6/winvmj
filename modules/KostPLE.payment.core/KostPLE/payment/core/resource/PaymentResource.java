@@ -1,4 +1,4 @@
-package KostPLE.payment.core;
+package KostPLE.payment.core.resource;
 import java.util.*;
 
 import vmj.routing.route.VMJExchange;

@@ -1,20 +1,22 @@
 package KostPLE.payment.core.repository;
 
-import KostPLE.payment.core.service.Payment;
+import java.util.List;
+
+import KostPLE.payment.core.model.Payment;
 
 public class PaymentRepository {
 
-    public static void saveObject() {
+    public static void saveObject(Payment payment) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'saveObject'");
     }
 
-    public static Payment getObject(int id) {
+    public static Payment getObject(String id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getObject'");
     }
 
-    public static void deleteObject(int id) {
+    public static void deleteObject(String id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteObject'");
     }
@@ -24,4 +26,8 @@ public class PaymentRepository {
         throw new UnsupportedOperationException("Unimplemented method 'getAllObject'");
     }
 
+    public static void updateObject(Payment payment) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateObject'");
+    }
 }

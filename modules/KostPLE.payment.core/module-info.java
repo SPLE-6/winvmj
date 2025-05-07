@@ -2,6 +2,10 @@ module KostPLE.payment.core {
 	requires KostPLE.pemesanan.core;
 	exports KostPLE.payment;
     exports KostPLE.payment.core;
+	exports KostPLE.payment.core.model;
+	exports KostPLE.payment.core.repository;
+	exports KostPLE.payment.core.resource;
+	exports KostPLE.payment.core.service;
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;
 	requires vmj.auth;

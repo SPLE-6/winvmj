@@ -13,13 +13,13 @@ public abstract class KamarServiceComponent implements KamarService{
     }	
 
     public abstract List<HashMap<String,Object>> saveKamar(VMJExchange vmjExchange);
-    public abstract Kamar createKamar(Map<String, Object> requestBodye);
+    public abstract Kamar createKamar(Map<String, Object> requestBody);
 	public abstract Kamar createKamar(Map<String, Object> requestBody, Map<String, Object> response);    
 	public abstract HashMap<String, Object> updateKamar(Map<String, Object> requestBody);
     public abstract HashMap<String, Object> getKamar(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> getAllKamar(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> transformListToHashMap(List<Kamar> List);
     public abstract List<HashMap<String,Object>> deleteKamar(Map<String, Object> requestBody);
-	public abstract HashMap<String, Object> getKamarById(int id);
+	public abstract HashMap<String, Object> getKamarById(String id);
 
 }

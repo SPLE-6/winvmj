@@ -3,6 +3,10 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import java.util.*;
 
+import KostPLE.properti.core.Properti;
+import KostPLE.properti.core.PropertiImpl;
+
+
 public interface Kamar {
 	public String getIdKamar();
 	public void setIdKamar(int idKamar);
@@ -14,9 +18,9 @@ public interface Kamar {
 	public void setDeskripsiKamar(String deskripsiKamar);
 	public String getProperty6();
 	public void setProperty6(String Property6);
-	public EFloat getProperty7();
-	public void setProperty7(EFloat Property7);
-	public PropertiImpl getPropertiimpl();
-	public void setPropertiimpl(PropertiImpl propertiimpl);
+	public Float getProperty7();
+	public void setProperty7(Float Property7);
+	public Properti getPropertiImpl();
+	public void setPropertiImpl(PropertiImpl propertiimpl);
 	HashMap<String, Object> toHashMap();
 }

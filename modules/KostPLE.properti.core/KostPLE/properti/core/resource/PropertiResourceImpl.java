@@ -5,7 +5,10 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.properti.PropertiFactory;
-//import prices.auth.vmj.annotations.Restricted;
+import KostPLE.properti.core.PropertiServiceImpl;
+import vmj.auth.annotations.Restricted;
+
+
 //add other required packages
 
 public class PropertiResourceImpl extends PropertiResourceComponent{
@@ -14,7 +17,7 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
 
 	// @Restriced(permission = "")
     @Route(url="call/properti")
-    public HashMap<String,Object> createproperti(VMJExchange vmjExchange){
+    public HashMap<String,Object> createProperti(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Properti result = propertiServiceImpl.createProperti(requestBody);
@@ -58,6 +61,12 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
 		}
 		
 		return propertiServiceImpl.deleteProperti(requestBody);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> saveProperti(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'saveProperti'");
 	}
 
 }

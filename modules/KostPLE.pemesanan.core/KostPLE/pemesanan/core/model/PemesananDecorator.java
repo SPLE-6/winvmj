@@ -17,26 +17,24 @@ public abstract class PemesananDecorator extends PemesananComponent{
 	public PemesananDecorator () {
 		super();
 		this.record = record;
-		this.idPemesanan =  idPemesanan.randomUUID();
+		this.idPemesanan =  UUID.randomUUID().toString();
 	}
 	
 	public PemesananDecorator (PemesananComponent record) {
-		this.idPemesanan =  idPemesanan.randomUUID();
+		this.idPemesanan =  UUID.randomUUID().toString();
 		this.record = record;
 	}
 
-	public PemesananDecorator (int idPemesanan, PemesananComponent record) {
+	public PemesananDecorator (String idPemesanan, PemesananComponent record) {
 		this.idPemesanan =  idPemesanan;
 		this.record = record;
 	}
 	
 	public PemesananDecorator (PemesananComponent record, String objectName) {
-		this.idPemesanan =  idPemesanan.randomUUID();
+		this.idPemesanan =  UUID.randomUUID().toString();
 		this.record = record;	
 		this.objectName=objectName;
 	}
-
-	public PemesananDecorator() { }
 
 
 

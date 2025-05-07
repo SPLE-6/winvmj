@@ -1,6 +1,6 @@
 package KostPLE.payment;
 
-import KostPLE.payment.core.PaymentService;
+import KostPLE.payment.core.service.PaymentService;
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 

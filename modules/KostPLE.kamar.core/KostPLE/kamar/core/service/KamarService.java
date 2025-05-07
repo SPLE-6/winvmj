@@ -1,6 +1,7 @@
 package KostPLE.kamar.core;
 import java.util.*;
 
+import KostPLE.kamar.core.Kamar;
 import vmj.routing.route.VMJExchange;
 
 public interface KamarService {
@@ -12,5 +13,5 @@ public interface KamarService {
     HashMap<String, Object> getKamarById(int id);
     List<HashMap<String,Object>> getAllKamar(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteKamar(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Object> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Kamar> List);
 }

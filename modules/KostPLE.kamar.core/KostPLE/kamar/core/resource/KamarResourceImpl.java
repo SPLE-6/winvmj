@@ -1,12 +1,11 @@
 package KostPLE.kamar.core;
 import java.util.*;
 
+import KostPLE.kamar.KamarFactory;
+import KostPLE.kamar.core.KamarServiceImpl;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
-import KostPLE.kamar.KamarFactory;
-//import prices.auth.vmj.annotations.Restricted;
-//add other required packages
 
 public class KamarResourceImpl extends KamarResourceComponent{
 	
@@ -14,11 +13,11 @@ public class KamarResourceImpl extends KamarResourceComponent{
 
 	// @Restriced(permission = "")
     @Route(url="call/kamar")
-    public HashMap<String,Object> createkamar(VMJExchange vmjExchange){
+    public Kamar createKamar(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Kamar result = kamarServiceImpl.createKamar(requestBody);
-			return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -58,6 +57,12 @@ public class KamarResourceImpl extends KamarResourceComponent{
 		}
 		
 		return kamarServiceImpl.deleteKamar(requestBody);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> saveKamar(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'saveKamar'");
 	}
 
 }

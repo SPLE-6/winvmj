@@ -1,16 +1,15 @@
-package KostPLE.payment.paymentkredit;
+package KostPLE.payment.paymentkredit.resource;
 import java.util.*;
 
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
-import KostPLE.payment.core.PaymentResourceDecorator;
+import KostPLE.payment.core.resource.PaymentResourceDecorator;
 import KostPLE.payment.core.repository.PaymentRepository;
 import KostPLE.payment.PaymentFactory;
-import KostPLE.payment.core.Payment;
-import KostPLE.paymentkredit.core.PaymentImpl;
-import KostPLE.payment.core.PaymentImpl;
-import KostPLE.payment.core.PaymentResourceComponent;
+import KostPLE.payment.core.model.Payment;
+import KostPLE.payment.paymentkredit.model.PaymentImpl;
+import KostPLE.payment.core.resource.PaymentResourceComponent;
 
 public class PaymentResourceImpl extends PaymentResourceDecorator {
     public PaymentResourceImpl (PaymentResourceComponent record) {
@@ -29,26 +28,26 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 	}
 
     public Payment create(VMJExchange vmjExchange){
-		String accountNumberStr = (String) vmjExchange.getRequestBodyForm("accountNumber");
-		int accountNumber = Integer.parseInt(accountNumberStr);
+		String accountNumber = (String) vmjExchange.getRequestBodyForm("accountNumber");
 		String ccv = (String) vmjExchange.getRequestBodyForm("ccv");
 		String provider = (String) vmjExchange.getRequestBodyForm("provider");
+		String recordId = (String) vmjExchange.getRequestBodyForm("recordId");
 
 		
-		Payment deco = PaymentFactory.create("", accountNumber, 0, false, provider, ccv);
+		Payment deco = PaymentFactory.create(accountNumber, 0, false, provider, ccv);
 		return deco;
 	}
 
-	public Payment create(VMJExchange vmjExchange, int id) {
+	public Payment create(VMJExchange vmjExchange, String id) {
 		String accountNumberStr = (String) vmjExchange.getRequestBodyForm("accountNumber");
 		int accountNumber = Integer.parseInt(accountNumberStr);
 		String ccv = (String) vmjExchange.getRequestBodyForm("ccv");
 		String provider = (String) vmjExchange.getRequestBodyForm("provider");
 
 		Payment saved = (Payment) PaymentRepository.getObject(id);
-		int recordId = ((PaymentImpl) saved).getId();
+		String recordId = saved.getIdPayment();
 
-		Payment deco = PaymentFactory.create(PaymentImpl.class.getName(), accountNumber, recordId, false, provider, ccv);
+		Payment deco = PaymentFactory.create(recordId, accountNumber, false, provider, ccv);
 		return deco;
 	}
 
@@ -58,8 +57,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		String idStr = (String) vmjExchange.getRequestBodyForm("id");
-		int id = Integer.parseInt(idStr);
+		String id = (String) vmjExchange.getRequestBodyForm("id");
 		
 		Payment existingPayment = (Payment) PaymentRepository.getObject(id);
 		Payment updatedPayment = create(vmjExchange, id);
@@ -80,7 +78,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 	// @Restriced(permission = "")
     @Route(url="call/paymentkredit/list")
     public List<HashMap<String,Object>> getAll(VMJExchange vmjExchange){
-		List<Payment> List = Repository.getAllObject("_impl");
+		List<Payment> List = PaymentRepository.getAllObject("_impl");
 		return transformListToHashMap(List);
 	}
 
@@ -100,14 +98,43 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 			return null;
 		}
 		
-		String idStr = (String) vmjExchange.getRequestBodyForm("");
-		int id = Integer.parseInt(idStr);
+		String id = (String) vmjExchange.getRequestBodyForm("id");
 		PaymentRepository.deleteObject(id);
 		return getAll(vmjExchange);
 	}
 
 	public void Pay() {
 		// TODO: implement this method
+	}
+
+	@Override
+	public List<HashMap<String, Object>> savePayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'savePayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> updatePayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> getPayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getPayment'");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getAllPayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getAllPayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> createPayment(VMJExchange vmjExhange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
 	}
 
 }

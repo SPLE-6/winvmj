@@ -1,4 +1,4 @@
-package KostPLE.payment.core;
+package KostPLE.payment.core.model;
 
 import java.util.*;
 import vmj.routing.route.Route;
@@ -10,16 +10,22 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import KostPLE.pemesanan.core.Pemesanan;
+import KostPLE.pemesanan.core.PemesananComponent;
+import KostPLE.pemesanan.core.PemesananImpl;
+
+import javax.persistence.ManyToOne;
+
 @Entity
 @Table(name="_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PaymentComponent implements Payment{
 	@Id
-	public int idPayment; 
-	public EFloat amount;
+	public String idPayment; 
+	public Float amount;
 	public boolean status;
-	public EDate createdAt;
-	@ManyToOne(targetEntity=KostPLE.pemesanan.core.PemesananComponent.class)
+	public Date createdAt;
+	@ManyToOne(targetEntity=PemesananComponent.class)
 	public Pemesanan pemesananimpl;
 	protected String objectName = PaymentComponent.class.getName();
 
@@ -28,7 +34,7 @@ public abstract class PaymentComponent implements Payment{
 	} 
 
 	public PaymentComponent(
-        int idPayment, EFloat amount, boolean status, EDate createdAt, PemesananImpl pemesananimpl
+        String idPayment, Float amount, boolean status, Date createdAt, PemesananImpl pemesananimpl
     ) {
         this.idPayment = idPayment;
         this.amount = amount;
@@ -37,17 +43,17 @@ public abstract class PaymentComponent implements Payment{
         this.pemesananimpl = pemesananimpl;
     }
 
-	public abstract int getIdPayment();
-	public abstract void setIdPayment(int idPayment);
+	public abstract String getIdPayment();
+	public abstract void setIdPayment(String idPayment);
 	
-	public abstract EFloat getAmount();
-	public abstract void setAmount(EFloat amount);
+	public abstract Float getAmount();
+	public abstract void setAmount(Float amount);
 	
 	public abstract boolean getStatus();
 	public abstract void setStatus(boolean status);
 	
-	public abstract EDate getCreatedAt();
-	public abstract void setCreatedAt(EDate createdAt);
+	public abstract Date getCreatedAt();
+	public abstract void setCreatedAt(Date createdAt);
 	
 	public abstract PemesananImpl getPemesananimpl();
 	public abstract void setPemesananimpl(PemesananImpl pemesananimpl);

@@ -1,4 +1,4 @@
-package KostPLE.payment.core;
+package KostPLE.payment.core.service;
 import java.util.*;
 import com.google.gson.Gson;
 import java.util.*;
@@ -15,25 +15,24 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.payment.PaymentFactory;
-import KostPLE.payment.core.Payment;
+import KostPLE.payment.core.model.Payment;
 import KostPLE.payment.core.repository.PaymentRepository;
-import prices.auth.vmj.annotations.Restricted;
+import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class PaymentServiceImpl extends PaymentServiceComponent{
 
-    public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
+    public Payment save(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		Payment payment = create(vmjExchange);
+		Payment payment = create(vmjExchange.getPayload());
 		PaymentRepository.saveObject(payment);
-		return getAll(vmjExchange);
+		return payment;
 	}
 
     public Payment create(Map<String, Object> requestBody){
-		String idPaymentStr = (String) requestBody.get("idPayment");
-		int idPayment = Integer.parseInt(idPaymentStr);
+		String idPayment = (String) requestBody.get("idPayment");
 		boolean status = (boolean) requestBody.get("status");
 		String amountStr = (String) requestBody.get("amount");
 		int amount = Integer.parseInt(amountStr);
@@ -42,7 +41,6 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 		
 		//to do: fix association attributes
 		Payment payment = PaymentFactory.create(
-			"KostPLE.payment.core.PaymentImpl",
 		idPayment
 		, amount
 		, status
@@ -53,21 +51,26 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 		return payment ;
 	}
 
-    public Payment create(Map<String, Object> requestBody, int id){
+    public Payment create(VMJExchange vmjExchange){
+		String idPayment = (String) vmjExchange.getRequestBodyForm("idPayment");
 		boolean status = (boolean) vmjExchange.getRequestBodyForm("status");
+		String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
+		int amount = Integer.parseInt(amountStr);
+		String createdAt = (String) vmjExchange.getRequestBodyForm("createdAt");
+		String pemesananimpl= (String) vmjExchange.getRequestBodyForm("pemesananimpl");
+		
 		
 		//to do: fix association attributes
 		
-		Payment payment = PaymentFactory.create("KostPLE.payment.core.PaymentImpl", amount, status, createdAt, pemesananimpl);
+		Payment payment = PaymentFactory.create(idPayment, amount, status, createdAt, pemesananimpl);
 		return payment;
 	}
 
     public HashMap<String, Object> update(Map<String, Object> requestBody){
-		String idStr = (String) requestBody.get("idPayment");
-		int id = Integer.parseInt(idStr);
+		String id = (String) requestBody.get("idPayment");
 		Payment payment = PaymentRepository.getObject(id);
 		
-		payment.setStatus((String) requestBody.get("status"));
+		payment.setStatus((Boolean) requestBody.get("status"));
 		
 		PaymentRepository.updateObject(payment);
 		
@@ -78,8 +81,8 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 	}
 
     public HashMap<String, Object> get(Map<String, Object> requestBody){
-		List<HashMap<String, Object>> List = getAll("_impl");
-		for (HashMap<String, Object> payment : List){
+		List<HashMap<String, Object>> list = getAll(requestBody);
+		for (HashMap<String, Object> payment : list){
 			String record_id = ((String) payment.get("record_id"));
 			if (record_id.equals(requestBody.get("idPayment"))){
 				return payment;
@@ -99,6 +102,7 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 		return transformListToHashMap(List);
 	}
 
+	@Override
     public List<HashMap<String,Object>> transformListToHashMap(List<Payment> List){
 		List<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
         for(int i = 0; i < List.size(); i++) {
@@ -121,4 +125,65 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 	public void Cancel() {
 		// TODO: implement this method
 	}
+
+	@Override
+	public Payment createPayment(Map<String, Object> requestBody) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
+	}
+
+	@Override
+	public Payment createPayment(Map<String, Object> requestBody,
+			Map<String, Object> response) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> getPayment(Map<String, Object> requestBody) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getPayment'");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> savePayment(Map<String, Object> requestBody) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'savePayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> updatePayment(Map<String, Object> requestBody) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
+	}
+
+	public HashMap<String, Object> getPaymentById(String id) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getPaymentById'");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getAllPayment(Map<String, Object> requestBody) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getAllPayment'");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> deletePayment(Map<String, Object> requestBody) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'deletePayment'");
+	}
+
+	@Override
+	public Payment create(Map<String, Object> requestBody, Map<String, Object> response) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'create'");
+	}
+
+	@Override
+	public HashMap<String, Object> getById(int id) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getById'");
+	}
+
 }

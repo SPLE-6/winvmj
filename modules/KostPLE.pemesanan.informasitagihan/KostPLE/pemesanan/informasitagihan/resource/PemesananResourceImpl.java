@@ -2,7 +2,7 @@ package KostPLE.pemesanan.informasitagihan;
 import java.util.*;
 
 import vmj.routing.route.Route;
-import vmj.routing.exchange.VMJExchange; // Corrected import for VMJExchange
+import vmj.routing.route.VMJExchange;
 import KostPLE.pemesanan.core.repository.PemesananRepository;
 import KostPLE.pemesanan.core.PemesananResourceDecorator;
 import KostPLE.pemesanan.PemesananFactory;
@@ -13,6 +13,7 @@ import KostPLE.pemesanan.core.PemesananResourceComponent;
 public class PemesananResourceImpl extends PemesananResourceDecorator {
     public PemesananResourceImpl (PemesananResourceComponent record) {
         super(record);
+		this.record = record;
     }
 
     // @Restriced(permission = "")
@@ -23,24 +24,21 @@ public class PemesananResourceImpl extends PemesananResourceDecorator {
 		}
 		Pemesanan pemesanan = create(vmjExchange); // Added variable assignment
 		PemesananRepository.saveObject(pemesanan); // Pass the created object to save
-		PemesananRepository.saveObject();
 		return getAll(vmjExchange);
 	}
 
 	public Pemesanan create(VMJExchange vmjExchange){
-		Pemesanan pemesanan = record.create(vmjExchange); // Ensure 'record' is properly initialized elsewhere
-		PemesananImpl deco = (PemesananImpl) PemesananFactory.create("KostPLE.informasitagihan.core.PemesananImpl", pemesanan); // Ensure 'PemesananFactory' is properly imported or defined
+		Pemesanan pemesanan = record.createPemesanan(vmjExchange); // Ensure 'record' is properly initialized elsewhere
+		PemesananImpl deco = (PemesananImpl) PemesananFactory.createPemesanan("KostPLE.informasitagihan.core.PemesananImpl", pemesanan); // Ensure 'PemesananFactory' is properly imported or defined
 		return deco;
 	}
 
-	public Pemesanan create(VMJExchange vmjExchange, int id) {
+	public Pemesanan create(VMJExchange vmjExchange, String id) {
 		Pemesanan saved = (Pemesanan) PemesananRepository.getObject(id); // Ensure PemesananRepository and Pemesanan are properly imported
-		int recordId = ((Decorator) saved.getRecord()).getId(); // Ensure Decorator is properly imported and getRecord() is valid
+		String recordId = saved.getIdPemesanan(); // Ensure Decorator is properly imported and getRecord() is valid
 		
-		Pemesanan newRecord = record.create(vmjExchange); // Ensure 'record' is initialized elsewhere
-		PemesananImpl deco = (PemesananImpl) PemesananFactory.create(
-			"KostPLE.informasitagihan.core.PemesananImpl", id, newRecord, recordId
-		); // Ensure PemesananFactory is properly imported and create() is valid
+		Pemesanan newRecord = record.createPemesanan(vmjExchange); // Ensure 'record' is initialized elsewhere
+		PemesananImpl deco = (PemesananImpl) PemesananFactory.createPemesanan(id, newRecord, recordId); // Ensure PemesananFactory is properly imported and create() is valid
 		return deco;
 	}
 
@@ -50,8 +48,7 @@ public class PemesananResourceImpl extends PemesananResourceDecorator {
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		String idStr = (String) vmjExchange.getRequestBodyForm("id");
-		int id = Integer.parseInt(idStr);
+		String id = (String) vmjExchange.getRequestBodyForm("id");
 		
 		Pemesanan existingPemesanan = (Pemesanan) PemesananRepository.getObject(id);
 		Pemesanan updatedPemesanan = create(vmjExchange, id);
@@ -108,5 +105,11 @@ public class PemesananResourceImpl extends PemesananResourceDecorator {
 
 	public void PayTagihan() {
 		// TODO: implement this method
+	}
+
+	@Override
+	public List<HashMap<String, Object>> savePemesanan(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'savePemesanan'");
 	}
 }

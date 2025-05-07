@@ -12,7 +12,7 @@ public abstract class PropertiServiceDecorator extends PropertiServiceComponent{
         this.record = record;
     }
 
-	public PropertiImpl createProperti(Map<String, Object> requestBody){
+	public Properti createProperti(Map<String, Object> requestBody){
 		return record.createProperti(requestBody);
 	}
 
@@ -28,7 +28,7 @@ public abstract class PropertiServiceDecorator extends PropertiServiceComponent{
 		return record.getAllProperti(requestBody);
 	}
 
-    public List<HashMap<String,Object>> saveProperti(VMJExchange vmjExchange){
+    public Properti saveProperti(VMJExchange vmjExchange){
 		return record.saveProperti(vmjExchange);
 	}
 

@@ -7,6 +7,8 @@ import vmj.routing.route.exceptions.*;
 import KostPLE.pemesanan.PemesananFactory;
 //import prices.auth.vmj.annotations.Restricted;
 //add other required packages
+import KostPLE.pemesanan.core.Pemesanan;
+import KostPLE.pemesanan.core.PemesananServiceImpl;
 
 public class PemesananResourceImpl extends PemesananResourceComponent{
 	
@@ -14,11 +16,11 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
 
 	// @Restriced(permission = "")
     @Route(url="call/pemesanan")
-    public HashMap<String,Object> createpemesanan(VMJExchange vmjExchange){
+    public Pemesanan createpemesanan(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Pemesanan result = pemesananServiceImpl.createPemesanan(requestBody);
-			return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -58,6 +60,18 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
 		}
 		
 		return pemesananServiceImpl.deletePemesanan(requestBody);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> savePemesanan(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'savePemesanan'");
+	}
+
+	@Override
+	public Pemesanan createPemesanan(VMJExchange vmjExhange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'createPemesanan'");
 	}
 
 }

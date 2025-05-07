@@ -1,6 +1,6 @@
 package KostPLE.payment;
 
-import KostPLE.payment.core.Payment;
+import KostPLE.payment.core.model.Payment;
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 
@@ -49,7 +49,7 @@ public class PaymentFactory{
         return record;
     }
 
-    public static KostPLE.payment.core.service.Payment create(String string, int idPayment, int amount, boolean status,
+    public static Payment create(String idPayment, int amount, boolean status,
             String createdAt, String pemesananimpl) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");

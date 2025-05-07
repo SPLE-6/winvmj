@@ -1,7 +1,7 @@
 module KostPLE.payment.paymentkredit {
 	requires KostPLE.payment.core;
+	requires KostPLE.pemesanan.core;
     exports KostPLE.payment.paymentkredit;
-
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;
 	requires vmj.auth;

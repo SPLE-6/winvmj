@@ -36,7 +36,6 @@ public abstract class KamarDecorator extends KamarComponent{
 		this.objectName=objectName;
 	}
 
-	public KamarDecorator() { }
 
 
 

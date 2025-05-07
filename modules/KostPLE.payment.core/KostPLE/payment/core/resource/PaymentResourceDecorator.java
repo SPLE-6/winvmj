@@ -1,6 +1,7 @@
-package KostPLE.payment.core;
+package KostPLE.payment.core.resource;
 import java.util.*;
 
+import KostPLE.payment.core.model.Payment;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
@@ -11,7 +12,7 @@ public abstract class PaymentResourceDecorator extends PaymentResourceComponent{
         this.record = record;
     }
 
-    public PaymentImpl create(VMJExchange vmjExchange){
+    public Payment create(VMJExchange vmjExchange){
 		return record.create(vmjExchange);
 	}
 
@@ -32,10 +33,10 @@ public abstract class PaymentResourceDecorator extends PaymentResourceComponent{
 	}
 
 	public void Pay() {
-		return record.Pay();
+		// return record.Pay();
 	}
 
 	public void Cancel() {
-		return record.Cancel();
+		// return record.Cancel();
 	}
 }

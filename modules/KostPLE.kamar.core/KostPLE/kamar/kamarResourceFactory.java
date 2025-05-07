@@ -1,24 +1,25 @@
 package KostPLE.kamar;
 
-import KostPLE.kamar.core.kamarResource;
+import KostPLE.kamar.core.KamarResource;
+
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 
-public class kamarResourceFactory{
-    private static final Logger LOGGER = Logger.getLogger(kamarFactory.class.getName());
+public class KamarResourceFactory{
+    private static final Logger LOGGER = Logger.getLogger(KamarFactory.class.getName());
 
-    public kamarResourceFactory()
+    public KamarResourceFactory()
     {
 
     }
 
-    public static kamarResource createkamarResource(String fullyQualifiedName, Object ... base)
+    public static KamarResource createKamarResource(String fullyQualifiedName, Object ... base)
     {
-        kamarResource record = null;
+        KamarResource record = null;
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
             Constructor<?> constructor = clz.getDeclaredConstructors()[0];
-            record = (kamarResource) constructor.newInstance(base);
+            record = (KamarResource) constructor.newInstance(base);
         } 
         catch (IllegalArgumentException e)
         {

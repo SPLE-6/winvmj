@@ -1,6 +1,7 @@
 package KostPLE.kamar.core;
 import java.util.*;
 
+import KostPLE.kamar.core.Kamar;
 import vmj.hibernate.integrator.RepositoryUtil;
 import vmj.routing.route.VMJExchange;
 //add other required packages

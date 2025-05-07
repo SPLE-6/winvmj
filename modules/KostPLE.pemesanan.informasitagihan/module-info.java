@@ -1,5 +1,7 @@
 module KostPLE.pemesanan.informasitagihan {
 	requires KostPLE.pemesanan.core;
+	requires KostPLE.kamar.core;
+	requires KostPLE.profilpengguna.core;
     exports KostPLE.pemesanan.informasitagihan;
 
 	requires vmj.routing.route;

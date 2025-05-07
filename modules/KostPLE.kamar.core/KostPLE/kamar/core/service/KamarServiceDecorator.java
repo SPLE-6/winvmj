@@ -10,7 +10,7 @@ public abstract class KamarServiceDecorator extends KamarServiceComponent{
         this.record = record;
     }
 
-	public KamarImpl createKamar(Map<String, Object> requestBody){
+	public Kamar createKamar(Map<String, Object> requestBody){
 		return record.createKamar(requestBody);
 	}
 

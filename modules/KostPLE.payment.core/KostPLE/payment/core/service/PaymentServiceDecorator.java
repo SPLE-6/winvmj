@@ -1,7 +1,8 @@
-package KostPLE.payment.core;
+package KostPLE.payment.core.service;
 import java.util.*;
 
-import KostPLE.payment.core.PaymentImpl;
+import KostPLE.payment.core.model.Payment;
+import KostPLE.payment.core.model.PaymentImpl;
 import vmj.routing.route.VMJExchange;
 
 public abstract class PaymentServiceDecorator extends PaymentServiceComponent{
@@ -11,12 +12,12 @@ public abstract class PaymentServiceDecorator extends PaymentServiceComponent{
         this.record = record;
     }
 
-	public PaymentImpl create(Map<String, Object> requestBody){
+	public Payment create(Map<String, Object> requestBody){
 		return record.create(requestBody);
 	}
 
-    public PaymentImpl create(Map<String, Object> requestBody, Map<String, Object> response){
-		record.create(requestBody, response);
+    public Payment create(Map<String, Object> requestBody, Map<String, Object> response){
+		return record.create(requestBody, response);
 	}
 
 	public HashMap<String, Object> get(Map<String, Object> requestBody){
@@ -27,7 +28,7 @@ public abstract class PaymentServiceDecorator extends PaymentServiceComponent{
 		return record.getAll(requestBody);
 	}
 
-    public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
+    public Payment save(VMJExchange vmjExchange){
 		return record.save(vmjExchange);
 	}
 
@@ -48,10 +49,10 @@ public abstract class PaymentServiceDecorator extends PaymentServiceComponent{
     }
 
 	public void Pay() {
-		return record.Pay();
+		// return record.Pay();
 	}
 
 	public void Cancel() {
-		return record.Cancel();
+		// return record.Cancel();
 	}
 }

@@ -7,11 +7,11 @@ import KostPLE.payment.core.repository.PaymentRepository;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
-import KostPLE.payment.core.PaymentResourceDecorator;
+import KostPLE.payment.core.resource.PaymentResourceDecorator;
 import KostPLE.payment.PaymentFactory;
-import KostPLE.payment.core.Payment;
-import KostPLE.payment.core.PaymentImpl;
-import KostPLE.payment.core.PaymentResourceComponent;
+import KostPLE.payment.core.model.Payment;
+import KostPLE.payment.core.model.PaymentImpl;
+import KostPLE.payment.core.resource.PaymentResourceComponent;
 
 public class PaymentResourceImpl extends PaymentResourceDecorator {
     public PaymentResourceImpl (PaymentResourceComponent record) {
@@ -29,21 +29,22 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 	public Payment create(VMJExchange vmjExchange){
 		String accountNumberStr = (String) vmjExchange.getRequestBodyForm("accountNumber");
 		int accountNumber = Integer.parseInt(accountNumberStr);
+		String provider = (String) vmjExchange.getRequestBodyForm("provider");
 
 		Payment payment = record.create(vmjExchange);
-		PaymentImpl deco = (PaymentImpl) PaymentFactory.create("KostPLE.paymentva.core.PaymentImpl", payment, accountNumber, provider);
+		PaymentImpl deco = (PaymentImpl) PaymentFactory.create(payment.getIdPayment(), accountNumber, false, accountNumberStr, provider);
 		return deco;
 	}
 
-	public Payment create(VMJExchange vmjExchange, int id){
+	public Payment create(VMJExchange vmjExchange, String id){
 		String accountNumberStr = (String) vmjExchange.getRequestBodyForm("accountNumber");
 		int accountNumber = Integer.parseInt(accountNumberStr);
+		String provider = (String) vmjExchange.getRequestBodyForm("provider");
 		
 		Payment saved = PaymentRepository.getObject(id);
-		int recordId = ((Decorator) saved.getRecord()).getId();
+		String recordId = saved.getIdPayment();
 		
-		Payment payment = record.create(vmjExchange);
-		PaymentImpl deco = (PaymentImpl) PaymentFactory.create("KostPLE.paymentva.core.PaymentImpl", id, payment, accountNumber, provider);
+		PaymentImpl deco = (PaymentImpl) PaymentFactory.create(recordId, 0, false, accountNumberStr, provider);
 		return deco;
 	}
 
@@ -53,8 +54,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		String idStr = (String) vmjExchange.getRequestBodyForm("id");
-		int id = Integer.parseInt(idStr);
+		String id = (String) vmjExchange.getRequestBodyForm("id");
 		
 		Payment existingPayment = PaymentRepository.getObject(id);
 		Payment updatedPayment = create(vmjExchange, id);
@@ -95,13 +95,42 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 			return null;
 		}
 		
-		String idStr = (String) vmjExchange.getRequestBodyForm("");
-		int id = Integer.parseInt(idStr);
+		String id = (String) vmjExchange.getRequestBodyForm("");
 		PaymentRepository.deleteObject(id);
 		return getAll(vmjExchange);
 	}
 
 	public void Pay() {
 		// TODO: implement this method
+	}
+
+	@Override
+	public List<HashMap<String, Object>> savePayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'savePayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> updatePayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> getPayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getPayment'");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getAllPayment(VMJExchange vmjExchange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getAllPayment'");
+	}
+
+	@Override
+	public HashMap<String, Object> createPayment(VMJExchange vmjExhange) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
 	}
 }

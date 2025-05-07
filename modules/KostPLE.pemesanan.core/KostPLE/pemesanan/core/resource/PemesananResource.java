@@ -1,6 +1,7 @@
 package KostPLE.pemesanan.core;
 import java.util.*;
 
+import KostPLE.pemesanan.core.Pemesanan;
 import vmj.routing.route.VMJExchange;
 
 public interface PemesananResource {
@@ -9,5 +10,5 @@ public interface PemesananResource {
     HashMap<String, Object> getPemesanan(VMJExchange vmjExchange);
     List<HashMap<String,Object>> getAllPemesanan(VMJExchange vmjExchange);
     List<HashMap<String,Object>> deletePemesanan(VMJExchange vmjExchange);
-	HashMap<String, Object> createPemesanan(VMJExchange vmjExhange);
+	Pemesanan createPemesanan(VMJExchange vmjExhange);
 }

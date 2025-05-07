@@ -1,5 +1,6 @@
 module KostPLE.payment.paymentva {
 	requires KostPLE.payment.core;
+	requires KostPLE.pemesanan.core;
     exports KostPLE.payment.paymentva;
 
 	requires vmj.routing.route;
