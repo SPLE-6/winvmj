@@ -11,16 +11,8 @@ public abstract class ProfilPenggunaResourceDecorator extends ProfilPenggunaReso
         this.record = record;
     }
 
-    public List<HashMap<String,Object>> saveProfilPengguna(VMJExchange vmjExchange){
-		return record.saveProfilPengguna(vmjExchange);
-	}
-
     public ProfilPengguna createProfilPengguna(VMJExchange vmjExchange){
 		return record.createProfilPengguna(vmjExchange);
-	}
-
-    public ProfilPengguna createProfilPengguna(VMJExchange vmjExchange, int id){
-		return record.createProfilPengguna(vmjExchange, id);
 	}
 
     public HashMap<String, Object> updateProfilPengguna(VMJExchange vmjExchange){

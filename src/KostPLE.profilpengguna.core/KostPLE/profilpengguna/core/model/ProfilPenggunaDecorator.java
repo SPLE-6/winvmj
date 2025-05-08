@@ -17,25 +17,23 @@ public abstract class ProfilPenggunaDecorator extends ProfilPenggunaComponent{
 	public ProfilPenggunaDecorator () {
 		super();
 		this.record = record;
-		this.idProfil =  idProfil.randomUUID();
+		this.idProfil =  UUID.randomUUID().toString();
 	}
-	
 	public ProfilPenggunaDecorator (ProfilPenggunaComponent record) {
-		this.idProfil =  idProfil.randomUUID();
+		this.idProfil =  UUID.randomUUID().toString();
 		this.record = record;
 	}
 
-	public ProfilPenggunaDecorator (int idProfil, ProfilPenggunaComponent record) {
+	public ProfilPenggunaDecorator (String idProfil, ProfilPenggunaComponent record) {
 		this.idProfil =  idProfil;
 		this.record = record;
 	}
 	
 	public ProfilPenggunaDecorator (ProfilPenggunaComponent record, String objectName) {
-		this.idProfil =  idProfil.randomUUID();
+		this.idProfil =  UUID.randomUUID().toString();
 		this.record = record;	
 		this.objectName=objectName;
 	}
-
 
 
 	public HashMap<String, Object> toHashMap() {

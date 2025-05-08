@@ -17,26 +17,24 @@ public abstract class PropertiDecorator extends PropertiComponent{
 	public PropertiDecorator () {
 		super();
 		this.record = record;
-		this.idProperti =  idProperti.randomUUID();
+		this.idProperti =  UUID.randomUUID().toString();
 	}
-	
+
 	public PropertiDecorator (PropertiComponent record) {
-		this.idProperti =  idProperti.randomUUID();
+		this.idProperti =  UUID.randomUUID().toString();
 		this.record = record;
 	}
 
-	public PropertiDecorator (int idProperti, PropertiComponent record) {
+	public PropertiDecorator (String idProperti, PropertiComponent record) {
 		this.idProperti =  idProperti;
 		this.record = record;
 	}
 	
 	public PropertiDecorator (PropertiComponent record, String objectName) {
-		this.idProperti =  idProperti.randomUUID();
+		this.idProperti =  UUID.randomUUID().toString();
 		this.record = record;	
 		this.objectName=objectName;
 	}
-
-	public PropertiDecorator() { }
 
 
 

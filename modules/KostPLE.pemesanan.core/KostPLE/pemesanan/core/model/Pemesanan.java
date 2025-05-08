@@ -8,7 +8,7 @@ import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
 
 public interface Pemesanan {
 	public String getIdPemesanan();
-	public void setIdPemesanan(int idPemesanan);
+	public void setIdPemesanan(String idPemesanan);
 	public Date getStartDate();
 	public void setStartDate(Date startDate);
 	public Date getEndDate();

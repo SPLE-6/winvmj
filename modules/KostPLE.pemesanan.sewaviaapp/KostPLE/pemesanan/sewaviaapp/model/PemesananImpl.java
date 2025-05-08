@@ -43,12 +43,6 @@ public class PemesananImpl extends PemesananDecorator {
 	}
 
 	@Override
-	public void setIdPemesanan(int idPemesanan) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setIdPemesanan'");
-	}
-
-	@Override
 	public void setKamarImpl(KamarImpl kamarimpl) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'setKamarImpl'");

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class ProfilPenggunaComponent implements ProfilPengguna{
 	@Id
-	public int idProfil; 
+	public String idProfil; 
 	public String fullName;
 	public String email;
 	public boolean jenisKelamin;
@@ -24,6 +24,7 @@ public abstract class ProfilPenggunaComponent implements ProfilPengguna{
 	public String statusPernikahan;
 	public int kontakDarurat;
 	public String fotoUrlProfil;
+	public String pendidikanTerakhir;
 	public int noHP;
 	protected String objectName = ProfilPenggunaComponent.class.getName();
 
@@ -32,7 +33,7 @@ public abstract class ProfilPenggunaComponent implements ProfilPengguna{
 	} 
 
 	public ProfilPenggunaComponent(
-        int idProfil, String fullName, String email, boolean jenisKelamin, String pekerjaan, String kotaAsal, String statusPernikahan, String pendidikanTerakhir, int kontakDarurat, String fotoUrlProfil, int noHP
+        String idProfil, String fullName, String email, boolean jenisKelamin, String pekerjaan, String kotaAsal, String statusPernikahan, String pendidikanTerakhir, int kontakDarurat, String fotoUrlProfil, int noHP
     ) {
         this.idProfil = idProfil;
         this.fullName = fullName;

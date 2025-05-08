@@ -10,9 +10,9 @@ trap cleanup SIGINT
 
 read -p "Enter the path to the frontend directory: " frontend_dir
 
-echo "SELECT 'CREATE DATABASE kostple_product_default' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'kostple_product_default') \gexec" | psql "postgresql://:@localhost"
+echo "SELECT 'CREATE DATABASE kostple_product_default' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'kostple_product_default') \gexec" | psql "postgresql://postgres:AdistaAthar@localhost"
 for file in sql/*.sql; do
-    psql -a -f "$file" "postgresql://:@localhost/kostple_product_default"
+    psql -a -f "$file" "postgresql://postgres:AdistaAthar@localhost/kostple_product_default"
 done
 
 java -cp kostple.product.default --module-path kostple.product.default -m kostple.product.default &

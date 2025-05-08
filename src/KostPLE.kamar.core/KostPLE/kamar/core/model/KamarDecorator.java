@@ -17,26 +17,25 @@ public abstract class KamarDecorator extends KamarComponent{
 	public KamarDecorator () {
 		super();
 		this.record = record;
-		this.idKamar =  idKamar.randomUUID();
+		this.idKamar =  UUID.randomUUID().toString();
 	}
 	
 	public KamarDecorator (KamarComponent record) {
-		this.idKamar =  idKamar.randomUUID();
+		this.idKamar =  UUID.randomUUID().toString();
 		this.record = record;
 	}
 
-	public KamarDecorator (int idKamar, KamarComponent record) {
+	public KamarDecorator (String idKamar, KamarComponent record) {
 		this.idKamar =  idKamar;
 		this.record = record;
 	}
 	
 	public KamarDecorator (KamarComponent record, String objectName) {
-		this.idKamar =  idKamar.randomUUID();
+		this.idKamar =  UUID.randomUUID().toString();
 		this.record = record;	
 		this.objectName=objectName;
 	}
 
-	public KamarDecorator() { }
 
 
 

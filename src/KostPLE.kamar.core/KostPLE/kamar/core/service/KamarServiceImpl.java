@@ -15,18 +15,24 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.kamar.KamarFactory;
-import prices.auth.vmj.annotations.Restricted;
+import KostPLE.kamar.core.Kamar;
+import KostPLE.kamar.core.KamarImpl; 
+import KostPLE.kamar.core.repository.KamarRepository;
+import KostPLE.properti.core.Properti;
+import KostPLE.properti.core.PropertiImpl;
+import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class KamarServiceImpl extends KamarServiceComponent{
 
+	@Override
     public List<HashMap<String,Object>> saveKamar(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		Kamar kamar = createKamar(vmjExchange);
-		kamarRepository.saveObject(kamar);
-		return getAllKamar(vmjExchange);
+		Kamar kamar = createKamar(vmjExchange.getPayload());
+		KamarRepository.saveObject(kamar);
+		return getAllKamar(vmjExchange.getPayload());
 	}
 
     public Kamar createKamar(Map<String, Object> requestBody){
@@ -36,9 +42,11 @@ public class KamarServiceImpl extends KamarServiceComponent{
 		String tipeKamar = (String) requestBody.get("tipeKamar");
 		String deskripsiKamar = (String) requestBody.get("deskripsiKamar");
 		String Property6 = (String) requestBody.get("Property6");
+		Float Property7 = (Float) requestBody.get("Property7");
+		PropertiImpl propertiimpl = (PropertiImpl) requestBody.get("propertiimpl");
 		
 		//to do: fix association attributes
-		Kamar Kamar = KamarFactory.createKamar(
+		Kamar kamar = KamarFactory.createKamar(
 			"KostPLE.kamar.core.KamarImpl",
 		idKamar
 		, isAvailable
@@ -48,11 +56,11 @@ public class KamarServiceImpl extends KamarServiceComponent{
 		, Property7
 		, propertiimpl
 		);
-		Repository.saveObject(kamar);
+		KamarRepository.saveObject(kamar);
 		return kamar;
 	}
 
-    public Kamar createKamar(Map<String, Object> requestBody, int id){
+    public Kamar createKamar(VMJExchange vmjExchange, int id){
 		boolean isAvailable = (boolean) vmjExchange.getRequestBodyForm("isAvailable");
 		String tipeKamar = (String) vmjExchange.getRequestBodyForm("tipeKamar");
 		String deskripsiKamar = (String) vmjExchange.getRequestBodyForm("deskripsiKamar");
@@ -60,21 +68,20 @@ public class KamarServiceImpl extends KamarServiceComponent{
 		
 		//to do: fix association attributes
 		
-		Kamar kamar = KamarFactory.createKamar("KostPLE.kamar.core.KamarImpl", isAvailable, tipeKamar, deskripsiKamar, Property6, Property7, propertiimpl);
+		Kamar kamar = KamarFactory.createKamar("KostPLE.kamar.core.KamarImpl", isAvailable, tipeKamar, deskripsiKamar, Property6 );
 		return kamar;
 	}
 
     public HashMap<String, Object> updateKamar(Map<String, Object> requestBody){
-		String idStr = (String) requestBody.get("idKamar");
-		int id = Integer.parseInt(idStr);
-		Kamar kamar = Repository.getObject(id);
+		String id = (String) requestBody.get("idKamar");
+		Kamar kamar = KamarRepository.getObject(id);
 		
-		kamar.setIsAvailable((String) requestBody.get("isAvailable"));
+		kamar.setIsAvailable((Boolean) requestBody.get("isAvailable"));
 		kamar.setTipeKamar((String) requestBody.get("tipeKamar"));
 		kamar.setDeskripsiKamar((String) requestBody.get("deskripsiKamar"));
 		kamar.setProperty6((String) requestBody.get("Property6"));
 		
-		Repository.updateObject(kamar);
+		KamarRepository.updateObject(kamar);
 		
 		//to do: fix association attributes
 		
@@ -83,29 +90,30 @@ public class KamarServiceImpl extends KamarServiceComponent{
 	}
 
     public HashMap<String, Object> getKamar(Map<String, Object> requestBody){
-		List<HashMap<String, Object>> kamarList = getAllKamar("kamar_impl");
+		List<HashMap<String, Object>> kamarList = getAllKamar(requestBody);
+		String id = (String) requestBody.get("idKamar");
 		for (HashMap<String, Object> kamar : kamarList){
-			int record_id = ((Double) kamar.get("record_id")).intValue();
-			if (record_id == id){
+
+			String record_id = ( kamar.get("record_id")).toString();
+			if (record_id.equals(id)){
 				return kamar;
 			}
 		}
 		return null;
 	}
 
-	public HashMap<String, Object> getKamarById(int id){
-		String idStr = vmjExchange.getGETParam("idKamar"); 
-		int id = Integer.parseInt(idStr);
-		Kamar kamar = kamarRepository.getObject(id);
+	public HashMap<String, Object> getKamarById(String id){
+		Kamar kamar = KamarRepository.getObject(id);
 		return kamar.toHashMap();
 	}
 
     public List<HashMap<String,Object>> getAllKamar(Map<String, Object> requestBody){
 		String table = (String) requestBody.get("table_name");
-		List<Kamar> List = Repository.getAllObject(table);
+		List<Kamar> List = KamarRepository.getAllObject(table);
 		return transformListToHashMap(List);
 	}
 
+	@Override
     public List<HashMap<String,Object>> transformListToHashMap(List<Kamar> List){
 		List<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
         for(int i = 0; i < List.size(); i++) {
@@ -116,10 +124,27 @@ public class KamarServiceImpl extends KamarServiceComponent{
 	}
 
     public List<HashMap<String,Object>> deleteKamar(Map<String, Object> requestBody){
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
-		Repository.deleteObject(id);
+		String id = ((String) requestBody.get("id"));
+		KamarRepository.deleteObject(id);
 		return getAllKamar(requestBody);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> saveKamar(Map<String, Object> requestBody) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'saveKamar'");
+	}
+
+	@Override
+	public Kamar createKamar(Map<String, Object> requestBody, Map<String, Object> response) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'createKamar'");
+	}
+
+	@Override
+	public HashMap<String, Object> getKamarById(int id) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getKamarById'");
 	}
 
 }

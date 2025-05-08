@@ -9,22 +9,31 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+
+import KostPLE.kamar.core.Kamar;
+import KostPLE.kamar.core.KamarComponent;
+import KostPLE.kamar.core.KamarImpl;
+import KostPLE.profilpengguna.core.ProfilPengguna;
+import KostPLE.profilpengguna.core.ProfilPenggunaComponent;
+import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+
 
 @Entity
 @Table(name="pemesanan_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PemesananComponent implements Pemesanan{
 	@Id
-	public int idPemesanan; 
-	public EDate startDate;
-	public EDate endDate;
-	public EFloat totalPay;
+	public String idPemesanan; 
+	public Date startDate;
+	public Date endDate;
+	public Float totalPay;
 	public String statusPemesanan;
 	public String detail;
-	public EDate createdAt;
-	@ManyToOne(targetEntity=KostPLE.kamar.core.KamarComponent.class)
-	public Kamar kamarimpl;
-	@ManyToOne(targetEntity=KostPLE.profilpengguna.core.ProfilPenggunaComponent.class)
+	public Date createdAt;
+	@ManyToOne(targetEntity=KamarComponent.class)
+	public Kamar kamarImpl;
+	@ManyToOne(targetEntity=ProfilPenggunaComponent.class)
 	public ProfilPengguna profilpenggunaimpl;
 	protected String objectName = PemesananComponent.class.getName();
 
@@ -33,7 +42,7 @@ public abstract class PemesananComponent implements Pemesanan{
 	} 
 
 	public PemesananComponent(
-        int idPemesanan, EDate startDate, EDate endDate, EFloat totalPay, String statusPemesanan, String detail, EDate createdAt, KamarImpl kamarimpl, ProfilPenggunaImpl profilpenggunaimpl
+        String idPemesanan, Date startDate, Date endDate, Float totalPay, String statusPemesanan, String detail, Date createdAt, KamarImpl kamarimpl, ProfilPenggunaImpl profilpenggunaimpl
     ) {
         this.idPemesanan = idPemesanan;
         this.startDate = startDate;
@@ -42,21 +51,21 @@ public abstract class PemesananComponent implements Pemesanan{
         this.statusPemesanan = statusPemesanan;
         this.detail = detail;
         this.createdAt = createdAt;
-        this.kamarimpl = kamarimpl;
+        this.kamarImpl = kamarimpl;
         this.profilpenggunaimpl = profilpenggunaimpl;
     }
 
-	public abstract int getIdPemesanan();
-	public abstract void setIdPemesanan(int idPemesanan);
+	public abstract String getIdPemesanan();
+	public abstract void setIdPemesanan(String idPemesanan);
 	
-	public abstract EDate getStartDate();
-	public abstract void setStartDate(EDate startDate);
+	public abstract Date getStartDate();
+	public abstract void setStartDate(Date startDate);
 	
-	public abstract EDate getEndDate();
-	public abstract void setEndDate(EDate endDate);
+	public abstract Date getEndDate();
+	public abstract void setEndDate(Date endDate);
 	
-	public abstract EFloat getTotalPay();
-	public abstract void setTotalPay(EFloat totalPay);
+	public abstract Float getTotalPay();
+	public abstract void setTotalPay(Float totalPay);
 	
 	public abstract String getStatusPemesanan();
 	public abstract void setStatusPemesanan(String statusPemesanan);
@@ -64,13 +73,13 @@ public abstract class PemesananComponent implements Pemesanan{
 	public abstract String getDetail();
 	public abstract void setDetail(String detail);
 	
-	public abstract EDate getCreatedAt();
-	public abstract void setCreatedAt(EDate createdAt);
+	public abstract Date getCreatedAt();
+	public abstract void setCreatedAt(Date createdAt);
 	
-	public abstract KamarImpl getKamarimpl();
+	public abstract KamarImpl getKamarImpl();
 	public abstract void setKamarimpl(KamarImpl kamarimpl);
 	
-	public abstract ProfilPenggunaImpl getProfilpenggunaimpl();
+	public abstract ProfilPenggunaImpl getProfilPenggunaImpl();
 	public abstract void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl);
 	
  
@@ -85,8 +94,8 @@ public abstract class PemesananComponent implements Pemesanan{
             " statusPemesanan='" + getStatusPemesanan() + "'" +
             " detail='" + getDetail() + "'" +
             " createdAt='" + getCreatedAt() + "'" +
-            " kamarimpl='" + getKamarimpl() + "'" +
-            " profilpenggunaimpl='" + getProfilpenggunaimpl() + "'" +
+            " kamarimpl='" + getKamarImpl() + "'" +
+            " profilpenggunaimpl='" + getProfilPenggunaImpl() + "'" +
             "}";
     }
 	

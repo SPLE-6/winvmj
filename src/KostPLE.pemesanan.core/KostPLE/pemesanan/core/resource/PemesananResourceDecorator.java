@@ -11,16 +11,8 @@ public abstract class PemesananResourceDecorator extends PemesananResourceCompon
         this.record = record;
     }
 
-    public List<HashMap<String,Object>> savePemesanan(VMJExchange vmjExchange){
-		return record.savePemesanan(vmjExchange);
-	}
-
     public Pemesanan createPemesanan(VMJExchange vmjExchange){
 		return record.createPemesanan(vmjExchange);
-	}
-
-    public Pemesanan createPemesanan(VMJExchange vmjExchange, int id){
-		return record.createPemesanan(vmjExchange, id);
 	}
 
     public HashMap<String, Object> updatePemesanan(VMJExchange vmjExchange){

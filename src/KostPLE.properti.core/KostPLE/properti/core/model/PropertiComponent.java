@@ -9,18 +9,24 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+
+import KostPLE.profilpengguna.core.ProfilPengguna;
+import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+import KostPLE.profilpengguna.core.ProfilPenggunaComponent;
 
 @Entity
 @Table(name="properti_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PropertiComponent implements Properti{
 	@Id
-	public int idProperti; 
+	public String idProperti; 
 	public String namaProperti;
 	public String deskripsiProperti;
 	public String lokasiProperti;
 	public String fotoUrlProperti;
-	@ManyToOne(targetEntity=KostPLE.profilpengguna.core.ProfilPenggunaComponent.class)
+
+	@ManyToOne(targetEntity=ProfilPenggunaComponent.class)
 	public ProfilPengguna profilpenggunaimpl;
 	protected String objectName = PropertiComponent.class.getName();
 
@@ -29,7 +35,7 @@ public abstract class PropertiComponent implements Properti{
 	} 
 
 	public PropertiComponent(
-        int idProperti, String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPenggunaImpl profilpenggunaimpl
+        String idProperti, String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPenggunaImpl profilpenggunaimpl
     ) {
         this.idProperti = idProperti;
         this.namaProperti = namaProperti;
@@ -39,7 +45,7 @@ public abstract class PropertiComponent implements Properti{
         this.profilpenggunaimpl = profilpenggunaimpl;
     }
 
-	public abstract int getIdProperti();
+	public abstract String getIdProperti();
 	public abstract void setIdProperti(int idProperti);
 	
 	public abstract String getNamaProperti();
@@ -54,8 +60,8 @@ public abstract class PropertiComponent implements Properti{
 	public abstract String getFotoUrlProperti();
 	public abstract void setFotoUrlProperti(String fotoUrlProperti);
 	
-	public abstract ProfilPenggunaImpl getProfilpenggunaimpl();
-	public abstract void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl);
+	public abstract ProfilPengguna getProfilPenggunaImpl();
+	public abstract void setProfilPenggunaImpl(ProfilPenggunaImpl profilpenggunaimpl);
 	
  
 

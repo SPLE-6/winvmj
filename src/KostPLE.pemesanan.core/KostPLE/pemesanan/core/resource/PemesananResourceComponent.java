@@ -9,9 +9,7 @@ public abstract class PemesananResourceComponent implements PemesananResource{
 	
 	public PemesananResourceComponent() { }
  
-    public abstract List<HashMap<String,Object>> savePemesanan(VMJExchange vmjExchange);
-    public abstract Pemesanan createPemesanan(VMJExchange vmjExchange);
-	public abstract Pemesanan createPemesanan(VMJExchange vmjExchange, int id);    
+    public abstract Pemesanan createPemesanan(VMJExchange vmjExchange);    
 	public abstract HashMap<String, Object> updatePemesanan(VMJExchange vmjExchange);
     public abstract HashMap<String, Object> getPemesanan(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllPemesanan(VMJExchange vmjExchange);

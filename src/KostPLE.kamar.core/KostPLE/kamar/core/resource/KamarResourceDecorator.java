@@ -1,6 +1,7 @@
 package KostPLE.kamar.core;
 import java.util.*;
 
+import KostPLE.kamar.core.Kamar;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
@@ -11,16 +12,8 @@ public abstract class KamarResourceDecorator extends KamarResourceComponent{
         this.record = record;
     }
 
-    public List<HashMap<String,Object>> saveKamar(VMJExchange vmjExchange){
-		return record.saveKamar(vmjExchange);
-	}
-
     public Kamar createKamar(VMJExchange vmjExchange){
 		return record.createKamar(vmjExchange);
-	}
-
-    public Kamar createKamar(VMJExchange vmjExchange, int id){
-		return record.createKamar(vmjExchange, id);
 	}
 
     public HashMap<String, Object> updateKamar(VMJExchange vmjExchange){

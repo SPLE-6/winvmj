@@ -9,5 +9,5 @@ public interface ProfilPenggunaResource {
     HashMap<String, Object> getProfilPengguna(VMJExchange vmjExchange);
     List<HashMap<String,Object>> getAllProfilPengguna(VMJExchange vmjExchange);
     List<HashMap<String,Object>> deleteProfilPengguna(VMJExchange vmjExchange);
-	HashMap<String, Object> ProfilPengguna(VMJExchange vmjExhange);
+	ProfilPengguna createProfilPengguna(VMJExchange vmjExhange);
 }

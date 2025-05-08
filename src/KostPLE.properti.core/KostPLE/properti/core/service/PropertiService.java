@@ -12,5 +12,5 @@ public interface PropertiService {
     HashMap<String, Object> getPropertiById(int id);
     List<HashMap<String,Object>> getAllProperti(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteProperti(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Properti> List);
 }

@@ -1,6 +1,7 @@
 package KostPLE.profilpengguna.core;
 import java.util.*;
 
+import KostPLE.profilpengguna.core.ProfilPengguna;
 import vmj.routing.route.VMJExchange;
 
 public interface ProfilPenggunaService {
@@ -12,5 +13,5 @@ public interface ProfilPenggunaService {
     HashMap<String, Object> getProfilPenggunaById(int id);
     List<HashMap<String,Object>> getAllProfilPengguna(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteProfilPengguna(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<ProfilPengguna> List);
 }

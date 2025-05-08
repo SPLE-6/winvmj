@@ -1,6 +1,7 @@
 package KostPLE.kamar.core;
 import java.util.*;
 
+import KostPLE.kamar.core.Kamar;
 import vmj.routing.route.VMJExchange;
 
 public interface KamarResource {
@@ -9,5 +10,5 @@ public interface KamarResource {
     HashMap<String, Object> getKamar(VMJExchange vmjExchange);
     List<HashMap<String,Object>> getAllKamar(VMJExchange vmjExchange);
     List<HashMap<String,Object>> deleteKamar(VMJExchange vmjExchange);
-	HashMap<String, Object> Kamar(VMJExchange vmjExhange);
+	Kamar createKamar(VMJExchange vmjExhange);
 }

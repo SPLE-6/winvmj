@@ -3,8 +3,10 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import java.util.*;
 
+import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+
 public interface Properti {
-	public int getIdProperti();
+	public String getIdProperti();
 	public void setIdProperti(int idProperti);
 	public String getNamaProperti();
 	public void setNamaProperti(String namaProperti);

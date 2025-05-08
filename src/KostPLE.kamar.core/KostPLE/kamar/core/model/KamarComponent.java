@@ -9,39 +9,42 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+
+import KostPLE.properti.core.Properti;
+import KostPLE.properti.core.PropertiComponent;
+import KostPLE.properti.core.PropertiImpl;
 
 @Entity
 @Table(name="kamar_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class KamarComponent implements Kamar{
 	@Id
-	public int idKamar; 
+	public String idKamar; 
 	public boolean isAvailable;
 	public String tipeKamar;
 	public String deskripsiKamar;
 	public String Property6;
-	public EFloat Property7;
-	@ManyToOne(targetEntity=KostPLE.properti.core.PropertiComponent.class)
-	public Properti propertiimpl;
+	public Float Property7;
+	@ManyToOne(targetEntity=PropertiComponent.class)
+	public Properti propertiImpl;
 	protected String objectName = KamarComponent.class.getName();
 
 	public KamarComponent() {
 
 	} 
 
-	public KamarComponent(
-        int idKamar, boolean isAvailable, String tipeKamar, String deskripsiKamar, String Property6, EFloat Property7, PropertiImpl propertiimpl
-    ) {
+	public KamarComponent(String idKamar, boolean isAvailable, String tipeKamar, String deskripsiKamar, String Property6, Float Property7, PropertiImpl propertiimpl) {
         this.idKamar = idKamar;
         this.isAvailable = isAvailable;
         this.tipeKamar = tipeKamar;
         this.deskripsiKamar = deskripsiKamar;
         this.Property6 = Property6;
         this.Property7 = Property7;
-        this.propertiimpl = propertiimpl;
+        this.propertiImpl = propertiimpl;
     }
 
-	public abstract int getIdKamar();
+	public abstract String getIdKamar();
 	public abstract void setIdKamar(int idKamar);
 	
 	public abstract boolean getIsAvailable();
@@ -56,10 +59,10 @@ public abstract class KamarComponent implements Kamar{
 	public abstract String getProperty6();
 	public abstract void setProperty6(String Property6);
 	
-	public abstract EFloat getProperty7();
-	public abstract void setProperty7(EFloat Property7);
+	public abstract Float getProperty7();
+	public abstract void setProperty7(Float Property7);
 	
-	public abstract PropertiImpl getPropertiimpl();
+	public abstract Properti getPropertiImpl();
 	public abstract void setPropertiimpl(PropertiImpl propertiimpl);
 	
  
@@ -73,7 +76,7 @@ public abstract class KamarComponent implements Kamar{
             " deskripsiKamar='" + getDeskripsiKamar() + "'" +
             " Property6='" + getProperty6() + "'" +
             " Property7='" + getProperty7() + "'" +
-            " propertiimpl='" + getPropertiimpl() + "'" +
+            " propertiimpl='" + getPropertiImpl() + "'" +
             "}";
     }
 	
