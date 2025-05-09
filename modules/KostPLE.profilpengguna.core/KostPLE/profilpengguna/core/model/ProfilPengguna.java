@@ -4,8 +4,8 @@ import vmj.routing.route.VMJExchange;
 import java.util.*;
 
 public interface ProfilPengguna {
-	public int getIdProfil();
-	public void setIdProfil(int idProfil);
+	public UUID getIdProfil();
+	public void setIdProfil(UUID idProfil);
 	public String getFullName();
 	public void setFullName(String fullName);
 	public String getEmail();

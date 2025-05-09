@@ -16,11 +16,11 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
 
 	// @Restriced(permission = "")
     @Route(url="call/profilpengguna")
-    public ProfilPengguna createProfilPengguna(VMJExchange vmjExchange) {
+    public List<HashMap<String,Object>> saveProfilPengguna(VMJExchange vmjExchange) {
     if (vmjExchange.getHttpMethod().equals("POST")) {
         Map<String, Object> requestBody = vmjExchange.getPayload();
-        ProfilPengguna result = profilpenggunaServiceImpl.createProfilPengguna(requestBody);
-        return result;
+        profilpenggunaServiceImpl.createProfilPengguna(requestBody);
+        return getAllProfilPengguna(vmjExchange);
     }
     throw new NotFoundException("Route not found");
 }
@@ -62,10 +62,5 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
 		return profilpenggunaServiceImpl.deleteProfilPengguna(requestBody);
 	}
 
-	@Override
-	public List<HashMap<String, Object>> saveProfilPengguna(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'saveProfilPengguna'");
-	}
 
 }

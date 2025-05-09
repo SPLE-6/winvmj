@@ -9,5 +9,5 @@ public interface PropertiResource {
     HashMap<String, Object> getProperti(VMJExchange vmjExchange);
     List<HashMap<String,Object>> getAllProperti(VMJExchange vmjExchange);
     List<HashMap<String,Object>> deleteProperti(VMJExchange vmjExchange);
-	HashMap<String, Object> createProperti(VMJExchange vmjExhange);
+	HashMap<String, Object> Properti(VMJExchange vmjExhange);
 }

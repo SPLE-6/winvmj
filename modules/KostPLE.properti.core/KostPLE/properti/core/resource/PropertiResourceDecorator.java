@@ -11,8 +11,16 @@ public abstract class PropertiResourceDecorator extends PropertiResourceComponen
         this.record = record;
     }
 
-    public HashMap<String, Object> createProperti(VMJExchange vmjExchange){
+    public List<HashMap<String,Object>> saveProperti(VMJExchange vmjExchange){
+		return record.saveProperti(vmjExchange);
+	}
+
+    public Properti createProperti(VMJExchange vmjExchange){
 		return record.createProperti(vmjExchange);
+	}
+
+    public Properti createProperti(VMJExchange vmjExchange, int id){
+		return record.createProperti(vmjExchange, id);
 	}
 
     public HashMap<String, Object> updateProperti(VMJExchange vmjExchange){

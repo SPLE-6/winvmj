@@ -17,20 +17,20 @@ public abstract class ProfilPenggunaDecorator extends ProfilPenggunaComponent{
 	public ProfilPenggunaDecorator () {
 		super();
 		this.record = record;
-		this.idProfil =  UUID.randomUUID().toString();
+		this.idProfil =  UUID.randomUUID();
 	}
 	public ProfilPenggunaDecorator (ProfilPenggunaComponent record) {
-		this.idProfil =  UUID.randomUUID().toString();
+		this.idProfil =  UUID.randomUUID();
 		this.record = record;
 	}
 
-	public ProfilPenggunaDecorator (String idProfil, ProfilPenggunaComponent record) {
+	public ProfilPenggunaDecorator (UUID idProfil, ProfilPenggunaComponent record) {
 		this.idProfil =  idProfil;
 		this.record = record;
 	}
 	
 	public ProfilPenggunaDecorator (ProfilPenggunaComponent record, String objectName) {
-		this.idProfil =  UUID.randomUUID().toString();
+		this.idProfil =  UUID.randomUUID();
 		this.record = record;	
 		this.objectName=objectName;
 	}

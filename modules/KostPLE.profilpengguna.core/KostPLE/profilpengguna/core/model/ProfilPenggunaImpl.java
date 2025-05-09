@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 @Table(name="profilpengguna_impl")
 public class ProfilPenggunaImpl extends ProfilPenggunaComponent {
 
-	public ProfilPenggunaImpl(String idProfil, String fullName, String email, boolean jenisKelamin, String pekerjaan, String kotaAsal, String statusPernikahan, String pendidikanTerakhir, int kontakDarurat, String fotoUrlProfil, int noHP) {
+	public ProfilPenggunaImpl(UUID idProfil, String fullName, String email, boolean jenisKelamin, String pekerjaan, String kotaAsal, String statusPernikahan, String pendidikanTerakhir, int kontakDarurat, String fotoUrlProfil, int noHP) {
 		this.idProfil = idProfil;
 		this.fullName = fullName;
 		this.email = email;
@@ -34,7 +34,7 @@ public class ProfilPenggunaImpl extends ProfilPenggunaComponent {
 	}
 
 	public ProfilPenggunaImpl(String fullName, String email, boolean jenisKelamin, String pekerjaan, String kotaAsal, String statusPernikahan, int kontakDarurat, String fotoUrlProfil, int noHP) {
-		this.idProfil =  UUID.randomUUID().toString();
+		this.idProfil =  UUID.randomUUID();
 		this.fullName = fullName;
 		this.email = email;
 		this.jenisKelamin = jenisKelamin;
@@ -52,7 +52,7 @@ public class ProfilPenggunaImpl extends ProfilPenggunaComponent {
 	
 	public HashMap<String, Object> toHashMap() {
         HashMap<String, Object> profilpenggunaMap = new HashMap<String,Object>();
-		profilpenggunaMap.put("idProfil",getIdProfil());
+		profilpenggunaMap.put("idProfil",getIdProfil().toString());
 		profilpenggunaMap.put("fullName",getFullName());
 		profilpenggunaMap.put("email",getEmail());
 		profilpenggunaMap.put("jenisKelamin",getJenisKelamin());
@@ -66,137 +66,91 @@ public class ProfilPenggunaImpl extends ProfilPenggunaComponent {
 
         return profilpenggunaMap;
     }
-
-	@Override
-	public int getIdProfil() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getIdProfil'");
+	
+	public UUID getIdProfil() {
+		return this.idProfil;
 	}
-
-	@Override
-	public void setIdProfil(int idProfil) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setIdProfil'");
+	
+	public  void setIdProfil(UUID idProfil) {
+		this.idProfil = idProfil;
 	}
-
-	@Override
-	public String getFullName() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getFullName'");
+	
+	public  String getFullName() {
+		return this.fullName;
 	}
-
-	@Override
-	public void setFullName(String fullName) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setFullName'");
+	public  void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-
-	@Override
-	public String getEmail() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getEmail'");
+	
+	public  String getEmail() {
+		return this.email;
 	}
-
-	@Override
-	public void setEmail(String email) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setEmail'");
+	public  void setEmail(String email) {
+		this.email = email;
 	}
-
-	@Override
-	public boolean getJenisKelamin() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getJenisKelamin'");
+	
+	public  boolean getJenisKelamin() {
+		return this.jenisKelamin;
 	}
-
-	@Override
+	
 	public void setJenisKelamin(boolean jenisKelamin) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setJenisKelamin'");
+		this.jenisKelamin = jenisKelamin;
 	}
-
-	@Override
-	public String getPekerjaan() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPekerjaan'");
+	
+	public  String getPekerjaan() {
+		return this.pekerjaan;
 	}
-
-	@Override
-	public void setPekerjaan(String pekerjaan) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setPekerjaan'");
+	
+	public  void setPekerjaan(String pekerjaan) {
+		this.pekerjaan = pekerjaan;
 	}
-
-	@Override
-	public String getKotaAsal() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getKotaAsal'");
+	
+	public  String getKotaAsal() {
+		return this.kotaAsal;
 	}
-
-	@Override
-	public void setKotaAsal(String kotaAsal) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setKotaAsal'");
+	
+	public  void setKotaAsal(String kotaAsal) {
+		this.kotaAsal = kotaAsal;
 	}
-
-	@Override
-	public String getStatusPernikahan() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getStatusPernikahan'");
+	
+	public  String getStatusPernikahan() {
+		return this.statusPernikahan;
 	}
-
-	@Override
-	public void setStatusPernikahan(String statusPernikahan) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setStatusPernikahan'");
+	
+	public  void setStatusPernikahan(String statusPernikahan) {
+		this.statusPernikahan = statusPernikahan;
 	}
-
-	@Override
-	public String getPendidikanTerakhir() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPendidikanTerakhir'");
+	
+	public  String getPendidikanTerakhir() {
+		return this.pendidikanTerakhir;
 	}
-
-	@Override
-	public void setPendidikanTerakhir(String pendidikanTerakhir) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setPendidikanTerakhir'");
+	public  void setPendidikanTerakhir(String pendidikanTerakhir) {
+		this.pendidikanTerakhir = pendidikanTerakhir;
 	}
-
-	@Override
-	public int getKontakDarurat() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getKontakDarurat'");
+	
+	public  int getKontakDarurat() {
+		return this.kontakDarurat;
 	}
-
-	@Override
-	public void setKontakDarurat(int kontakDarurat) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setKontakDarurat'");
+	
+	public  void setKontakDarurat(int kontakDarurat) {
+		this.kontakDarurat = kontakDarurat;
 	}
-
-	@Override
-	public String getFotoUrlProfil() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getFotoUrlProfil'");
+	
+	public  String getFotoUrlProfil() {
+		return this.fotoUrlProfil;
 	}
-
-	@Override
-	public void setFotoUrlProfil(String fotoUrlProfil) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setFotoUrlProfil'");
+	
+	public  void setFotoUrlProfil(String fotoUrlProfil) {
+		this.fotoUrlProfil = fotoUrlProfil;
 	}
-
-	@Override
+	
 	public int getNoHP() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getNoHP'");
+		return this.noHP;
+	}
+	
+	public void setNoHP(int noHP) {
+		this.noHP = noHP;
 	}
 
-	@Override
-	public void setNoHP(int noHP) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setNoHP'");
-	}
 
 }

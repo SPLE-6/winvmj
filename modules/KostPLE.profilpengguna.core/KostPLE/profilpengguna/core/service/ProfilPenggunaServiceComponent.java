@@ -12,14 +12,12 @@ public abstract class ProfilPenggunaServiceComponent implements ProfilPenggunaSe
         this.Repository = new RepositoryUtil<ProfilPengguna>(KostPLE.profilpengguna.core.ProfilPenggunaComponent.class);
     }	
 
-    public abstract List<HashMap<String,Object>> saveProfilPengguna(VMJExchange vmjExchange);
-    public abstract ProfilPengguna createProfilPengguna(Map<String, Object> requestBody);
-	public abstract ProfilPengguna createProfilPengguna(Map<String, Object> requestBody, Map<String, Object> response);    
+    public abstract List<HashMap<String,Object>> createProfilPengguna(Map<String, Object> requestBody);
 	public abstract HashMap<String, Object> updateProfilPengguna(Map<String, Object> requestBody);
     public abstract HashMap<String, Object> getProfilPengguna(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> getAllProfilPengguna(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> transformListToHashMap(List<ProfilPengguna> List);
     public abstract List<HashMap<String,Object>> deleteProfilPengguna(Map<String, Object> requestBody);
-	public abstract HashMap<String, Object> getProfilPenggunaById(String id);
+	public abstract HashMap<String, Object> getProfilPenggunaById(UUID id);
 
 }

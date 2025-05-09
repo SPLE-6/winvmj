@@ -1,6 +1,10 @@
 package KostPLE.properti.core;
 
 import java.util.*;
+import KostPLE.profilpengguna.core.ProfilPengguna;
+import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+import KostPLE.profilpengguna.core.ProfilPenggunaComponent;
+
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
@@ -11,22 +15,19 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 
-import KostPLE.profilpengguna.core.ProfilPengguna;
-import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
-import KostPLE.profilpengguna.core.ProfilPenggunaComponent;
 
 @Entity
 @Table(name="properti_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PropertiComponent implements Properti{
 	@Id
-	public String idProperti; 
-	public String namaProperti;
-	public String deskripsiProperti;
-	public String lokasiProperti;
-	public String fotoUrlProperti;
-
-	@ManyToOne(targetEntity=ProfilPenggunaComponent.class)
+	protected UUID idProperti; 
+	protected String namaProperti;
+	protected String deskripsiProperti;
+	protected String lokasiProperti;
+	protected String fotoUrlProperti;
+	
+	@ManyToOne(targetEntity=KostPLE.profilpengguna.core.ProfilPenggunaComponent.class)
 	public ProfilPengguna profilpenggunaimpl;
 	protected String objectName = PropertiComponent.class.getName();
 
@@ -35,7 +36,7 @@ public abstract class PropertiComponent implements Properti{
 	} 
 
 	public PropertiComponent(
-        String idProperti, String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPenggunaImpl profilpenggunaimpl
+        UUID idProperti, String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPenggunaImpl profilpenggunaimpl
     ) {
         this.idProperti = idProperti;
         this.namaProperti = namaProperti;
@@ -45,23 +46,44 @@ public abstract class PropertiComponent implements Properti{
         this.profilpenggunaimpl = profilpenggunaimpl;
     }
 
-	public abstract String getIdProperti();
-	public abstract void setIdProperti(int idProperti);
+	public UUID getIdProperti() {
+		return this.idProperti;
+	}
+
+	public void setIdProperti(UUID idProperti) {
+		this.idProperti = idProperti;
+	}
+	public String getNamaProperti() {
+		return this.namaProperti;
+	}
+
+	public void setNamaProperti(String namaProperti) {
+		this.namaProperti = namaProperti;
+	}
+	public String getDeskripsiProperti() {
+		return this.deskripsiProperti;
+	}
+
+	public void setDeskripsiProperti(String deskripsiProperti) {
+		this.deskripsiProperti = deskripsiProperti;
+	}
+	public String getLokasiProperti() {
+		return this.lokasiProperti;
+	}
+
+	public void setLokasiProperti(String lokasiProperti) {
+		this.lokasiProperti = lokasiProperti;
+	}
+	public String getFotoUrlProperti() {
+		return this.fotoUrlProperti;
+	}
+
+	public void setFotoUrlProperti(String fotoUrlProperti) {
+		this.fotoUrlProperti = fotoUrlProperti;
+	}
 	
-	public abstract String getNamaProperti();
-	public abstract void setNamaProperti(String namaProperti);
-	
-	public abstract String getDeskripsiProperti();
-	public abstract void setDeskripsiProperti(String deskripsiProperti);
-	
-	public abstract String getLokasiProperti();
-	public abstract void setLokasiProperti(String lokasiProperti);
-	
-	public abstract String getFotoUrlProperti();
-	public abstract void setFotoUrlProperti(String fotoUrlProperti);
-	
-	public abstract ProfilPengguna getProfilPenggunaImpl();
-	public abstract void setProfilPenggunaImpl(ProfilPenggunaImpl profilpenggunaimpl);
+	public abstract ProfilPenggunaImpl getProfilpenggunaimpl();
+	public abstract void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl);
 	
  
 
