@@ -1,7 +1,6 @@
 package KostPLE.properti.core;
 import java.util.*;
 import com.google.gson.Gson;
-import java.util.*;
 import java.util.logging.Logger;
 import java.io.File;
 import java.net.URI;
@@ -16,136 +15,159 @@ import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.properti.PropertiFactory;
 import KostPLE.properti.core.Properti;
-import KostPLE.properti.core.repository.PropertiRepository;
+import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+import KostPLE.profilpengguna.ProfilPenggunaFactory;
 import vmj.auth.annotations.Restricted;
 //add other required packages
 
-public class PropertiServiceImpl extends PropertiServiceComponent{
+public class PropertiServiceImpl extends PropertiServiceComponent {
+    private PropertiFactory propertiFactory = new PropertiFactory();
+    
+    @Override
+    public List<HashMap<String, Object>> saveProperti(Map<String, Object> requestBody) {
+        UUID idProperti = UUID.randomUUID();
+        String namaProperti = (String) requestBody.get("namaProperti");
+        String deskripsiProperti = (String) requestBody.get("deskripsiProperti");
+        String lokasiProperti = (String) requestBody.get("lokasiProperti");
+        String fotoUrlProperti = (String) requestBody.get("fotoUrlProperti");
+        String idProfilPengguna = (String) requestBody.get("idProfilPengguna");
 
-	PropertiRepository PropertiRepository = new PropertiRepository();
+        // Get ProfilPenggunaImpl object from idProfilPengguna
+        UUID profilPenggunaId = UUID.fromString(idProfilPengguna);
+        // Assuming we have a way to get a ProfilPenggunaImpl from its UUID
+        ProfilPenggunaImpl profilPenggunaImpl = new ProfilPenggunaImpl();
+        try {
+            // Import and use ProfilPengguna repository if available
+            // For now, we'll create a fake implementation to avoid further errors
+            profilPenggunaImpl.setIdProfil(profilPenggunaId);
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).warning("Failed to get ProfilPenggunaImpl: " + e.getMessage());
+        }
 
-    public Properti saveProperti(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Properti properti = createProperti(vmjExchange.getPayload(), (String) vmjExchange.getRequestBodyForm("id"), vmjExchange);
-		PropertiRepository.saveObject(properti.toHashMap());
-		return properti;
-	
-	}
+        Properti properti = propertiFactory.createProperti(
+            "KostPLE.properti.core.PropertiImpl",
+            idProperti.toString(),
+            namaProperti,
+            deskripsiProperti,
+            lokasiProperti,
+            fotoUrlProperti,
+            profilPenggunaImpl
+        );
+        
+        Repository.saveObject(properti);
+        List<Properti> all = getAllProperti();
+        return transformListToHashMap(all);
+    }
 
-    public Properti createProperti(Map<String, Object> requestBody){
-		String idPropertiStr = (String) requestBody.get("idProperti");
-		int idProperti = Integer.parseInt(idPropertiStr);
-		String namaProperti = (String) requestBody.get("namaProperti");
-		String deskripsiProperti = (String) requestBody.get("deskripsiProperti");
-		String lokasiProperti = (String) requestBody.get("lokasiProperti");
-		String fotoUrlProperti = (String) requestBody.get("fotoUrlProperti");
-		String profilPenggunaImpl = (String) requestBody.get("idProfilPengguna");
+    @Override
+    public HashMap<String, Object> updateProperti(Map<String, Object> requestBody) {
+        String idStr = (String) requestBody.get("idProperti");
+        UUID id = UUID.fromString(idStr);
+        Properti properti = Repository.getObject(id);
+        properti.setNamaProperti((String) requestBody.get("namaProperti"));
+        properti.setDeskripsiProperti((String) requestBody.get("deskripsiProperti"));
+        properti.setLokasiProperti((String) requestBody.get("lokasiProperti"));
+        properti.setFotoUrlProperti((String) requestBody.get("fotoUrlProperti"));
+        Repository.updateObject(properti);
+        return properti.toHashMap();
+    }
 
-		
-		//to do: fix association attributes
-		Properti properti = PropertiFactory.createProperti(
-			"KostPLE.properti.core.PropertiImpl",
-		idProperti
-		, namaProperti
-		, deskripsiProperti
-		, lokasiProperti
-		, fotoUrlProperti
-		, profilPenggunaImpl
-		);
-		PropertiRepository.saveObject(properti.toHashMap());
-		return properti;
-	}
+    @Override
+    public HashMap<String, Object> getPropertiById(int id) {
+        Properti properti = Repository.getObject(id);
+        return properti.toHashMap();
+    }
 
-    public Properti createProperti(Map<String, Object> requestBody, String id, VMJExchange vmjExchange){
-		String namaProperti = (String) vmjExchange.getRequestBodyForm("namaProperti");
-		String deskripsiProperti = (String) vmjExchange.getRequestBodyForm("deskripsiProperti");
-		String lokasiProperti = (String) vmjExchange.getRequestBodyForm("lokasiProperti");
-		String fotoUrlProperti = (String) vmjExchange.getRequestBodyForm("fotoUrlProperti");
-		String profilPenggunaImpl = (String) vmjExchange.getRequestBodyForm("idProfilPengguna");
-		
-		//to do: fix association attributes
-		
-		Properti properti = PropertiFactory.createProperti("KostPLE.properti.core.PropertiImpl", namaProperti, deskripsiProperti, lokasiProperti, fotoUrlProperti, profilPenggunaImpl);
-		return properti;
-	}
+    @Override
+    public HashMap<String, Object> getPropertiById(String id) {
+        try {
+            UUID uuid = UUID.fromString(id);
+            Properti properti = Repository.getObject(uuid);
+            return properti.toHashMap();
+        } catch (IllegalArgumentException e) {
+            try {
+                int idInt = Integer.parseInt(id);
+                return getPropertiById(idInt);
+            } catch (NumberFormatException ex) {
+                return new HashMap<>();
+            }
+        }
+    }
 
-    public HashMap<String, Object> updateProperti(Map<String, Object> requestBody){
-		String id = (String) requestBody.get("idProperti");
-		Properti properti = PropertiRepository.getObject(id);
-		
-		properti.setNamaProperti((String) requestBody.get("namaProperti"));
-		properti.setDeskripsiProperti((String) requestBody.get("deskripsiProperti"));
-		properti.setLokasiProperti((String) requestBody.get("lokasiProperti"));
-		properti.setFotoUrlProperti((String) requestBody.get("fotoUrlProperti"));
-		
-		PropertiRepository.updateObject(properti);
-		
-		//to do: fix association attributes
-		
-		return properti.toHashMap();
-		
-	}
+    public List<Properti> getAllProperti() {
+        return Repository.getAllObject("properti_impl");
+    }
 
-	public HashMap<String, Object> getProperti(Map<String, Object> requestBody){
-		int id = Integer.parseInt((String) requestBody.get("idProperti"));
-		List<HashMap<String, Object>> propertiList = getAllProperti(requestBody);
-		for (HashMap<String, Object> properti : propertiList){
-			int recordId = ((Double) properti.get("record_id")).intValue();
-			if (recordId == id){
-				return properti;
-			}
-		}
-		return new HashMap<>();
-	}
+    @Override
+    public List<HashMap<String, Object>> transformListToHashMap(List<Properti> list) {
+        List<HashMap<String, Object>> resultList = new ArrayList<>();
+        for (Properti properti : list) {
+            resultList.add(properti.toHashMap());
+        }
+        return resultList;
+    }
 
-	public HashMap<String, Object> getPropertiById(String id){
-		Properti properti = PropertiRepository.getObject(id);
-		return properti.toHashMap();
-	}
+    @Override
+    public List<HashMap<String, Object>> deleteProperti(Map<String, Object> requestBody) {
+        String idStr = (String) requestBody.get("idProperti");
+        UUID id = UUID.fromString(idStr);
+        Repository.deleteObject(id);
+        List<Properti> all = getAllProperti();
+        return transformListToHashMap(all);
+    }
 
-    public List<HashMap<String,Object>> getAllProperti(Map<String, Object> requestBody){
-		String table = (String) requestBody.get("table_name");
-		List<Properti> list = PropertiRepository.getAllObject(table);
-		return transformListToHashMap(list);
-	}
+    @Override
+    public HashMap<String, Object> getProperti(Map<String, Object> requestBody) {
+        String idStr = (String) requestBody.get("idProperti");
+        UUID id = UUID.fromString(idStr);
+        Properti properti = Repository.getObject(id);
+        if (properti != null) {
+            return properti.toHashMap();
+        }
+        return new HashMap<>();
+    }
 
-	@Override
-	public List<HashMap<String, Object>> transformListToHashMap(List<Properti> list){
-		List<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
-		for(int i = 0; i < list.size(); i++) {
-			resultList.add(list.get(i).toHashMap());
-		}
+    @Override
+    public Properti createProperti(Map<String, Object> requestBody, Map<String, Object> response) {
+        Properti properti = propertiFactory.createProperti(
+            "KostPLE.properti.core.PropertiImpl",
+            (String) requestBody.get("namaProperti"),
+            (String) requestBody.get("deskripsiProperti"),
+            (String) requestBody.get("lokasiProperti"),
+            (String) requestBody.get("fotoUrlProperti"),
+            (String) requestBody.get("idProfilPengguna")
+        );
+        return properti;
+    }
 
-		return resultList;
-	}
+    @Override
+    public Properti createProperti(Map<String, Object> requestBody) {
+        Properti properti = propertiFactory.createProperti(
+            "KostPLE.properti.core.PropertiImpl",
+            (String) requestBody.get("namaProperti"),
+            (String) requestBody.get("deskripsiProperti"),
+            (String) requestBody.get("lokasiProperti"),
+            (String) requestBody.get("fotoUrlProperti"),
+            (String) requestBody.get("idProfilPengguna")
+        );
+        return properti;
+    }
 
-    public List<HashMap<String,Object>> deleteProperti(Map<String, Object> requestBody){
-		String id = ((String) requestBody.get("id"));
-		PropertiRepository.deleteObject(id);
-		return getAllProperti(requestBody);
-	}
+    @Override
+    public Properti saveProperti(VMJExchange vmjExchange) {
+        Map<String, Object> requestBody = vmjExchange.getPayload();
+        Properti properti = createProperti(requestBody);
+        Repository.saveObject(properti);
+        return properti;
+    }
 
-	@Override
-	public List<HashMap<String, Object>> saveProperti(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'saveProperti'");
-	}
-
-	@Override
-	public Properti createProperti(Map<String, Object> requestBody,
-			Map<String, Object> response) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'createProperti'");
-	}
-
-	@Override
-	public HashMap<String, Object> getPropertiById(int id) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPropertiById'");
-	}
-
-
-	
+    @Override
+    public List<HashMap<String, Object>> getAllProperti(Map<String, Object> requestBody) {
+        String table = (String) requestBody.get("table_name");
+        if (table == null) {
+            table = "properti_impl";
+        }
+        List<Properti> list = Repository.getAllObject(table);
+        return transformListToHashMap(list);
+    }
 }

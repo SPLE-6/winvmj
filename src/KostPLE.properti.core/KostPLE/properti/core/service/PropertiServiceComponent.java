@@ -20,6 +20,6 @@ public abstract class PropertiServiceComponent implements PropertiService{
     public abstract HashMap<String, Object> getProperti(Map<String, Object> requestBody);
     public abstract List<HashMap<String, Object>> transformListToHashMap(List<Properti> List);
     public abstract List<HashMap<String,Object>> deleteProperti(Map<String, Object> requestBody);
-	public abstract HashMap<String, Object> getPropertiById(int id);
+	public abstract HashMap<String, Object> getPropertiById(String id);
 
 }

@@ -52,95 +52,88 @@ public class PropertiImpl extends PropertiComponent {
 		propertiMap.put("deskripsiProperti",getDeskripsiProperti());
 		propertiMap.put("lokasiProperti",getLokasiProperti());
 		propertiMap.put("fotoUrlProperti",getFotoUrlProperti());
-		propertiMap.put("profilpenggunaimpl",getProfilPenggunaImpl());
+		propertiMap.put("profilpenggunaimpl",getProfilpenggunaimpl());
 
         return propertiMap;
     }
 
 	@Override
 	public String getIdProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getIdProperti'");
+		return this.idProperti;
 	}
 
 	@Override
 	public void setIdProperti(int idProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setIdProperti'");
+		this.idProperti = String.valueOf(idProperti);
 	}
 
 	@Override
 	public String getNamaProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getNamaProperti'");
+		return this.namaProperti;
 	}
 
 	@Override
 	public void setNamaProperti(String namaProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setNamaProperti'");
+		this.namaProperti = namaProperti;
 	}
 
 	@Override
 	public String getDeskripsiProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getDeskripsiProperti'");
+		return this.deskripsiProperti;
 	}
 
 	@Override
 	public void setDeskripsiProperti(String deskripsiProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setDeskripsiProperti'");
+		this.deskripsiProperti = deskripsiProperti;
 	}
 
 	@Override
 	public String getLokasiProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getLokasiProperti'");
+		return this.lokasiProperti;
 	}
 
 	@Override
 	public void setLokasiProperti(String lokasiProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setLokasiProperti'");
+		this.lokasiProperti = lokasiProperti;
 	}
 
 	@Override
 	public String getFotoUrlProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getFotoUrlProperti'");
+		return this.fotoUrlProperti;
 	}
 
 	@Override
 	public void setFotoUrlProperti(String fotoUrlProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setFotoUrlProperti'");
-	}
-
-	public void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setProfilpenggunaimpl'");
-	}
-
-	public ProfilPenggunaImpl getProfilPenggunaImpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getProfilpenggunaimpl'");
-	}
-
-	public void setProfilPenggunaImpl(ProfilPengguna profilpenggunaimpl) {
-		
+		this.fotoUrlProperti = fotoUrlProperti;
 	}
 
 	@Override
 	public ProfilPenggunaImpl getProfilpenggunaimpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getProfilpenggunaimpl'");
+		if (this.profilpenggunaimpl instanceof ProfilPenggunaImpl) {
+			return (ProfilPenggunaImpl) this.profilpenggunaimpl;
+		}
+		return null;
+	}
+
+	public ProfilPenggunaImpl getProfilPenggunaImpl() {
+		if (this.profilpenggunaimpl instanceof ProfilPenggunaImpl) {
+			return (ProfilPenggunaImpl) this.profilpenggunaimpl;
+		}
+		return null;
 	}
 
 	@Override
 	public void setProfilPenggunaImpl(ProfilPenggunaImpl profilpenggunaimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setProfilPenggunaImpl'");
+		this.profilpenggunaimpl = profilpenggunaimpl;
 	}
+
+	public void setProfilPenggunaImpl(ProfilPengguna profilpenggunaimpl) {
+		this.profilpenggunaimpl = profilpenggunaimpl;
+	}
+
+    @Override
+    public void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl) {
+        this.profilpenggunaimpl = profilpenggunaimpl;
+    }
 
 }
