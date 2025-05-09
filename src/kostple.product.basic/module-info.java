@@ -9,9 +9,9 @@ module kostple.product.basic {
     requires com.fasterxml.classmate;
     requires jdk.unsupported;
 
+    requires KostPLE.profilpengguna.core;
     requires KostPLE.properti.core;
     requires KostPLE.kamar.core;
-    requires KostPLE.profilpengguna.core;
     requires KostPLE.pemesanan.core;
 
 }

@@ -22,6 +22,10 @@ import vmj.auth.model.RoleResourceFactory;
 import vmj.auth.model.core.UserResource;
 import vmj.auth.model.core.RoleResource;
 
+import KostPLE.profilpengguna.ProfilPenggunaResourceFactory;
+import KostPLE.profilpengguna.core.ProfilPenggunaResource;
+import KostPLE.profilpengguna.ProfilPenggunaServiceFactory;
+import KostPLE.profilpengguna.core.ProfilPenggunaService;
 import KostPLE.properti.PropertiResourceFactory;
 import KostPLE.properti.core.PropertiResource;
 import KostPLE.properti.PropertiServiceFactory;
@@ -30,10 +34,6 @@ import KostPLE.kamar.KamarResourceFactory;
 import KostPLE.kamar.core.KamarResource;
 import KostPLE.kamar.KamarServiceFactory;
 import KostPLE.kamar.core.KamarService;
-import KostPLE.profilpengguna.ProfilPenggunaResourceFactory;
-import KostPLE.profilpengguna.core.ProfilPenggunaResource;
-import KostPLE.profilpengguna.ProfilPenggunaServiceFactory;
-import KostPLE.profilpengguna.core.ProfilPenggunaService;
 import KostPLE.pemesanan.PemesananResourceFactory;
 import KostPLE.pemesanan.core.PemesananResource;
 import KostPLE.pemesanan.PemesananServiceFactory;
@@ -76,6 +76,10 @@ public class Basic {
         configuration.addAnnotatedClass(vmj.auth.model.core.UserImpl.class);
         configuration.addAnnotatedClass(vmj.auth.model.passworded.UserImpl.class);
 
+		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPengguna.class);
+		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaComponent.class);
+		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaDecorator.class);
+		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaImpl.class);
 		configuration.addAnnotatedClass(KostPLE.properti.core.Properti.class);
 		configuration.addAnnotatedClass(KostPLE.properti.core.PropertiComponent.class);
 		configuration.addAnnotatedClass(KostPLE.properti.core.PropertiDecorator.class);
@@ -84,10 +88,6 @@ public class Basic {
 		configuration.addAnnotatedClass(KostPLE.kamar.core.KamarComponent.class);
 		configuration.addAnnotatedClass(KostPLE.kamar.core.KamarDecorator.class);
 		configuration.addAnnotatedClass(KostPLE.kamar.core.KamarImpl.class);
-		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPengguna.class);
-		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaComponent.class);
-		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaDecorator.class);
-		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaImpl.class);
 		configuration.addAnnotatedClass(KostPLE.pemesanan.core.Pemesanan.class);
 		configuration.addAnnotatedClass(KostPLE.pemesanan.core.PemesananComponent.class);
 		configuration.addAnnotatedClass(KostPLE.pemesanan.core.PemesananDecorator.class);
@@ -130,6 +130,14 @@ public class Basic {
 			,
 		    UserResourceFactory.createUserResource("vmj.auth.model.core.UserResourceImpl"));
 
+        ProfilPenggunaService profilpenggunaProfilPengguna2Service = ProfilPenggunaServiceFactory
+            .createProfilPenggunaService("KostPLE.profilpengguna.core.ProfilPenggunaServiceImpl"
+            	);		
+
+        ProfilPenggunaResource profilpenggunaProfilPengguna2Resource = ProfilPenggunaResourceFactory
+            .createProfilPenggunaResource("KostPLE.profilpengguna.core.ProfilPenggunaResourceImpl"
+                );
+			
         PropertiService propertiProperti2Service = PropertiServiceFactory
             .createPropertiService("KostPLE.properti.core.PropertiServiceImpl"
             	);		
@@ -144,14 +152,6 @@ public class Basic {
 
         KamarResource kamarKamar2Resource = KamarResourceFactory
             .createKamarResource("KostPLE.kamar.core.KamarResourceImpl"
-                );
-			
-        ProfilPenggunaService profilpenggunaProfilPengguna2Service = ProfilPenggunaServiceFactory
-            .createProfilPenggunaService("KostPLE.profilpengguna.core.ProfilPenggunaServiceImpl"
-            	);		
-
-        ProfilPenggunaResource profilpenggunaProfilPengguna2Resource = ProfilPenggunaResourceFactory
-            .createProfilPenggunaResource("KostPLE.profilpengguna.core.ProfilPenggunaResourceImpl"
                 );
 			
         PemesananService pemesananPemesanan2Service = PemesananServiceFactory
@@ -183,12 +183,6 @@ public class Basic {
 		System.out.println("pemesananPemesanan2Service endpoints binding");
 		Router.route(pemesananPemesanan2Service);
 		
-		System.out.println("profilpenggunaProfilPengguna2Resource endpoints binding");
-		Router.route(profilpenggunaProfilPengguna2Resource);
-		
-		System.out.println("profilpenggunaProfilPengguna2Service endpoints binding");
-		Router.route(profilpenggunaProfilPengguna2Service);
-		
 		System.out.println("kamarKamar2Resource endpoints binding");
 		Router.route(kamarKamar2Resource);
 		
@@ -201,6 +195,12 @@ public class Basic {
 		System.out.println("propertiProperti2Service endpoints binding");
 		Router.route(propertiProperti2Service);
 		
+		System.out.println("profilpenggunaProfilPengguna2Resource endpoints binding");
+		Router.route(profilpenggunaProfilPengguna2Resource);
+		
+		System.out.println("profilpenggunaProfilPengguna2Service endpoints binding");
+		Router.route(profilpenggunaProfilPengguna2Service);
+		
 		System.out.println("authResource endpoints binding");
 		Router.route(userPasswordedResource);
 		Router.route(roleResource);
@@ -209,6 +209,17 @@ public class Basic {
 
 	private static Map<String, Object> mappingFeatureModel() {
 		Map<String, Object> featureModelMappings = new HashMap<>();
+
+		featureModelMappings.put(
+            KostPLE.profilpengguna.core.ProfilPenggunaComponent.class.getName(),
+			new HashMap<String, String[]>() {{
+				put("components", new String[] {
+					KostPLE.profilpengguna.core.ProfilPenggunaComponent.class.getName()
+				});
+				put("deltas", new String[] {
+				});
+			}}
+        );
 
 		featureModelMappings.put(
             KostPLE.properti.core.PropertiComponent.class.getName(),
@@ -226,17 +237,6 @@ public class Basic {
 			new HashMap<String, String[]>() {{
 				put("components", new String[] {
 					KostPLE.kamar.core.KamarComponent.class.getName()
-				});
-				put("deltas", new String[] {
-				});
-			}}
-        );
-
-		featureModelMappings.put(
-            KostPLE.profilpengguna.core.ProfilPenggunaComponent.class.getName(),
-			new HashMap<String, String[]>() {{
-				put("components", new String[] {
-					KostPLE.profilpengguna.core.ProfilPenggunaComponent.class.getName()
 				});
 				put("deltas", new String[] {
 				});

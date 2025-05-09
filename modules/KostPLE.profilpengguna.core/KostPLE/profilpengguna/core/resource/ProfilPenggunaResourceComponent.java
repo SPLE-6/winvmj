@@ -6,10 +6,14 @@ import vmj.routing.route.VMJExchange;
 //add other required packages
 
 public abstract class ProfilPenggunaResourceComponent implements ProfilPenggunaResource{
+	protected RepositoryUtil<ProfilPengguna> profilPenggunaRepository;
 	
-	public ProfilPenggunaResourceComponent() { }
+	public ProfilPenggunaResourceComponent() {
+		this.profilPenggunaRepository = new RepositoryUtil<ProfilPengguna>(KostPLE.profilpengguna.core.ProfilPenggunaComponent.class);
+	 }
+
  
-    public abstract ProfilPengguna createProfilPengguna(VMJExchange vmjExchange);    
+    public abstract HashMap<String,Object> saveProfilPengguna(VMJExchange vmjExchange);    
 	public abstract HashMap<String, Object> updateProfilPengguna(VMJExchange vmjExchange);
     public abstract HashMap<String, Object> getProfilPengguna(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllProfilPengguna(VMJExchange vmjExchange);

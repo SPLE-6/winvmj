@@ -3,6 +3,8 @@ package KostPLE.profilpengguna;
 import KostPLE.profilpengguna.core.ProfilPengguna;
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
+import java.util.Arrays;
+
 
 public class ProfilPenggunaFactory{
     private static final Logger LOGGER = Logger.getLogger(ProfilPenggunaFactory.class.getName());
@@ -15,9 +17,11 @@ public class ProfilPenggunaFactory{
     public static ProfilPengguna createProfilPengguna(String fullyQualifiedName, Object ... base)
     {
         ProfilPengguna record = null;
+        Constructor<?> constructor = null;
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
-            Constructor<?> constructor = clz.getDeclaredConstructors()[0];
+            constructor = clz.getDeclaredConstructors()[0];
+            Class<?>[] paramTypes = constructor.getParameterTypes();
             record = (ProfilPengguna) constructor.newInstance(base);
         } 
         catch (IllegalArgumentException e)
@@ -25,6 +29,7 @@ public class ProfilPenggunaFactory{
             LOGGER.severe("Failed to create instance of ProfilPengguna.");
             LOGGER.severe("Given FQN: " + fullyQualifiedName);
             LOGGER.severe("Failed to run: Check your constructor argument");
+            LOGGER.severe("Check your constructor argument types or count.");
             System.exit(20);
         }
         catch (ClassCastException e)

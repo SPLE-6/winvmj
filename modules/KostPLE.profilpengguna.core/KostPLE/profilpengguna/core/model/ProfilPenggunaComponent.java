@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class ProfilPenggunaComponent implements ProfilPengguna{
 	@Id
-	public String idProfil; 
+	public UUID idProfil; 
 	public String fullName;
 	public String email;
 	public boolean jenisKelamin;
@@ -33,7 +33,7 @@ public abstract class ProfilPenggunaComponent implements ProfilPengguna{
 	} 
 
 	public ProfilPenggunaComponent(
-        String idProfil, String fullName, String email, boolean jenisKelamin, String pekerjaan, String kotaAsal, String statusPernikahan, String pendidikanTerakhir, int kontakDarurat, String fotoUrlProfil, int noHP
+			UUID idProfil, String fullName, String email, boolean jenisKelamin, String pekerjaan, String kotaAsal, String statusPernikahan, String pendidikanTerakhir, int kontakDarurat, String fotoUrlProfil, int noHP
     ) {
         this.idProfil = idProfil;
         this.fullName = fullName;
@@ -48,8 +48,8 @@ public abstract class ProfilPenggunaComponent implements ProfilPengguna{
         this.noHP = noHP;
     }
 
-	public abstract int getIdProfil();
-	public abstract void setIdProfil(int idProfil);
+	public abstract UUID getIdProfil();
+	public abstract void setIdProfil(UUID idProfil);
 	
 	public abstract String getFullName();
 	public abstract void setFullName(String fullName);
@@ -86,7 +86,7 @@ public abstract class ProfilPenggunaComponent implements ProfilPengguna{
 	@Override
     public String toString() {
         return "{" +
-            " idProfil='" + getIdProfil() + "'" +
+            " idProfil='" + getIdProfil().toString() + "'" +
             " fullName='" + getFullName() + "'" +
             " email='" + getEmail() + "'" +
             " jenisKelamin='" + getJenisKelamin() + "'" +

@@ -1,5 +1,6 @@
 package KostPLE.profilpengguna.core;
 import java.util.*;
+import java.util.Arrays;
 
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
@@ -15,12 +16,14 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
 	private ProfilPenggunaServiceImpl profilpenggunaServiceImpl = new ProfilPenggunaServiceImpl();
 
 	// @Restriced(permission = "")
-    @Route(url="call/profilpengguna")
-    public ProfilPengguna createProfilPengguna(VMJExchange vmjExchange) {
+    @Route(url="call/profilpengguna/save")
+    public HashMap<String,Object> saveProfilPengguna(VMJExchange vmjExchange) {
     if (vmjExchange.getHttpMethod().equals("POST")) {
-        Map<String, Object> requestBody = vmjExchange.getPayload();
-        ProfilPengguna result = profilpenggunaServiceImpl.createProfilPengguna(requestBody);
-        return result;
+        HashMap<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload();
+        System.out.println("K: " + requestBody);
+        ProfilPengguna result = profilpenggunaServiceImpl.saveProfilPengguna(requestBody);
+        System.out.println("H: " + result);
+        return result.toHashMap();
     }
     throw new NotFoundException("Route not found");
 }
@@ -28,11 +31,12 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
     // @Restriced(permission = "")
     @Route(url="call/profilpengguna/update")
     public HashMap<String, Object> updateProfilPengguna(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+    	HashMap<String, Object> body = (HashMap<String, Object>) vmjExchange.getPayload();
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")){
 			return null;
 		}
-		return profilpenggunaServiceImpl.updateProfilPengguna(requestBody);
+		ProfilPengguna result = profilpenggunaServiceImpl.updateProfilPengguna(body);
+		return result.toHashMap();
 		
 	}
 
@@ -40,32 +44,34 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
     @Route(url="call/profilpengguna/detail")
     public HashMap<String, Object> getProfilPengguna(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return profilpenggunaServiceImpl.getProfilPengguna(requestBody);
+		String profilPenggunaStr = (String) requestBody.get("profilPenggunaId");
+    	UUID profilPenggunaId = UUID.fromString(profilPenggunaStr);
+		return profilpenggunaServiceImpl.getProfilPenggunaById(profilPenggunaId).toHashMap();
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/profilpengguna/list")
     public List<HashMap<String,Object>> getAllProfilPengguna(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return profilpenggunaServiceImpl.getAllProfilPengguna(requestBody);
+		List <ProfilPengguna> profilPenggunaList = profilpenggunaServiceImpl.getAllProfilPengguna();
+		return profilpenggunaServiceImpl.transformListToHashMap(profilPenggunaList);
+		
 	}
 
-    
 	// @Restriced(permission = "")
     @Route(url="call/profilpengguna/delete")
     public List<HashMap<String,Object>> deleteProfilPengguna(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+    	HashMap<String, Object> body = (HashMap<String, Object>) vmjExchange.getPayload(); 
+    	String profilPenggunaStr = (String) body.get("profilPenggunaId");
+    	UUID profilPenggunaId = UUID.fromString(profilPenggunaStr);
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
 		
-		return profilpenggunaServiceImpl.deleteProfilPengguna(requestBody);
+		List <ProfilPengguna> profilPenggunaList = profilpenggunaServiceImpl.deleteProfilPengguna(profilPenggunaId);
+		return profilpenggunaServiceImpl.transformListToHashMap(profilPenggunaList);
+
+		
 	}
 
-	@Override
-	public List<HashMap<String, Object>> saveProfilPengguna(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'saveProfilPengguna'");
-	}
 
 }

@@ -10,27 +10,15 @@ public abstract class ProfilPenggunaServiceDecorator extends ProfilPenggunaServi
         this.record = record;
     }
 
-	public ProfilPengguna createProfilPengguna(Map<String, Object> requestBody){
-		return record.createProfilPengguna(requestBody);
+	public ProfilPengguna saveProfilPengguna(Map<String, Object> requestBody){
+		return record.saveProfilPengguna(requestBody);
 	}
 
-    public ProfilPengguna createProfilPengguna(Map<String, Object> requestBody, Map<String, Object> response){
-		return record.createProfilPengguna(requestBody, response);
+	public List<ProfilPengguna> getAllProfilPengguna(){
+		return record.getAllProfilPengguna();
 	}
 
-	public HashMap<String, Object> getProfilPengguna(Map<String, Object> requestBody){
-		return record.getProfilPengguna(requestBody);
-	}
-
-	public List<HashMap<String,Object>> getAllProfilPengguna(Map<String, Object> requestBody){
-		return record.getAllProfilPengguna(requestBody);
-	}
-
-    public List<HashMap<String,Object>> saveProfilPengguna(VMJExchange vmjExchange){
-		return record.saveProfilPengguna(vmjExchange);
-	}
-
-    public HashMap<String, Object> updateProfilPengguna(Map<String, Object> requestBody){
+    public ProfilPengguna updateProfilPengguna(Map<String, Object> requestBody){
 		return record.updateProfilPengguna(requestBody);
 	}
 
@@ -38,11 +26,11 @@ public abstract class ProfilPenggunaServiceDecorator extends ProfilPenggunaServi
 		return record.transformListToHashMap(List);
 	}
 
-    public List<HashMap<String,Object>> deleteProfilPengguna(Map<String, Object> requestBody){
-		return record.deleteProfilPengguna(requestBody);
+    public List<ProfilPengguna> deleteProfilPengguna(UUID profilPenggunaId){
+		return record.deleteProfilPengguna(profilPenggunaId);
 	}
 
-	public HashMap<String, Object> getProfilPenggunaById(int id){
+	public ProfilPengguna getProfilPenggunaById(UUID id){
         return record.getProfilPenggunaById(id);
     }
 
