@@ -18,6 +18,11 @@ public class PropertiFactory{
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
             Constructor<?> constructor = clz.getDeclaredConstructors()[0];
+            
+            for (int i = 0; i < base.length; i++) {
+                LOGGER.info("Parameter " + i + ": " + (base[i] == null ? "null" : base[i].getClass().getName()));
+            }
+            
             record = (Properti) constructor.newInstance(base);
         } 
         catch (IllegalArgumentException e)
@@ -25,7 +30,9 @@ public class PropertiFactory{
             LOGGER.severe("Failed to create instance of Properti.");
             LOGGER.severe("Given FQN: " + fullyQualifiedName);
             LOGGER.severe("Failed to run: Check your constructor argument");
-            System.exit(20);
+            LOGGER.severe("Failed to instantiate or access constructor: " + e.getMessage());
+            e.printStackTrace();
+//            System.exit(20);
         }
         catch (ClassCastException e)
         {   LOGGER.severe("Failed to create instance of Properti.");

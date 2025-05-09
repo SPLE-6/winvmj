@@ -6,7 +6,7 @@
 	<feature name="PaymentKredit"/>
 	<feature automatic="selected" name="KatalogKost"/>
 	<feature automatic="selected" name="InformasiKost"/>
-	<feature name="PengajuanSurvey"/>
+	<feature manual="selected" name="PengajuanSurvey"/>
 	<feature automatic="selected" name="ProfilPengguna"/>
 	<feature automatic="selected" name="SewaKost"/>
 	<feature name="SewaViaApp"/>

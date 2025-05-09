@@ -8,9 +8,14 @@ import vmj.routing.route.VMJExchange;
 
 public abstract class PropertiResourceComponent implements PropertiResource{
 	
-	public PropertiResourceComponent() { }
- 
-    public abstract HashMap<String, Object> createProperti(VMJExchange vmjExchange);    
+	protected RepositoryUtil<Properti> propertiRepository;
+	
+	public PropertiResourceComponent() { 
+		this.propertiRepository = new RepositoryUtil<Properti>(KostPLE.properti.core.PropertiComponent.class);
+	}
+
+
+    public abstract HashMap<String, Object> saveProperti(VMJExchange vmjExchange);    
 	public abstract HashMap<String, Object> updateProperti(VMJExchange vmjExchange);
     public abstract HashMap<String, Object> getProperti(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllProperti(VMJExchange vmjExchange);

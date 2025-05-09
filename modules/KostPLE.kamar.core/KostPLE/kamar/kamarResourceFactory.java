@@ -1,48 +1,38 @@
 package KostPLE.kamar;
 
 import KostPLE.kamar.core.KamarResource;
-
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 
-public class KamarResourceFactory{
+public class KamarResourceFactory {
     private static final Logger LOGGER = Logger.getLogger(KamarFactory.class.getName());
 
-    public KamarResourceFactory()
-    {
+    public KamarResourceFactory() {
 
     }
 
-    public static KamarResource createKamarResource(String fullyQualifiedName, Object ... base)
-    {
+    public static KamarResource createKamarResource(String fullyQualifiedName, Object... base) {
         KamarResource record = null;
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
             Constructor<?> constructor = clz.getDeclaredConstructors()[0];
             record = (KamarResource) constructor.newInstance(base);
-        } 
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             LOGGER.severe("Failed to create instance of kamar.");
             LOGGER.severe("Given FQN: " + fullyQualifiedName);
             LOGGER.severe("Failed to run: Check your constructor argument");
             System.exit(20);
-        }
-        catch (ClassCastException e)
-        {   LOGGER.severe("Failed to create instance of kamar.");
+        } catch (ClassCastException e) {
+            LOGGER.severe("Failed to create instance of kamar.");
             LOGGER.severe("Given FQN: " + fullyQualifiedName);
             LOGGER.severe("Failed to cast the object");
             System.exit(30);
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             LOGGER.severe("Failed to create instance of kamar.");
             LOGGER.severe("Given FQN: " + fullyQualifiedName);
             LOGGER.severe("Decorator can't be applied to the object");
             System.exit(40);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             LOGGER.severe("Failed to create instance of kamar.");
             LOGGER.severe("Given FQN: " + fullyQualifiedName);
             System.exit(50);

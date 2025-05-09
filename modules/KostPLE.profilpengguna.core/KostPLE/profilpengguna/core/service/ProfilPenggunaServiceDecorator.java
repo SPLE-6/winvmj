@@ -30,8 +30,8 @@ public abstract class ProfilPenggunaServiceDecorator extends ProfilPenggunaServi
 		return record.deleteProfilPengguna(profilPenggunaId);
 	}
 
-	public ProfilPengguna getProfilPenggunaById(UUID id){
-        return record.getProfilPenggunaById(id);
+	public ProfilPengguna getProfilPenggunaByEmail(String email){
+        return record.getProfilPenggunaByEmail(email);
     }
 
 }

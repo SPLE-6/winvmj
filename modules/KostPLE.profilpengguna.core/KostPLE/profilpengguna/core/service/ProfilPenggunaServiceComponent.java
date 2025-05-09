@@ -17,6 +17,8 @@ public abstract class ProfilPenggunaServiceComponent implements ProfilPenggunaSe
     public abstract List<ProfilPengguna> getAllProfilPengguna();
     public abstract List<HashMap<String, Object>> transformListToHashMap(List<ProfilPengguna> List);
     public abstract List<ProfilPengguna> deleteProfilPengguna(UUID id);
+	public abstract ProfilPengguna getProfilPenggunaByEmail(String email);
 	public abstract ProfilPengguna getProfilPenggunaById(UUID id);
+
 
 }

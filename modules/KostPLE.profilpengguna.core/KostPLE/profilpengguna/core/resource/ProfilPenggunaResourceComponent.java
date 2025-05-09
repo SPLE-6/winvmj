@@ -18,5 +18,9 @@ public abstract class ProfilPenggunaResourceComponent implements ProfilPenggunaR
     public abstract HashMap<String, Object> getProfilPengguna(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllProfilPengguna(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> deleteProfilPengguna(VMJExchange vmjExchange);
+    public abstract HashMap<String, Object> getProfilPenggunaById(VMJExchange vmjExchange);
+    public abstract HashMap<String, Object> getProfilPenggunaByEmail(VMJExchange vmjExchange);
+
+
 
 }

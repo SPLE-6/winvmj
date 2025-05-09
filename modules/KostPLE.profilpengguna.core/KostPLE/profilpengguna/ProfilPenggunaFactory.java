@@ -22,6 +22,12 @@ public class ProfilPenggunaFactory{
             Class<?> clz = Class.forName(fullyQualifiedName);
             constructor = clz.getDeclaredConstructors()[0];
             Class<?>[] paramTypes = constructor.getParameterTypes();
+            
+            for (int i = 0; i < base.length; i++) {
+                LOGGER.info("Parameter " + i + ": " + (base[i] == null ? "null" : base[i].getClass().getName()));
+            }
+            
+            
             record = (ProfilPengguna) constructor.newInstance(base);
         } 
         catch (IllegalArgumentException e)
@@ -30,7 +36,8 @@ public class ProfilPenggunaFactory{
             LOGGER.severe("Given FQN: " + fullyQualifiedName);
             LOGGER.severe("Failed to run: Check your constructor argument");
             LOGGER.severe("Check your constructor argument types or count.");
-            System.exit(20);
+            LOGGER.severe("Failed to instantiate or access constructor: " + e.getMessage());
+            e.printStackTrace();
         }
         catch (ClassCastException e)
         {   LOGGER.severe("Failed to create instance of ProfilPengguna.");

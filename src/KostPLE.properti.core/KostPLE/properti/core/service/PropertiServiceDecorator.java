@@ -11,28 +11,16 @@ public abstract class PropertiServiceDecorator extends PropertiServiceComponent{
     public PropertiServiceDecorator(PropertiServiceComponent record) {
         this.record = record;
     }
-
-	public Properti createProperti(Map<String, Object> requestBody){
-		return record.createProperti(requestBody);
+    
+    public Properti saveProperti(Map<String, Object> requestBody){
+		return record.saveProperti(requestBody);
 	}
 
-    public Properti createProperti(Map<String, Object> requestBody, Map<String, Object> response){
-		return record.createProperti(requestBody, response);
+	public List<Properti> getAllProperti(){
+		return record.getAllProperti();
 	}
 
-	public HashMap<String, Object> getProperti(Map<String, Object> requestBody){
-		return record.getProperti(requestBody);
-	}
-
-	public List<HashMap<String,Object>> getAllProperti(Map<String, Object> requestBody){
-		return record.getAllProperti(requestBody);
-	}
-
-    public Properti saveProperti(VMJExchange vmjExchange){
-		return record.saveProperti(vmjExchange);
-	}
-
-    public HashMap<String, Object> updateProperti(Map<String, Object> requestBody){
+    public Properti updateProperti(Map<String, Object> requestBody){
 		return record.updateProperti(requestBody);
 	}
 
@@ -40,12 +28,12 @@ public abstract class PropertiServiceDecorator extends PropertiServiceComponent{
 		return record.transformListToHashMap(List);
 	}
 
-    public List<HashMap<String,Object>> deleteProperti(Map<String, Object> requestBody){
-		return record.deleteProperti(requestBody);
+    public List<Properti> deleteProperti(UUID propertiId){
+		return record.deleteProperti(propertiId);
 	}
 
-	public HashMap<String, Object> getPropertiById(int id){
-        return record.getPropertiById(id);
+	public Properti getPropertiById(UUID propertiId){
+        return record.getPropertiById(propertiId);
     }
 
 }

@@ -30,5 +30,13 @@ public abstract class ProfilPenggunaResourceDecorator extends ProfilPenggunaReso
     public List<HashMap<String,Object>> deleteProfilPengguna(VMJExchange vmjExchange){
 		return record.deleteProfilPengguna(vmjExchange);
 	}
+    
+    public HashMap<String, Object> getProfilPenggunaById(VMJExchange vmjExchange){
+		return record.getProfilPenggunaById(vmjExchange);
+	}
+    
+    public HashMap<String, Object> getProfilPenggunaByEmail(VMJExchange vmjExchange){
+		return record.getProfilPenggunaByEmail(vmjExchange);
+	}
 
 }

@@ -16,6 +16,7 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.profilpengguna.ProfilPenggunaFactory;
+
 import prices.auth.vmj.annotations.Restricted;
 //add other required packages
 
@@ -42,8 +43,8 @@ public class ProfilPenggunaServiceImpl extends ProfilPenggunaServiceComponent {
 		// to do: fix association attributes
 		ProfilPengguna profilPengguna = profilPenggunaFactory.createProfilPengguna(
 				"KostPLE.profilpengguna.core.ProfilPenggunaImpl",
-				idProfil, fullName, email, jenisKelamin, pekerjaan, kotaAsal, statusPernikahan, pendidikanTerakhir,
-				kontakDarurat, fotoUrlProfil, noHP);
+				idProfil, "King", "King", true, "King", "King", "King", "King",
+				123, "king", 123);
 		
 		System.out.println("Class: " + profilPengguna);
 
@@ -78,15 +79,27 @@ public class ProfilPenggunaServiceImpl extends ProfilPenggunaServiceComponent {
 
 	}
 
-	public ProfilPengguna getProfilPenggunaById(UUID id) {
-		ProfilPengguna profilpengguna = Repository.getObject(id);
+	public ProfilPengguna getProfilPenggunaByEmail(String email) {
+		ProfilPengguna profilpengguna = null;
+		
+		try {
+			profilpengguna = Repository.getListObject("profilpengguna_impl", "email", email).get(0);
+		} catch (Exception e) {
+			throw new NotFoundException("profilPengguna with email " + email + " not exist.");
+		}
 		return profilpengguna;
+
 	}
 
 	public List<ProfilPengguna> getAllProfilPengguna() {
 		List<ProfilPengguna> profilPenggunaList = Repository.getAllObject("profilpengguna_impl");
 		return profilPenggunaList;
 
+	}
+	
+	public ProfilPengguna getProfilPenggunaById(UUID id) {
+		ProfilPengguna profilpengguna = Repository.getObject(id);
+		return profilpengguna;
 	}
 
 	@Override

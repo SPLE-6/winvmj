@@ -13,13 +13,11 @@ public abstract class PropertiServiceComponent implements PropertiService{
         this.Repository = new RepositoryUtil<Properti>(KostPLE.properti.core.PropertiComponent.class);
     }	
 
-    public abstract Properti saveProperti(VMJExchange vmjExchange);
-    public abstract Properti createProperti(Map<String, Object> requestBodye);
-	public abstract Properti createProperti(Map<String, Object> requestBody, Map<String, Object> response);    
-	public abstract HashMap<String, Object> updateProperti(Map<String, Object> requestBody);
-    public abstract HashMap<String, Object> getProperti(Map<String, Object> requestBody);
+    public abstract Properti saveProperti(Map<String, Object> requestBody);
+	public abstract Properti updateProperti(Map<String, Object> requestBody);
+    public abstract List<Properti> getAllProperti();
     public abstract List<HashMap<String, Object>> transformListToHashMap(List<Properti> List);
-    public abstract List<HashMap<String,Object>> deleteProperti(Map<String, Object> requestBody);
-	public abstract HashMap<String, Object> getPropertiById(int id);
+    public abstract List<Properti> deleteProperti(UUID id);
+	public abstract Properti getPropertiById(UUID id);
 
 }

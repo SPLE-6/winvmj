@@ -16,11 +16,11 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
 	private PropertiServiceImpl propertiServiceImpl = new PropertiServiceImpl();
 
 	// @Restriced(permission = "")
-    @Route(url="call/properti")
-    public HashMap<String,Object> createProperti(VMJExchange vmjExchange){
+    @Route(url="call/properti/save")
+    public HashMap<String,Object> saveProperti(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Properti result = propertiServiceImpl.createProperti(requestBody);
+			HashMap<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload(); 
+			Properti result = propertiServiceImpl.saveProperti(requestBody);
 			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");
@@ -29,44 +29,47 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
     // @Restriced(permission = "")
     @Route(url="call/properti/update")
     public HashMap<String, Object> updateProperti(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+    	HashMap<String, Object> body = (HashMap<String, Object>) vmjExchange.getPayload(); 
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")){
 			return null;
 		}
-		return propertiServiceImpl.updateProperti(requestBody);
+		Properti result = propertiServiceImpl.updateProperti(body);
+		return result.toHashMap();
 		
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/properti/detail")
     public HashMap<String, Object> getProperti(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return propertiServiceImpl.getProperti(requestBody);
+    	Map<String, Object> requestBody = vmjExchange.getPayload(); 
+		String propertiStr = (String) requestBody.get("propertiId");
+		UUID propertiId = UUID.fromString(propertiStr);
+		return propertiServiceImpl.getPropertiById(propertiId).toHashMap();
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/properti/list")
     public List<HashMap<String,Object>> getAllProperti(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return propertiServiceImpl.getAllProperti(requestBody);
+    	List <Properti> propertiList = propertiServiceImpl.getAllProperti(); 
+		return propertiServiceImpl.transformListToHashMap(propertiList);
 	}
 
     
 	// @Restriced(permission = "")
     @Route(url="call/properti/delete")
     public List<HashMap<String,Object>> deleteProperti(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+    	HashMap<String, Object> body = (HashMap<String, Object>) vmjExchange.getPayload(); 
+		String propertiStr = (String) body.get("propertiId");
+		UUID properiId = UUID.fromString(propertiStr);
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
 		
-		return propertiServiceImpl.deleteProperti(requestBody);
+		List <Properti> propertiList = propertiServiceImpl.deleteProperti(properiId);
+		return propertiServiceImpl.transformListToHashMap(propertiList);
+
 	}
 
-	@Override
-	public List<HashMap<String, Object>> saveProperti(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'saveProperti'");
-	}
+	
 
 }

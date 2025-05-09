@@ -5,6 +5,8 @@ import java.util.Arrays;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
+import vmj.auth.core.*;
+import vmj.auth.annotations.Restricted;
 import KostPLE.profilpengguna.ProfilPenggunaFactory;
 //import prices.auth.vmj.annotations.Restricted;
 //add other required packages
@@ -28,7 +30,7 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
     throw new NotFoundException("Route not found");
 }
 
-    // @Restriced(permission = "")
+     @Restricted(permissionName = "")
     @Route(url="call/profilpengguna/update")
     public HashMap<String, Object> updateProfilPengguna(VMJExchange vmjExchange){
     	HashMap<String, Object> body = (HashMap<String, Object>) vmjExchange.getPayload();
@@ -40,13 +42,11 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
 		
 	}
 
-	// @Restriced(permission = "")
+	 @Restricted(permissionName= "")
     @Route(url="call/profilpengguna/detail")
     public HashMap<String, Object> getProfilPengguna(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		String profilPenggunaStr = (String) requestBody.get("profilPenggunaId");
-    	UUID profilPenggunaId = UUID.fromString(profilPenggunaStr);
-		return profilpenggunaServiceImpl.getProfilPenggunaById(profilPenggunaId).toHashMap();
+    	String email = vmjExchange.getAuthPayload().getEmail(); 
+		return profilpenggunaServiceImpl.getProfilPenggunaByEmail(email).toHashMap();
 	}
 
 	// @Restriced(permission = "")
@@ -72,6 +72,25 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
 
 		
 	}
+    
+	// @Restriced(permission = "")
+    @Route(url="call/profilpengguna/detail-by-id")
+    public HashMap<String, Object> getProfilPenggunaById(VMJExchange vmjExchange){
+		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+		String profilPenggunaStr = (String) requestBody.get("profilPenggunaId");
+    	UUID profilPenggunaId = UUID.fromString(profilPenggunaStr);
+		return profilpenggunaServiceImpl.getProfilPenggunaById(profilPenggunaId).toHashMap();
+	}
+    
+    @Route(url="call/profilpengguna/detail-email")
+    public HashMap<String, Object> getProfilPenggunaByEmail(VMJExchange vmjExchange) {
+		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+		String email = (String) requestBody.get("email");
+		ProfilPengguna profilpengguna = profilpenggunaServiceImpl.getProfilPenggunaByEmail(email);
+		return profilpengguna.toHashMap();
+	}
+
+
 
 
 }

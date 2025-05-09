@@ -3,11 +3,11 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import java.util.*;
 
-import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+import KostPLE.profilpengguna.core.ProfilPengguna;
 
 public interface Properti {
-	public String getIdProperti();
-	public void setIdProperti(int idProperti);
+	public UUID getIdProperti();
+	public void setIdProperti(UUID idProperti);
 	public String getNamaProperti();
 	public void setNamaProperti(String namaProperti);
 	public String getDeskripsiProperti();
@@ -16,7 +16,7 @@ public interface Properti {
 	public void setLokasiProperti(String lokasiProperti);
 	public String getFotoUrlProperti();
 	public void setFotoUrlProperti(String fotoUrlProperti);
-	public ProfilPenggunaImpl getProfilpenggunaimpl();
-	public void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl);
+	public ProfilPengguna getProfilPengguna();
+	public void setProfilPengguna(ProfilPengguna profilpenggunaimpl);
 	HashMap<String, Object> toHashMap();
 }

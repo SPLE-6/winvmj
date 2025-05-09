@@ -10,74 +10,108 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
-
-import KostPLE.properti.core.Properti;
-import KostPLE.properti.core.PropertiComponent;
 import KostPLE.properti.core.PropertiImpl;
+import KostPLE.properti.core.Properti;
 
 @Entity
-@Table(name="kamar_comp")
+@Table(name = "kamar_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class KamarComponent implements Kamar{
+public abstract class KamarComponent implements Kamar {
 	@Id
-	public String idKamar; 
-	public boolean isAvailable;
-	public String tipeKamar;
-	public String deskripsiKamar;
-	public String Property6;
-	public Float Property7;
-	@ManyToOne(targetEntity=PropertiComponent.class)
-	public Properti propertiImpl;
+	protected UUID idKamar;
+	protected boolean isAvailable;
+	protected String tipeKamar;
+	protected String deskripsiKamar;
+	protected String fotoUrlKamar;
+	protected Float hargaKamar;
+	
+	@ManyToOne(targetEntity = KostPLE.properti.core.PropertiComponent.class)
+	public Properti properti;
 	protected String objectName = KamarComponent.class.getName();
 
 	public KamarComponent() {
 
-	} 
+	}
 
-	public KamarComponent(String idKamar, boolean isAvailable, String tipeKamar, String deskripsiKamar, String Property6, Float Property7, PropertiImpl propertiimpl) {
-        this.idKamar = idKamar;
-        this.isAvailable = isAvailable;
-        this.tipeKamar = tipeKamar;
-        this.deskripsiKamar = deskripsiKamar;
-        this.Property6 = Property6;
-        this.Property7 = Property7;
-        this.propertiImpl = propertiimpl;
-    }
+	public KamarComponent(
+			UUID idKamar, boolean isAvailable, String tipeKamar, String deskripsiKamar, String fotoUrlKamar,
+			Float hargaKamar, PropertiImpl propertiImpl) {
+		this.idKamar = idKamar;
+		this.isAvailable = isAvailable;
+		this.tipeKamar = tipeKamar;
+		this.deskripsiKamar = deskripsiKamar;
+		this.fotoUrlKamar = fotoUrlKamar;
+		this.hargaKamar = hargaKamar;
+		this.properti = properti;
+	}
 
-	public abstract String getIdKamar();
-	public abstract void setIdKamar(int idKamar);
-	
-	public abstract boolean getIsAvailable();
-	public abstract void setIsAvailable(boolean isAvailable);
-	
-	public abstract String getTipeKamar();
-	public abstract void setTipeKamar(String tipeKamar);
-	
-	public abstract String getDeskripsiKamar();
-	public abstract void setDeskripsiKamar(String deskripsiKamar);
-	
-	public abstract String getProperty6();
-	public abstract void setProperty6(String Property6);
-	
-	public abstract Float getProperty7();
-	public abstract void setProperty7(Float Property7);
-	
-	public abstract Properti getPropertiImpl();
-	public abstract void setPropertiimpl(PropertiImpl propertiimpl);
-	
- 
+	public UUID getIdKamar() {
+		return this.idKamar;
+	}
+
+	public void setIdKamar(UUID idKamar) {
+		this.idKamar = idKamar;
+	}
+
+	public boolean getIsAvailable() {
+		return this.isAvailable;
+	}
+
+	public void setIsAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
+	public String getTipeKamar() {
+		return this.tipeKamar;
+	}
+
+	public void setTipeKamar(String tipeKamar) {
+		this.tipeKamar = tipeKamar;
+	}
+
+	public String getDeskripsiKamar() {
+		return this.deskripsiKamar;
+	}
+
+	public void setDeskripsiKamar(String deskripsiKamar) {
+		this.deskripsiKamar = deskripsiKamar;
+	}
+
+	public String getFotoUrlKamar() {
+		return this.fotoUrlKamar;
+	}
+
+	public void setFotoUrlKamar(String fotoUrlKamar) {
+		this.fotoUrlKamar = fotoUrlKamar;
+	}
+
+	public Float getHargaKamar() {
+		return this.hargaKamar;
+	}
+
+	public void setHargaKamar(Float hargaKamar) {
+		this.hargaKamar = hargaKamar;
+	}
+
+	public Properti getProperti() {
+		return this.properti;
+	}
+
+	public void setProperti(Properti properti) {
+		this.properti = properti;
+	}
 
 	@Override
-    public String toString() {
-        return "{" +
-            " idKamar='" + getIdKamar() + "'" +
-            " isAvailable='" + getIsAvailable() + "'" +
-            " tipeKamar='" + getTipeKamar() + "'" +
-            " deskripsiKamar='" + getDeskripsiKamar() + "'" +
-            " Property6='" + getProperty6() + "'" +
-            " Property7='" + getProperty7() + "'" +
-            " propertiimpl='" + getPropertiImpl() + "'" +
-            "}";
-    }
-	
+	public String toString() {
+		return "{" +
+				" idKamar='" + getIdKamar() + "'" +
+				" isAvailable='" + getIsAvailable() + "'" +
+				" tipeKamar='" + getTipeKamar() + "'" +
+				" deskripsiKamar='" + getDeskripsiKamar() + "'" +
+				" Property6='" + getFotoUrlKamar() + "'" +
+				" Property7='" + getHargaKamar() + "'" +
+				" propertiimpl='" + getProperti() + "'" +
+				"}";
+	}
+
 }

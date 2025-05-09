@@ -21,14 +21,13 @@ public class ProfilPenggunaFactory{
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
             constructor = clz.getDeclaredConstructors()[0];
-            LOGGER.severe("Constructor parameter count: " + constructor.getParameterCount());
-            LOGGER.severe("Base array length: " + base.length);
+            Class<?>[] paramTypes = constructor.getParameterTypes();
+            
             for (int i = 0; i < base.length; i++) {
-                LOGGER.severe("Base[" + i + "]: " + base[i]);
+                LOGGER.info("Parameter " + i + ": " + (base[i] == null ? "null" : base[i].getClass().getName()));
             }
             
-            Class<?>[] paramTypes = constructor.getParameterTypes();
-            LOGGER.severe("Constructor parameter types: " + Arrays.toString(paramTypes));
+            
             record = (ProfilPengguna) constructor.newInstance(base);
         } 
         catch (IllegalArgumentException e)
@@ -36,11 +35,9 @@ public class ProfilPenggunaFactory{
             LOGGER.severe("Failed to create instance of ProfilPengguna.");
             LOGGER.severe("Given FQN: " + fullyQualifiedName);
             LOGGER.severe("Failed to run: Check your constructor argument");
-            LOGGER.severe("Error message: " + e.getMessage());  // Pesan kesalahan lebih jelas
-            LOGGER.severe("Cause: " + e.getCause());            // Penyebab kesalahan lebih jelas
             LOGGER.severe("Check your constructor argument types or count.");
-            LOGGER.severe("Constructor parameter types: " + Arrays.toString(constructor.getParameterTypes()));
-            System.exit(20);
+            LOGGER.severe("Failed to instantiate or access constructor: " + e.getMessage());
+            e.printStackTrace();
         }
         catch (ClassCastException e)
         {   LOGGER.severe("Failed to create instance of ProfilPengguna.");

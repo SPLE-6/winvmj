@@ -1,17 +1,20 @@
 package KostPLE.kamar.core;
+
 import java.util.*;
 
-import KostPLE.kamar.core.Kamar;
 import vmj.routing.route.VMJExchange;
 
 public interface KamarService {
-	Kamar createKamar(Map<String, Object> requestBody);
-	Kamar createKamar(Map<String, Object> requestBody, Map<String, Object> response);
-	HashMap<String, Object> getKamar(Map<String, Object> requestBody);
-    List<HashMap<String,Object>> saveKamar(Map<String, Object> requestBody);
-    HashMap<String, Object> updateKamar(Map<String, Object> requestBody);
-    HashMap<String, Object> getKamarById(int id);
-    List<HashMap<String,Object>> getAllKamar(Map<String, Object> requestBody);
-    List<HashMap<String,Object>> deleteKamar(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Kamar> List);
+
+    Kamar saveKamar(Map<String, Object> requestBody);
+
+    Kamar updateKamar(Map<String, Object> requestBody);
+
+    Kamar getKamarById(UUID id);
+
+    List<Kamar> getAllKamar();
+
+    List<Kamar> deleteKamar(UUID kamarId);
+
+    List<HashMap<String, Object>> transformListToHashMap(List<Kamar> kamarList);
 }

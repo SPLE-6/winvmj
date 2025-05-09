@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import KostPLE.profilpengguna.core.ProfilPengguna;
-import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
 
 import javax.persistence.Column;
 import javax.persistence.ForeignKey;
@@ -23,22 +22,22 @@ import javax.persistence.OneToMany;
 @Table(name="properti_impl")
 public class PropertiImpl extends PropertiComponent {
 
-	public PropertiImpl(String idProperti, String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPenggunaImpl profilpenggunaimpl) {
+	public PropertiImpl(UUID idProperti, String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPengguna profilpengguna) {
 		this.idProperti = idProperti;
 		this.namaProperti = namaProperti;
 		this.deskripsiProperti = deskripsiProperti;
 		this.lokasiProperti = lokasiProperti;
 		this.fotoUrlProperti = fotoUrlProperti;
-		this.profilpenggunaimpl = profilpenggunaimpl;
+		this.profilPengguna = profilpengguna;
 	}
 
-	public PropertiImpl(String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPenggunaImpl profilpenggunaimpl) {
-		this.idProperti =  UUID.randomUUID().toString();
+	public PropertiImpl(String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPengguna profilpengguna) {
+		this.idProperti =  UUID.randomUUID();
 		this.namaProperti = namaProperti;
 		this.deskripsiProperti = deskripsiProperti;
 		this.lokasiProperti = lokasiProperti;
 		this.fotoUrlProperti = fotoUrlProperti;
-		this.profilpenggunaimpl = profilpenggunaimpl;
+		this.profilPengguna = profilpengguna;
 	}
 
 	public PropertiImpl() { }
@@ -52,95 +51,69 @@ public class PropertiImpl extends PropertiComponent {
 		propertiMap.put("deskripsiProperti",getDeskripsiProperti());
 		propertiMap.put("lokasiProperti",getLokasiProperti());
 		propertiMap.put("fotoUrlProperti",getFotoUrlProperti());
-		propertiMap.put("profilpenggunaimpl",getProfilPenggunaImpl());
+		propertiMap.put("profilpenggunaimpl", getProfilPengguna());
 
         return propertiMap;
     }
 
 	@Override
-	public String getIdProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getIdProperti'");
+	public UUID getIdProperti() {
+		return this.idProperti;
 	}
 
 	@Override
-	public void setIdProperti(int idProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setIdProperti'");
+	public void setIdProperti(UUID idProperti) {
+		this.idProperti = idProperti;
 	}
 
 	@Override
 	public String getNamaProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getNamaProperti'");
+		return this.namaProperti;
 	}
 
 	@Override
 	public void setNamaProperti(String namaProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setNamaProperti'");
+		this.namaProperti = namaProperti;
 	}
 
 	@Override
 	public String getDeskripsiProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getDeskripsiProperti'");
+		return this.deskripsiProperti;
 	}
 
 	@Override
 	public void setDeskripsiProperti(String deskripsiProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setDeskripsiProperti'");
+		this.deskripsiProperti = deskripsiProperti;
 	}
 
 	@Override
 	public String getLokasiProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getLokasiProperti'");
+		return this.lokasiProperti;
 	}
 
 	@Override
 	public void setLokasiProperti(String lokasiProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setLokasiProperti'");
+		this.lokasiProperti = lokasiProperti;
 	}
 
 	@Override
 	public String getFotoUrlProperti() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getFotoUrlProperti'");
+		return this.fotoUrlProperti;
 	}
 
 	@Override
 	public void setFotoUrlProperti(String fotoUrlProperti) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setFotoUrlProperti'");
-	}
-
-	public void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setProfilpenggunaimpl'");
-	}
-
-	public ProfilPenggunaImpl getProfilPenggunaImpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getProfilpenggunaimpl'");
-	}
-
-	public void setProfilPenggunaImpl(ProfilPengguna profilpenggunaimpl) {
-		
+		this.fotoUrlProperti = fotoUrlProperti;
 	}
 
 	@Override
-	public ProfilPenggunaImpl getProfilpenggunaimpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getProfilpenggunaimpl'");
+	public void setProfilPengguna(ProfilPengguna profilPengguna) {
+		this.profilPengguna = profilPengguna;
 	}
 
 	@Override
-	public void setProfilPenggunaImpl(ProfilPenggunaImpl profilpenggunaimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setProfilPenggunaImpl'");
+	public ProfilPengguna getProfilPengguna() {
+		return this.profilPengguna;
 	}
 
 }

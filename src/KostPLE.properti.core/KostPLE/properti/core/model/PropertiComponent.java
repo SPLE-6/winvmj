@@ -12,22 +12,21 @@ import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 
 import KostPLE.profilpengguna.core.ProfilPengguna;
-import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
-import KostPLE.profilpengguna.core.ProfilPenggunaComponent;
+
 
 @Entity
 @Table(name="properti_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PropertiComponent implements Properti{
 	@Id
-	public String idProperti; 
+	public UUID idProperti; 
 	public String namaProperti;
 	public String deskripsiProperti;
 	public String lokasiProperti;
 	public String fotoUrlProperti;
 
-	@ManyToOne(targetEntity=ProfilPenggunaComponent.class)
-	public ProfilPengguna profilpenggunaimpl;
+	@ManyToOne(targetEntity=KostPLE.profilpengguna.core.ProfilPenggunaComponent.class)
+	public ProfilPengguna profilPengguna;
 	protected String objectName = PropertiComponent.class.getName();
 
 	public PropertiComponent() {
@@ -35,18 +34,18 @@ public abstract class PropertiComponent implements Properti{
 	} 
 
 	public PropertiComponent(
-        String idProperti, String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPenggunaImpl profilpenggunaimpl
+        UUID idProperti, String namaProperti, String deskripsiProperti, String lokasiProperti, String fotoUrlProperti, ProfilPengguna profilPengguna
     ) {
         this.idProperti = idProperti;
         this.namaProperti = namaProperti;
         this.deskripsiProperti = deskripsiProperti;
         this.lokasiProperti = lokasiProperti;
         this.fotoUrlProperti = fotoUrlProperti;
-        this.profilpenggunaimpl = profilpenggunaimpl;
+        this.profilPengguna = profilPengguna;
     }
 
-	public abstract String getIdProperti();
-	public abstract void setIdProperti(int idProperti);
+	public abstract UUID getIdProperti();
+	public abstract void setIdProperti(UUID idProperti);
 	
 	public abstract String getNamaProperti();
 	public abstract void setNamaProperti(String namaProperti);
@@ -60,8 +59,8 @@ public abstract class PropertiComponent implements Properti{
 	public abstract String getFotoUrlProperti();
 	public abstract void setFotoUrlProperti(String fotoUrlProperti);
 	
-	public abstract ProfilPengguna getProfilPenggunaImpl();
-	public abstract void setProfilPenggunaImpl(ProfilPenggunaImpl profilpenggunaimpl);
+	public abstract ProfilPengguna getProfilPengguna();
+	public abstract void setProfilPengguna(ProfilPengguna profilPengguna);
 	
  
 
@@ -73,7 +72,7 @@ public abstract class PropertiComponent implements Properti{
             " deskripsiProperti='" + getDeskripsiProperti() + "'" +
             " lokasiProperti='" + getLokasiProperti() + "'" +
             " fotoUrlProperti='" + getFotoUrlProperti() + "'" +
-            " profilpenggunaimpl='" + getProfilpenggunaimpl() + "'" +
+            " profilpenggunaimpl='" + getProfilPengguna() + "'" +
             "}";
     }
 	
