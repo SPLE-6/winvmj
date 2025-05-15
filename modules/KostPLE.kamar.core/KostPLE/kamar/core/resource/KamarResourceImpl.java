@@ -25,7 +25,7 @@ public class KamarResourceImpl extends KamarResourceComponent {
 	}
 
 	// @Restriced(permission = "")
-	@Route(url = "call/kamar/edit")
+	@Route(url = "call/kamar/update")
 	public HashMap<String, Object> updateKamar(VMJExchange vmjExchange) {
 		HashMap<String, Object> requestBody =(HashMap<String, Object>) vmjExchange.getPayload();
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {

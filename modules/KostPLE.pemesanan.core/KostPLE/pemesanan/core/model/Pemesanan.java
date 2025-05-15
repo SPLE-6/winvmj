@@ -3,12 +3,13 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import java.util.*;
 
-import KostPLE.kamar.core.KamarImpl;
-import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+import KostPLE.kamar.core.Kamar;
+import KostPLE.profilpengguna.core.ProfilPengguna;
+
 
 public interface Pemesanan {
-	public String getIdPemesanan();
-	public void setIdPemesanan(String idPemesanan);
+	public UUID getIdPemesanan();
+	public void setIdPemesanan(UUID idPemesanan);
 	public Date getStartDate();
 	public void setStartDate(Date startDate);
 	public Date getEndDate();
@@ -21,9 +22,9 @@ public interface Pemesanan {
 	public void setDetail(String detail);
 	public Date getCreatedAt();
 	public void setCreatedAt(Date createdAt);
-	public KamarImpl getKamarImpl();
-	public void setKamarImpl(KamarImpl kamarimpl);
-	public ProfilPenggunaImpl getProfilPenggunaImpl();
-	public void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl);
+	public KamarImpl getKamar();
+	public void setKamar(Kamar kamar);
+	public ProfilPengguna getProfilPengguna();
+	public void setProfilpengguna(ProfilPengguna profilpengguna);
 	HashMap<String, Object> toHashMap();
 }

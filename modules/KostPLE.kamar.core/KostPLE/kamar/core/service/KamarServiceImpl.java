@@ -16,11 +16,14 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.kamar.KamarFactory;
-import KostPLE.properti.core.Properti;
+import KostPLE.properti.core.*;
 import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class KamarServiceImpl extends KamarServiceComponent {
+	
+	private KamarFactory kamarFactory = new KamarFactory();
+	PropertiService propertiService = new PropertiServiceImpl();
 
 	public Kamar saveKamar(Map<String, Object> requestBody) {
 		UUID idKamar = UUID.randomUUID();
@@ -28,8 +31,14 @@ public class KamarServiceImpl extends KamarServiceComponent {
 		String tipeKamar = (String) requestBody.get("tipeKamar");
 		String deskripsiKamar = (String) requestBody.get("deskripsiKamar");
 		String fotoUrlKamar = (String) requestBody.get("fotoUrlKamar");
-		String hargaKamar = (String) requestBody.get("hargaKamar");
-		Properti properti = (Properti) requestBody.get("properti");
+		String hargaKamarStr = (String) requestBody.get("hargaKamar");
+		
+		Float hargaKamar = Float.parseFloat(hargaKamarStr);
+		String idPropertiStr = (String) requestBody.get("idProperti");
+
+		UUID idProperti = UUID.fromString(idPropertiStr);
+		
+		Properti properti = propertiService.getPropertiById(idProperti);
 
 		// to do: fix association attributes
 		Kamar kamar = KamarFactory.createKamar(

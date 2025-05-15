@@ -36,16 +36,7 @@ public class PropertiServiceImpl extends PropertiServiceComponent{
 		UUID idProfilPengguna = UUID.fromString(idProfilPenggunaStr);
 		
 		ProfilPengguna profilPengguna = profilPenggunaService.getProfilPenggunaById(idProfilPengguna);
-		
-		
-		System.out.println("HALO: " + idProperti);
-		System.out.println("HALO: " + namaProperti);
-		System.out.println("HALO: " + deskripsiProperti);
-		System.out.println("HALO: " + fotoUrlProperti);
-		System.out.println("HALO: " + lokasiProperti);
-		System.out.println("HALO: " + profilPengguna);
-
-		
+	
 		//to do: fix association attributes
 		Properti properti = propertiFactory.createProperti(
 			"KostPLE.properti.core.PropertiImpl",
@@ -58,11 +49,9 @@ public class PropertiServiceImpl extends PropertiServiceComponent{
 		);
 		
 		
-		System.out.println("IXIXIXIXIXI: " + profilPengguna);
 
 		Repository.saveObject(properti);
 		
-		System.out.println("PPPPPPP");
 
 		
 		return Repository.getObject(idProperti);

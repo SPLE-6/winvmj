@@ -7,9 +7,13 @@ import vmj.routing.route.VMJExchange;
 
 public abstract class PemesananResourceComponent implements PemesananResource{
 	
-	public PemesananResourceComponent() { }
+	protected RepositoryUtil<Pemesanan> pemesananRepository;
+
+	public PemesananResourceComponent() { 
+		this.pemesananRepository = new RepositoryUtil<Pemesanan>(KostPLE.properti.core.PemesananComponent.class);
+	}
  
-    public abstract Pemesanan createPemesanan(VMJExchange vmjExchange);    
+    public abstract HashMap<String, Object> savePemesanan(VMJExchange vmjExchange);    
 	public abstract HashMap<String, Object> updatePemesanan(VMJExchange vmjExchange);
     public abstract HashMap<String, Object> getPemesanan(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllPemesanan(VMJExchange vmjExchange);
