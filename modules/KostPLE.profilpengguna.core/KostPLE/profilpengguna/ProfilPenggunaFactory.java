@@ -17,18 +17,41 @@ public class ProfilPenggunaFactory{
     public static ProfilPengguna createProfilPengguna(String fullyQualifiedName, Object ... base)
     {
         ProfilPengguna record = null;
-        Constructor<?> constructor = null;
+//        Constructor<?> constructor = null;
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
-            constructor = clz.getDeclaredConstructors()[0];
-            Class<?>[] paramTypes = constructor.getParameterTypes();
             
-            for (int i = 0; i < base.length; i++) {
-                LOGGER.info("Parameter " + i + ": " + (base[i] == null ? "null" : base[i].getClass().getName()));
+            
+            Constructor<?>[] constructorList = clz.getDeclaredConstructors();
+            Constructor<?> constructor = null;
+
+//            Class<?>[] paramTypes = constructor.getParameterTypes();
+
+            for (int i = 0; i < constructorList.length; i++) {
+            	try {
+            		constructor = constructorList[i];
+            		record = (ProfilPengguna) constructor.newInstance(base);
+            		i = constructorList.length;
+            	} catch (IllegalArgumentException e) {
+            		if (i < constructorList.length - 1) {
+            			System.out.println("Trying other constructor");
+            			continue;
+            		} else {
+            			throw e;
+            		}
+            	}
             }
+//            for (int i = 0; i < base.length; i++) {
+//                LOGGER.info("Parameter " + i + ": " + (base[i] == null ? "null" : base[i].getClass().getName()));
+//            }
+//            
+//            System.out.println(paramTypes.length);
+//            for (int i = 0; i < paramTypes.length; i++) {
+//                System.out.println("  Parameter " + i + ": " + paramTypes[i].getName());
+//            }
+//            
             
-            
-            record = (ProfilPengguna) constructor.newInstance(base);
+//            record = (ProfilPengguna) constructor.newInstance(base);
         } 
         catch (IllegalArgumentException e)
         {
@@ -38,6 +61,7 @@ public class ProfilPenggunaFactory{
             LOGGER.severe("Check your constructor argument types or count.");
             LOGGER.severe("Failed to instantiate or access constructor: " + e.getMessage());
             e.printStackTrace();
+            System.exit(30);
         }
         catch (ClassCastException e)
         {   LOGGER.severe("Failed to create instance of ProfilPengguna.");

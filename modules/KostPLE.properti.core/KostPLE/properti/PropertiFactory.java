@@ -17,13 +17,26 @@ public class PropertiFactory{
         Properti record = null;
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
-            Constructor<?> constructor = clz.getDeclaredConstructors()[0];
+            Constructor<?>[] constructorList = clz.getDeclaredConstructors();
             
-            for (int i = 0; i < base.length; i++) {
-                LOGGER.info("Parameter " + i + ": " + (base[i] == null ? "null" : base[i].getClass().getName()));
+            Constructor<?> constructor = null;
+
+            for (int i = 0; i < constructorList.length; i++) {
+            	try {
+                	constructor = constructorList[i];
+                	record = (Properti) constructor.newInstance(base);
+                	i = constructorList.length;
+            	} catch (IllegalArgumentException e) {
+            		if (i < constructorList.length - 1) {
+            			System.out.println("Trying other constructor");
+            			continue;
+            		} else {
+            			throw e;
+            		}
+            	}
+
             }
             
-            record = (Properti) constructor.newInstance(base);
         } 
         catch (IllegalArgumentException e)
         {

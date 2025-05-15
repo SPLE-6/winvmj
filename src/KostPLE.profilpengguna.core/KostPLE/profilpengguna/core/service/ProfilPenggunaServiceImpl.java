@@ -43,8 +43,8 @@ public class ProfilPenggunaServiceImpl extends ProfilPenggunaServiceComponent {
 		// to do: fix association attributes
 		ProfilPengguna profilPengguna = profilPenggunaFactory.createProfilPengguna(
 				"KostPLE.profilpengguna.core.ProfilPenggunaImpl",
-				idProfil, "King", "King", true, "King", "King", "King", "King",
-				123, "king", 123);
+				idProfil, fullName, email, jenisKelamin, pekerjaan, kotaAsal, statusPernikahan, pendidikanTerakhir,
+				kontakDarurat, fotoUrlProfil, noHP);
 		
 		System.out.println("Class: " + profilPengguna);
 
