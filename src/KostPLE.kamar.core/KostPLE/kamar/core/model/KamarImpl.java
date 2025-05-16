@@ -107,8 +107,8 @@ public class KamarImpl extends KamarComponent {
 		kamarMap.put("isAvailable", getIsAvailable());
 		kamarMap.put("tipeKamar", getTipeKamar());
 		kamarMap.put("deskripsiKamar", getDeskripsiKamar());
-		kamarMap.put("Property6", getFotoUrlKamar());
-		kamarMap.put("Property7", getHargaKamar());
+		kamarMap.put("fotoUrlKamar", getFotoUrlKamar());
+		kamarMap.put("hargaKamar", getHargaKamar());
 		kamarMap.put("propertiimpl", getProperti());
 
 		return kamarMap;

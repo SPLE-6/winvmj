@@ -3,7 +3,6 @@ module KostPLE.pemesanan.core {
 	requires KostPLE.profilpengguna.core;
 	exports KostPLE.pemesanan;
     exports KostPLE.pemesanan.core;
-	exports KostPLE.pemesanan.core.repository;
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;
 	requires vmj.auth;

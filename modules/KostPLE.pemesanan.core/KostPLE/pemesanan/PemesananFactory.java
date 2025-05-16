@@ -17,7 +17,7 @@ public class PemesananFactory{
         Pemesanan record = null;
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
-            Constructor<?>[] constructorList = clz.getDeclaredConstructors()[0];
+            Constructor<?>[] constructorList = clz.getDeclaredConstructors();
             Constructor<?> constructor = null;
 
             for (int i = 0; i < constructorList.length; i++) {

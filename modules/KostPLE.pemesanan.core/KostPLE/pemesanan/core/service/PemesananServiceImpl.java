@@ -41,14 +41,14 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		UUID idProfilPengguna = UUID.fromString(idProfilPenggunaStr);
 		
 		String idKamarStr = (String) requestBody.get("idKamar");
-		UUID idKamar = UUID.fromString(idKamar);
+		UUID idKamar = UUID.fromString(idKamarStr);
 		
 		ProfilPengguna profilPengguna = profilPenggunaService.getProfilPenggunaById(idProfilPengguna);
 		Kamar kamar = kamarService.getKamarById(idKamar);
 
 		
 		//to do: fix association attributes
-		Pemesanan pemesanan = PemesananFactory.createPemesanan(
+		Pemesanan pemesanan = pemesananFactory.createPemesanan(
 			"KostPLE.pemesanan.core.PemesananImpl",
 		idPemesanan
 		, startDate
@@ -60,12 +60,14 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		, kamar
 		, profilPengguna
 		);
-		PemesananRepository.saveObject(pemesanan);
+		Repository.saveObject(pemesanan);
 		return pemesanan;
 	}
 
     public Pemesanan updatePemesanan(Map<String, Object> requestBody){
-		String id = (String) requestBody.get("idPemesanan");
+		String idStr = (String) requestBody.get("idPemesanan");
+		UUID id = UUID.fromString(idStr);
+
 		Pemesanan pemesanan = Repository.getObject(id);
 		
 		pemesanan.setStatusPemesanan((String) requestBody.get("statusPemesanan"));
@@ -79,20 +81,14 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		
 	}
 
-	public HashMap<String, Object> getPemesananById(UUID id){
+	public Pemesanan getPemesananById(UUID id){
 		Pemesanan pemesanan = Repository.getObject(id);
 		return pemesanan;
 	}
 
 	public List<Pemesanan> getAllPemesanan(){
 		List<Pemesanan> pemesananList = Repository.getAllObject("pemesanan_impl");
-		return pemesanan.toHashMap();
-	}
-
-    public List<HashMap<String,Object>> getAllPemesanan(Map<String, Object> requestBody){
-		String table = (String) requestBody.get("table_name");
-		List<Pemesanan> list = PemesananRepository.getAllObject(table);
-		return transformListToHashMap(list);
+		return pemesananList;
 	}
 
 	@Override
@@ -105,30 +101,9 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
         return resultList;
 	}
 
-    public List<HashMap<String,Object>> deletePemesanan(Map<String, Object> requestBody){
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
-		PemesananRepository.deleteObject(id);
-		return getAllPemesanan(requestBody);
-	}
-
-	@Override
-	public List<HashMap<String, Object>> savePemesanan(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'savePemesanan'");
-	}
-
-	@Override
-	public Pemesanan createPemesanan(Map<String, Object> requestBody,
-			Map<String, Object> response) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'createPemesanan'");
-	}
-
-	@Override
-	public HashMap<String, Object> getPemesanan(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPemesanan'");
+    public List<Pemesanan> deletePemesanan(UUID pemesananId){
+		Repository.deleteObject(pemesananId);
+		return getAllPemesanan();
 	}
 
 }

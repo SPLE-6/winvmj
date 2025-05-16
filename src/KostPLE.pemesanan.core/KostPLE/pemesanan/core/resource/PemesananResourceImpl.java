@@ -15,12 +15,12 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
 	private PemesananServiceImpl pemesananServiceImpl = new PemesananServiceImpl();
 
 	// @Restriced(permission = "")
-    @Route(url="call/pemesanan")
-    public Pemesanan createpemesanan(VMJExchange vmjExchange){
+    @Route(url="call/pemesanan/save")
+    public HashMap<String,Object> savePemesanan(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Pemesanan result = pemesananServiceImpl.createPemesanan(requestBody);
-			return result;
+		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload(); 
+			Pemesanan result = pemesananServiceImpl.savePemesanan(requestBody);
+			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -28,50 +28,44 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
     // @Restriced(permission = "")
     @Route(url="call/pemesanan/update")
     public HashMap<String, Object> updatePemesanan(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+		Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload();
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")){
 			return null;
 		}
-		return pemesananServiceImpl.updatePemesanan(requestBody);
-		
+		Pemesanan result = pemesananServiceImpl.updatePemesanan(requestBody);
+		return result.toHashMap();
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/pemesanan/detail")
     public HashMap<String, Object> getPemesanan(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return pemesananServiceImpl.getPemesanan(requestBody);
+    	Map<String, Object> requestBody = vmjExchange.getPayload();
+		String pemesananStr = (String) requestBody.get("pemesananId");
+		UUID pemesananId = UUID.fromString(pemesananStr);
+		return pemesananServiceImpl.getPemesananById(pemesananId).toHashMap();
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/pemesanan/list")
     public List<HashMap<String,Object>> getAllPemesanan(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return pemesananServiceImpl.getAllPemesanan(requestBody);
+		List <Pemesanan> pemesananList = pemesananServiceImpl.getAllPemesanan();
+		return pemesananServiceImpl.transformListToHashMap(pemesananList);
 	}
 
     
 	// @Restriced(permission = "")
     @Route(url="call/pemesanan/delete")
     public List<HashMap<String,Object>> deletePemesanan(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+    	HashMap<String, Object> body = (HashMap<String, Object>) vmjExchange.getPayload();
+		String pemesananStr = (String) body.get("pemesananId");
+		UUID pemesananId = UUID.fromString(pemesananStr);
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
 		
-		return pemesananServiceImpl.deletePemesanan(requestBody);
-	}
-
-	@Override
-	public List<HashMap<String, Object>> savePemesanan(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'savePemesanan'");
-	}
-
-	@Override
-	public Pemesanan createPemesanan(VMJExchange vmjExhange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'createPemesanan'");
+		List <Pemesanan> pemesananList = pemesananServiceImpl.deletePemesanan(pemesananId);
+		return pemesananServiceImpl.transformListToHashMap(pemesananList);
+		
 	}
 
 }

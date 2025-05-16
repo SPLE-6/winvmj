@@ -22,9 +22,9 @@ public interface Pemesanan {
 	public void setDetail(String detail);
 	public Date getCreatedAt();
 	public void setCreatedAt(Date createdAt);
-	public KamarImpl getKamar();
+	public Kamar getKamar();
 	public void setKamar(Kamar kamar);
 	public ProfilPengguna getProfilPengguna();
-	public void setProfilpengguna(ProfilPengguna profilpengguna);
+	public void setProfilPengguna(ProfilPengguna profilpengguna);
 	HashMap<String, Object> toHashMap();
 }

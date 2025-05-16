@@ -10,7 +10,7 @@ public abstract class PemesananResourceComponent implements PemesananResource{
 	protected RepositoryUtil<Pemesanan> pemesananRepository;
 
 	public PemesananResourceComponent() { 
-		this.pemesananRepository = new RepositoryUtil<Pemesanan>(KostPLE.properti.core.PemesananComponent.class);
+		this.pemesananRepository = new RepositoryUtil<Pemesanan>(KostPLE.pemesanan.core.PemesananComponent.class);
 	}
  
     public abstract HashMap<String, Object> savePemesanan(VMJExchange vmjExchange);    

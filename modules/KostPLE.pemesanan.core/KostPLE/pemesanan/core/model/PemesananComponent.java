@@ -78,7 +78,7 @@ public abstract class PemesananComponent implements Pemesanan{
 	public abstract void setKamar(Kamar kamar);
 	
 	public abstract ProfilPengguna getProfilPengguna();
-	public abstract void setProfilpengguna(ProfilPengguna profilPengguna);
+	public abstract void setProfilPengguna(ProfilPengguna profilPengguna);
 	
  
 

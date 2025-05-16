@@ -12,7 +12,7 @@ public abstract class PemesananServiceComponent implements PemesananService{
         this.Repository = new RepositoryUtil<Pemesanan>(KostPLE.pemesanan.core.PemesananComponent.class);
     }	
 
-	public abstract Pemesanan savePemesanan(Map<String, Object> requestBody, Map<String, Object> response);    
+	public abstract Pemesanan savePemesanan(Map<String, Object> requestBody);    
 	public abstract Pemesanan updatePemesanan(Map<String, Object> requestBody);
     public abstract List<Pemesanan> getAllPemesanan();
     public abstract List<HashMap<String,Object>> transformListToHashMap(List<Pemesanan> List);

@@ -13,25 +13,26 @@ import javax.persistence.CascadeType;
 public abstract class PemesananDecorator extends PemesananComponent{
     @OneToOne(cascade=CascadeType.ALL)
 	protected PemesananComponent record;
+    
+	public PemesananDecorator (UUID idPemesanan, PemesananComponent record) {
+		this.idPemesanan =  idPemesanan;
+		this.record = record;
+	}
 
 	public PemesananDecorator () {
 		super();
 		this.record = record;
-		this.idPemesanan =  UUID.randomUUID().toString();
+		this.idPemesanan =  UUID.randomUUID();
 	}
 	
 	public PemesananDecorator (PemesananComponent record) {
-		this.idPemesanan =  UUID.randomUUID().toString();
+		this.idPemesanan =  UUID.randomUUID();
 		this.record = record;
 	}
 
-	public PemesananDecorator (String idPemesanan, PemesananComponent record) {
-		this.idPemesanan =  idPemesanan;
-		this.record = record;
-	}
-	
+
 	public PemesananDecorator (PemesananComponent record, String objectName) {
-		this.idPemesanan =  UUID.randomUUID().toString();
+		this.idPemesanan =  UUID.randomUUID();
 		this.record = record;	
 		this.objectName=objectName;
 	}

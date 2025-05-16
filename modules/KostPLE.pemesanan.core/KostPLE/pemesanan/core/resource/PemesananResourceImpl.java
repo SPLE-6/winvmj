@@ -19,8 +19,8 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
     public HashMap<String,Object> savePemesanan(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload(); 
-			Pemesanan result = pemesananServiceImpl.createPemesanan(requestBody);
-			return result;
+			Pemesanan result = pemesananServiceImpl.savePemesanan(requestBody);
+			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -42,13 +42,13 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
     	Map<String, Object> requestBody = vmjExchange.getPayload();
 		String pemesananStr = (String) requestBody.get("pemesananId");
 		UUID pemesananId = UUID.fromString(pemesananStr);
-		return pemesananServiceImpl.getPemesanan(pemesananId).toHashMap();
+		return pemesananServiceImpl.getPemesananById(pemesananId).toHashMap();
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/pemesanan/list")
     public List<HashMap<String,Object>> getAllPemesanan(VMJExchange vmjExchange){
-		Pemesanan <Pemesanan> pemesananList = pemesananServiceImpl.getAllPemesanan();
+		List <Pemesanan> pemesananList = pemesananServiceImpl.getAllPemesanan();
 		return pemesananServiceImpl.transformListToHashMap(pemesananList);
 	}
 

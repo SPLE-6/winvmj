@@ -42,7 +42,12 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
     @Route(url="call/properti/detail")
     public HashMap<String, Object> getProperti(VMJExchange vmjExchange){
     	Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		String propertiStr = (String) requestBody.get("propertiId");
+		String propertiStr = vmjExchange.getGETParam("propertiId");
+		
+		if (propertiStr == "") {
+			String propertiStr = (String) body.get("propertiId");
+		} 
+		
 		UUID propertiId = UUID.fromString(propertiStr);
 		return propertiServiceImpl.getPropertiById(propertiId).toHashMap();
 	}

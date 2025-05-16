@@ -13,10 +13,8 @@ import javax.persistence.ManyToOne;
 
 import KostPLE.kamar.core.Kamar;
 import KostPLE.kamar.core.KamarComponent;
-import KostPLE.kamar.core.KamarImpl;
 import KostPLE.profilpengguna.core.ProfilPengguna;
 import KostPLE.profilpengguna.core.ProfilPenggunaComponent;
-import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
 
 
 @Entity
@@ -24,17 +22,17 @@ import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PemesananComponent implements Pemesanan{
 	@Id
-	public String idPemesanan; 
+	public UUID idPemesanan; 
 	public Date startDate;
 	public Date endDate;
 	public Float totalPay;
 	public String statusPemesanan;
 	public String detail;
 	public Date createdAt;
-	@ManyToOne(targetEntity=KamarComponent.class)
-	public Kamar kamarImpl;
-	@ManyToOne(targetEntity=ProfilPenggunaComponent.class)
-	public ProfilPengguna profilpenggunaimpl;
+	@ManyToOne(targetEntity=KostPLE.kamar.core.KamarComponent.class)
+	public Kamar kamar;
+	@ManyToOne(targetEntity=KostPLE.profilpengguna.core.ProfilPenggunaComponent.class)
+	public ProfilPengguna profilPengguna;
 	protected String objectName = PemesananComponent.class.getName();
 
 	public PemesananComponent() {
@@ -42,7 +40,7 @@ public abstract class PemesananComponent implements Pemesanan{
 	} 
 
 	public PemesananComponent(
-        String idPemesanan, Date startDate, Date endDate, Float totalPay, String statusPemesanan, String detail, Date createdAt, KamarImpl kamarimpl, ProfilPenggunaImpl profilpenggunaimpl
+        UUID idPemesanan, Date startDate, Date endDate, Float totalPay, String statusPemesanan, String detail, Date createdAt, Kamar kamar, ProfilPengguna profilPengguna
     ) {
         this.idPemesanan = idPemesanan;
         this.startDate = startDate;
@@ -51,12 +49,12 @@ public abstract class PemesananComponent implements Pemesanan{
         this.statusPemesanan = statusPemesanan;
         this.detail = detail;
         this.createdAt = createdAt;
-        this.kamarImpl = kamarimpl;
-        this.profilpenggunaimpl = profilpenggunaimpl;
+        this.kamar = kamar;
+        this.profilPengguna = profilPengguna;
     }
 
-	public abstract String getIdPemesanan();
-	public abstract void setIdPemesanan(String idPemesanan);
+	public abstract UUID getIdPemesanan();
+	public abstract void setIdPemesanan(UUID idPemesanan);
 	
 	public abstract Date getStartDate();
 	public abstract void setStartDate(Date startDate);
@@ -76,11 +74,11 @@ public abstract class PemesananComponent implements Pemesanan{
 	public abstract Date getCreatedAt();
 	public abstract void setCreatedAt(Date createdAt);
 	
-	public abstract KamarImpl getKamarImpl();
-	public abstract void setKamarimpl(KamarImpl kamarimpl);
+	public abstract Kamar getKamar();
+	public abstract void setKamar(Kamar kamar);
 	
-	public abstract ProfilPenggunaImpl getProfilPenggunaImpl();
-	public abstract void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl);
+	public abstract ProfilPengguna getProfilPengguna();
+	public abstract void setProfilPengguna(ProfilPengguna profilPengguna);
 	
  
 
@@ -94,8 +92,8 @@ public abstract class PemesananComponent implements Pemesanan{
             " statusPemesanan='" + getStatusPemesanan() + "'" +
             " detail='" + getDetail() + "'" +
             " createdAt='" + getCreatedAt() + "'" +
-            " kamarimpl='" + getKamarImpl() + "'" +
-            " profilpenggunaimpl='" + getProfilPenggunaImpl() + "'" +
+            " kamar='" + getKamar() + "'" +
+            " profilPengguna='" + getProfilPengguna() + "'" +
             "}";
     }
 	
