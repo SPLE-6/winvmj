@@ -1,7 +1,6 @@
 /KostPLE.kamar.core/
-/KostPLE.pemesanan.core/
-/KostPLE.profilpengguna.core/
-/KostPLE.properti.core/
-/kostple.product.basic/
 /KostPLE.payment.core/
 /KostPLE.payment.paymentva/
+/KostPLE.pemesanan.sewaviaapp/
+/KostPLE.properti.laporan/
+/kostple.product.deltalaporan/

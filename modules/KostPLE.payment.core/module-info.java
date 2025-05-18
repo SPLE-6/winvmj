@@ -1,11 +1,7 @@
 module KostPLE.payment.core {
 	requires KostPLE.pemesanan.core;
 	exports KostPLE.payment;
-    exports KostPLE.payment.core;
-	exports KostPLE.payment.core.model;
-	exports KostPLE.payment.core.repository;
-	exports KostPLE.payment.core.resource;
-	exports KostPLE.payment.core.service;
+	exports KostPLE.payment.core;
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;
 	requires vmj.auth;
@@ -14,5 +10,8 @@ module KostPLE.payment.core {
 	requires java.naming;
 	requires java.net.http;
 
-	opens KostPLE.payment.core to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	opens KostPLE.payment.core.model to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	opens KostPLE.payment.core.repository to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	opens KostPLE.payment.core.resource to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	opens KostPLE.payment.core.service to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
 }

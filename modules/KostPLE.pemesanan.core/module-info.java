@@ -3,7 +3,8 @@ module KostPLE.pemesanan.core {
 	requires KostPLE.profilpengguna.core;
 	exports KostPLE.pemesanan;
     exports KostPLE.pemesanan.core;
-	exports KostPLE.pemesanan.core.repository;
+	exports KostPLE.pemesanan.core.model;
+	exports KostPLE.pemesanan.core.resource;
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;
 	requires vmj.auth;
@@ -13,4 +14,7 @@ module KostPLE.pemesanan.core {
 	requires java.net.http;
 
 	opens KostPLE.pemesanan.core to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	opens KostPLE.pemesanan.core.model to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	// No repository package to open
+	opens KostPLE.pemesanan.core.resource to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
 }

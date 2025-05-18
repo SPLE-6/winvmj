@@ -1,7 +1,6 @@
 package KostPLE.pemesanan.core;
 import java.util.*;
 import com.google.gson.Gson;
-import java.util.*;
 import java.util.logging.Logger;
 import java.io.File;
 import java.net.URI;
@@ -26,6 +25,22 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 	ProfilPenggunaService profilPenggunaService = new ProfilPenggunaServiceImpl();
 	KamarService kamarService = new KamarServiceImpl();
 
+    @Override
+    public Pemesanan savePemesanan(Map<String, Object> requestBody, Map<String, Object> response) {
+        // Call the existing implementation and return its result
+        Pemesanan pemesanan = savePemesanan(requestBody);
+        
+        // Add any additional processing with the response map if needed
+        if (response != null) {
+            response.put("success", true);
+            response.put("message", "Pemesanan created successfully");
+            response.put("pemesanan", pemesanan.toHashMap());
+        }
+        
+        return pemesanan;
+    }
+
+    @Override
     public Pemesanan savePemesanan(Map<String, Object> requestBody){
 		UUID idPemesanan = UUID.randomUUID();
 		String statusPemesanan = (String) requestBody.get("statusPemesanan");
@@ -41,7 +56,7 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		UUID idProfilPengguna = UUID.fromString(idProfilPenggunaStr);
 		
 		String idKamarStr = (String) requestBody.get("idKamar");
-		UUID idKamar = UUID.fromString(idKamar);
+		UUID idKamar = UUID.fromString(idKamarStr);
 		
 		ProfilPengguna profilPengguna = profilPenggunaService.getProfilPenggunaById(idProfilPengguna);
 		Kamar kamar = kamarService.getKamarById(idKamar);
@@ -60,12 +75,14 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		, kamar
 		, profilPengguna
 		);
-		PemesananRepository.saveObject(pemesanan);
+		Repository.saveObject(pemesanan);
 		return pemesanan;
 	}
 
+    @Override
     public Pemesanan updatePemesanan(Map<String, Object> requestBody){
-		String id = (String) requestBody.get("idPemesanan");
+		String idStr = (String) requestBody.get("idPemesanan");
+		UUID id = UUID.fromString(idStr);
 		Pemesanan pemesanan = Repository.getObject(id);
 		
 		pemesanan.setStatusPemesanan((String) requestBody.get("statusPemesanan"));
@@ -79,19 +96,21 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		
 	}
 
-	public HashMap<String, Object> getPemesananById(UUID id){
+	@Override
+	public Pemesanan getPemesananById(UUID id){
 		Pemesanan pemesanan = Repository.getObject(id);
 		return pemesanan;
 	}
 
+	@Override
 	public List<Pemesanan> getAllPemesanan(){
 		List<Pemesanan> pemesananList = Repository.getAllObject("pemesanan_impl");
-		return pemesanan.toHashMap();
+		return pemesananList;
 	}
 
-    public List<HashMap<String,Object>> getAllPemesanan(Map<String, Object> requestBody){
+    public List<HashMap<String,Object>> getAllPemesananAsHashMap(Map<String, Object> requestBody){
 		String table = (String) requestBody.get("table_name");
-		List<Pemesanan> list = PemesananRepository.getAllObject(table);
+		List<Pemesanan> list = Repository.getAllObject(table);
 		return transformListToHashMap(list);
 	}
 
@@ -105,30 +124,15 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
         return resultList;
 	}
 
-    public List<HashMap<String,Object>> deletePemesanan(Map<String, Object> requestBody){
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
-		PemesananRepository.deleteObject(id);
-		return getAllPemesanan(requestBody);
+    @Override
+    public List<Pemesanan> deletePemesanan(UUID id){
+		Repository.deleteObject(id);
+		return getAllPemesanan();
 	}
 
-	@Override
-	public List<HashMap<String, Object>> savePemesanan(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'savePemesanan'");
-	}
+	// Removing duplicate method
 
-	@Override
-	public Pemesanan createPemesanan(Map<String, Object> requestBody,
-			Map<String, Object> response) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'createPemesanan'");
-	}
-
-	@Override
-	public HashMap<String, Object> getPemesanan(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPemesanan'");
-	}
+	// Remove unnecessary methods that are causing compilation errors
+	// These methods are not defined in the PemesananService interface
 
 }

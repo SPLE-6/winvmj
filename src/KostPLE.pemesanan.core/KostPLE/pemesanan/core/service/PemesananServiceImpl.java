@@ -1,7 +1,6 @@
 package KostPLE.pemesanan.core;
 import java.util.*;
 import com.google.gson.Gson;
-import java.util.*;
 import java.util.logging.Logger;
 import java.io.File;
 import java.net.URI;
@@ -14,36 +13,54 @@ import java.nio.charset.StandardCharsets;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
-import KostPLE.kamar.core.KamarImpl;
+import KostPLE.kamar.core.*;
 import KostPLE.pemesanan.PemesananFactory;
-import KostPLE.pemesanan.core.Pemesanan;
-import KostPLE.pemesanan.core.repository.PemesananRepository;
-import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
+import KostPLE.profilpengguna.core.*;
 import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class PemesananServiceImpl extends PemesananServiceComponent{
+	
+	private PemesananFactory pemesananFactory = new PemesananFactory();
+	ProfilPenggunaService profilPenggunaService = new ProfilPenggunaServiceImpl();
+	KamarService kamarService = new KamarServiceImpl();
 
-    public List<HashMap<String,Object>> savePemesanan(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Pemesanan pemesanan = createPemesanan(vmjExchange);
-		PemesananRepository.saveObject(pemesanan);
-		return getAllPemesanan(vmjExchange.getPayload());
-	}
+    @Override
+    public Pemesanan savePemesanan(Map<String, Object> requestBody, Map<String, Object> response) {
+        // Call the existing implementation and return its result
+        Pemesanan pemesanan = savePemesanan(requestBody);
+        
+        // Add any additional processing with the response map if needed
+        if (response != null) {
+            response.put("success", true);
+            response.put("message", "Pemesanan created successfully");
+            response.put("pemesanan", pemesanan.toHashMap());
+        }
+        
+        return pemesanan;
+    }
 
-    public Pemesanan createPemesanan(Map<String, Object> requestBody){
-		String idPemesananStr = (String) requestBody.get("idPemesanan");
-		int idPemesanan = Integer.parseInt(idPemesananStr);
+    @Override
+    public Pemesanan savePemesanan(Map<String, Object> requestBody){
+		UUID idPemesanan = UUID.randomUUID();
 		String statusPemesanan = (String) requestBody.get("statusPemesanan");
 		String detail = (String) requestBody.get("detail");
 		Date startDate = (Date) requestBody.get("startDate");
 		Date endDate = (Date) requestBody.get("endDate");
 		Float totalPay = (Float) requestBody.get("totalPay");
-		Date createdAt = (Date) requestBody.get("createdAt");
-		KamarImpl kamarimpl = (KamarImpl) requestBody.get("kamarimpl");
-		ProfilPenggunaImpl profilpenggunaimpl = (ProfilPenggunaImpl) requestBody.get("profilpenggunaimpl");
+		
+		
+		Date createdAt = new Date();
+		
+		String idProfilPenggunaStr = (String) requestBody.get("idPofilPengguna");
+		UUID idProfilPengguna = UUID.fromString(idProfilPenggunaStr);
+		
+		String idKamarStr = (String) requestBody.get("idKamar");
+		UUID idKamar = UUID.fromString(idKamarStr);
+		
+		ProfilPengguna profilPengguna = profilPenggunaService.getProfilPenggunaById(idProfilPengguna);
+		Kamar kamar = kamarService.getKamarById(idKamar);
+
 		
 		//to do: fix association attributes
 		Pemesanan pemesanan = PemesananFactory.createPemesanan(
@@ -55,64 +72,45 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		, statusPemesanan
 		, detail
 		, createdAt
-		, kamarimpl
-		, profilpenggunaimpl
+		, kamar
+		, profilPengguna
 		);
-		PemesananRepository.saveObject(pemesanan);
+		Repository.saveObject(pemesanan);
 		return pemesanan;
 	}
 
-    public Pemesanan createPemesanan(VMJExchange vmjExchange){
-		String statusPemesanan = (String) vmjExchange.getRequestBodyForm("statusPemesanan");
-		String detail = (String) vmjExchange.getRequestBodyForm("detail");
-		Date startDate = (Date) vmjExchange.getRequestBodyForm("startDate");
-		Date endDate = (Date) vmjExchange.getRequestBodyForm("endDate");
-		Float totalPay = (Float) vmjExchange.getRequestBodyForm("totalPay");
-		Date createdAt = (Date) vmjExchange.getRequestBodyForm("createdAt");
-		KamarImpl kamarimpl = (KamarImpl) vmjExchange.getRequestBodyForm("kamarimpl");
-		ProfilPenggunaImpl profilpenggunaimpl = (ProfilPenggunaImpl) vmjExchange.getRequestBodyForm("profilpenggunaimpl");
-		
-		//to do: fix association attributes
-		
-		Pemesanan pemesanan = PemesananFactory.createPemesanan("KostPLE.pemesanan.core.PemesananImpl", startDate, endDate, totalPay, statusPemesanan, detail, createdAt, kamarimpl, profilpenggunaimpl);
-		return pemesanan;
-	}
-
-    public HashMap<String, Object> updatePemesanan(Map<String, Object> requestBody){
-		String id = (String) requestBody.get("idPemesanan");
-		Pemesanan pemesanan = PemesananRepository.getObject(id);
+    @Override
+    public Pemesanan updatePemesanan(Map<String, Object> requestBody){
+		String idStr = (String) requestBody.get("idPemesanan");
+		UUID id = UUID.fromString(idStr);
+		Pemesanan pemesanan = Repository.getObject(id);
 		
 		pemesanan.setStatusPemesanan((String) requestBody.get("statusPemesanan"));
 		pemesanan.setDetail((String) requestBody.get("detail"));
 		
-		PemesananRepository.updateObject(pemesanan);
+		Repository.updateObject(pemesanan);
 		
 		//to do: fix association attributes
 		
-		return pemesanan.toHashMap();
+		return pemesanan;
 		
 	}
 
-	public HashMap<String, Object> getPemesanan(Map<String, Object> requestBody, String id){
-		List<HashMap<String, Object>> pemesananList = getAllPemesanan(requestBody);
-		
-		for (HashMap<String, Object> pemesanan : pemesananList){
-			String record_id = (String) ( pemesanan.get("record_id"));
-			if (record_id.equals(id)){
-				return pemesanan;
-			}
-		}
-		return null;
+	@Override
+	public Pemesanan getPemesananById(UUID id){
+		Pemesanan pemesanan = Repository.getObject(id);
+		return pemesanan;
 	}
 
-	public HashMap<String, Object> getPemesananById(String id){
-		Pemesanan pemesanan = PemesananRepository.getObject(id);
-		return pemesanan.toHashMap();
+	@Override
+	public List<Pemesanan> getAllPemesanan(){
+		List<Pemesanan> pemesananList = Repository.getAllObject("pemesanan_impl");
+		return pemesananList;
 	}
 
-    public List<HashMap<String,Object>> getAllPemesanan(Map<String, Object> requestBody){
+    public List<HashMap<String,Object>> getAllPemesananAsHashMap(Map<String, Object> requestBody){
 		String table = (String) requestBody.get("table_name");
-		List<Pemesanan> list = PemesananRepository.getAllObject(table);
+		List<Pemesanan> list = Repository.getAllObject(table);
 		return transformListToHashMap(list);
 	}
 
@@ -126,30 +124,15 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
         return resultList;
 	}
 
-    public List<HashMap<String,Object>> deletePemesanan(Map<String, Object> requestBody){
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
-		PemesananRepository.deleteObject(id);
-		return getAllPemesanan(requestBody);
+    @Override
+    public List<Pemesanan> deletePemesanan(UUID id){
+		Repository.deleteObject(id);
+		return getAllPemesanan();
 	}
 
-	@Override
-	public List<HashMap<String, Object>> savePemesanan(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'savePemesanan'");
-	}
+	// Removing duplicate method
 
-	@Override
-	public Pemesanan createPemesanan(Map<String, Object> requestBody,
-			Map<String, Object> response) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'createPemesanan'");
-	}
-
-	@Override
-	public HashMap<String, Object> getPemesanan(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPemesanan'");
-	}
+	// Remove unnecessary methods that are causing compilation errors
+	// These methods are not defined in the PemesananService interface
 
 }

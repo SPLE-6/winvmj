@@ -1,4 +1,4 @@
-package KostPLE.payment.paymentva.model;
+package KostPLE.payment.paymentva;
 
 import java.util.*;
 import vmj.routing.route.Route;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 
 import KostPLE.payment.core.model.PaymentDecorator;
-import KostPLE.pemesanan.core.PemesananImpl;
+import KostPLE.pemesanan.core.model.PemesananImpl;
 import KostPLE.payment.core.model.Payment;
 import KostPLE.payment.core.model.PaymentComponent;
 
@@ -34,70 +34,101 @@ public class PaymentImpl extends PaymentDecorator {
 		this.accountNumber = accountNumber;
 		this.provider = provider;
 	}
+	
+	public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> paymentMap = new HashMap<String, Object>();
+		paymentMap.put("idPayment", getIdPayment());
+		paymentMap.put("amount", getAmount());
+		paymentMap.put("status", getStatus());
+		paymentMap.put("createdAt", getCreatedAt());
+		paymentMap.put("accountNumber", accountNumber);
+		paymentMap.put("provider", provider);
+		paymentMap.put("pemesananimpl", getPemesananimpl());
+
+        return paymentMap;
+    }
 
 
 	public void pay() {
-		// TODO: implement this method
+		// Payment logic using VA
+		if (this.record != null) {
+			this.record.Pay();
+		}
 	}
 
 	@Override
 	public void setPemesananimpl(PemesananImpl pemesananimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setPemesananimpl'");
+		if (this.record != null) {
+			this.record.setPemesananimpl(pemesananimpl);
+		}
 	}
 
 	@Override
 	public String getIdPayment() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getIdPayment'");
+		if (this.record != null) {
+			return this.record.getIdPayment();
+		}
+		return null;
 	}
 
 	@Override
 	public void setIdPayment(String idPayment) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setIdPayment'");
+		if (this.record != null) {
+			this.record.setIdPayment(idPayment);
+		}
 	}
 
 	@Override
 	public Float getAmount() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getAmount'");
+		if (this.record != null) {
+			return this.record.getAmount();
+		}
+		return null;
 	}
 
 	@Override
 	public void setAmount(Float amount) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setAmount'");
+		if (this.record != null) {
+			this.record.setAmount(amount);
+		}
 	}
 
 	@Override
 	public boolean getStatus() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getStatus'");
+		if (this.record != null) {
+			return this.record.getStatus();
+		}
+		return false;
 	}
 
 	@Override
 	public void setStatus(boolean status) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
+		if (this.record != null) {
+			this.record.setStatus(status);
+		}
 	}
 
 	@Override
 	public Date getCreatedAt() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getCreatedAt'");
+		if (this.record != null) {
+			return this.record.getCreatedAt();
+		}
+		return null;
 	}
 
 	@Override
 	public void setCreatedAt(Date createdAt) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setCreatedAt'");
+		if (this.record != null) {
+			this.record.setCreatedAt(createdAt);
+		}
 	}
 
 	@Override
 	public PemesananImpl getPemesananimpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPemesananimpl'");
+		if (this.record != null) {
+			return this.record.getPemesananimpl();
+		}
+		return null;
 	}
 
 

@@ -10,5 +10,5 @@ public interface PemesananService {
     Pemesanan getPemesananById(UUID id);
     List<Pemesanan> getAllPemesanan();
     List<Pemesanan> deletePemesanan(UUID id);
-	List<HashMap<String, Object>> transformListToHashMap(List<Properti> propertiList);
+	List<HashMap<String, Object>> transformListToHashMap(List<Pemesanan> pemesananList);
 }

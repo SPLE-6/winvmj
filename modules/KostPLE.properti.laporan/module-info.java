@@ -1,6 +1,9 @@
 module KostPLE.properti.laporan {
 	requires KostPLE.properti.core;
-    exports KostPLE.properti.laporan;
+	requires KostPLE.profilpengguna.core;
+    exports KostPLE.properti.laporan.model;
+    exports KostPLE.properti.laporan.resource;
+    exports KostPLE.properti.laporan.service;
 
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;
@@ -10,5 +13,7 @@ module KostPLE.properti.laporan {
 	requires java.naming;
 	requires java.net.http;
 
-	opens KostPLE.properti.laporan to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	opens KostPLE.properti.laporan.model to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	opens KostPLE.properti.laporan.resource to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
+	opens KostPLE.properti.laporan.service to org.hibernate.orm.core, gson, vmj.hibernate.integrator;
 }

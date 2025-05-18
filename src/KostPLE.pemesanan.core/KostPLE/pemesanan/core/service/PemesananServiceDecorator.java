@@ -10,27 +10,15 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
         this.record = record;
     }
 
-	public Pemesanan createPemesanan(Map<String, Object> requestBody){
-		return record.createPemesanan(requestBody);
+    public Pemesanan savePemesanan(Map<String, Object> requestBody){
+		return record.savePemesanan(requestBody);
 	}
 
-    public Pemesanan createPemesanan(Map<String, Object> requestBody, Map<String, Object> response){
-		return record.createPemesanan(requestBody, response);
+	public List<Pemesanan> getAllPemesanan(){
+		return record.getAllPemesanan();
 	}
 
-	public HashMap<String, Object> getPemesanan(Map<String, Object> requestBody){
-		return record.getPemesanan(requestBody);
-	}
-
-	public List<HashMap<String,Object>> getAllPemesanan(Map<String, Object> requestBody){
-		return record.getAllPemesanan(requestBody);
-	}
-
-    public List<HashMap<String,Object>> savePemesanan(VMJExchange vmjExchange){
-		return record.savePemesanan(vmjExchange);
-	}
-
-    public HashMap<String, Object> updatePemesanan(Map<String, Object> requestBody){
+    public Pemesanan updatePemesanan(Map<String, Object> requestBody){
 		return record.updatePemesanan(requestBody);
 	}
 
@@ -38,12 +26,12 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
 		return record.transformListToHashMap(List);
 	}
 
-    public List<HashMap<String,Object>> deletePemesanan(Map<String, Object> requestBody){
-		return record.deletePemesanan(requestBody);
+    public List<Pemesanan> deletePemesanan(UUID pemesananId){
+		return record.deletePemesanan(pemesananId);
 	}
 
-	public HashMap<String, Object> getPemesananById(String id){
-        return record.getPemesananById(id);
+	public Pemesanan getPemesananById(UUID pemesananId){
+        return record.getPemesananById(pemesananId);
     }
 
 }

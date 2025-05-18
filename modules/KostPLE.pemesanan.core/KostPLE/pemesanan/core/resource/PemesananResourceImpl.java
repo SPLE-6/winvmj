@@ -1,4 +1,4 @@
-package KostPLE.pemesanan.core;
+package KostPLE.pemesanan.core.resource;
 import java.util.*;
 
 import vmj.routing.route.Route;
@@ -8,6 +8,8 @@ import KostPLE.pemesanan.PemesananFactory;
 //import prices.auth.vmj.annotations.Restricted;
 //add other required packages
 import KostPLE.pemesanan.core.Pemesanan;
+import KostPLE.pemesanan.core.PemesananResource;
+import KostPLE.pemesanan.core.PemesananResourceComponent;
 import KostPLE.pemesanan.core.PemesananServiceImpl;
 
 public class PemesananResourceImpl extends PemesananResourceComponent{
@@ -19,8 +21,9 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
     public HashMap<String,Object> savePemesanan(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload(); 
-			Pemesanan result = pemesananServiceImpl.createPemesanan(requestBody);
-			return result;
+			Map<String, Object> response = new HashMap<>();
+			Pemesanan result = pemesananServiceImpl.savePemesanan(requestBody, response);
+			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -42,13 +45,14 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
     	Map<String, Object> requestBody = vmjExchange.getPayload();
 		String pemesananStr = (String) requestBody.get("pemesananId");
 		UUID pemesananId = UUID.fromString(pemesananStr);
-		return pemesananServiceImpl.getPemesanan(pemesananId).toHashMap();
+		Pemesanan pemesanan = pemesananServiceImpl.getPemesananById(pemesananId);
+		return pemesanan.toHashMap();
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/pemesanan/list")
     public List<HashMap<String,Object>> getAllPemesanan(VMJExchange vmjExchange){
-		Pemesanan <Pemesanan> pemesananList = pemesananServiceImpl.getAllPemesanan();
+		List<Pemesanan> pemesananList = pemesananServiceImpl.getAllPemesanan();
 		return pemesananServiceImpl.transformListToHashMap(pemesananList);
 	}
 

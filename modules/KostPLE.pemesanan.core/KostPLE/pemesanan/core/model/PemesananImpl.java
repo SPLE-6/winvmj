@@ -1,14 +1,18 @@
-package KostPLE.pemesanan.core;
+package KostPLE.pemesanan.core.model;
 
 import java.lang.Math;
 import java.util.*;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
+import KostPLE.pemesanan.core.Pemesanan;
+import KostPLE.pemesanan.core.PemesananComponent;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import KostPLE.kamar.core.Kamar;
 import KostPLE.kamar.core.KamarImpl;
+import KostPLE.profilpengguna.core.ProfilPengguna;
 import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
 
 import javax.persistence.Column;
@@ -67,21 +71,22 @@ public class PemesananImpl extends PemesananComponent {
     }
 
 	@Override
-	public void setKamar(Kamar kamar) {
-		this.kamar = kamar;
+	public void setProfilpengguna(ProfilPengguna profilPengguna) {
+		this.profilPengguna = profilPengguna;
 	}
-
+	
 	@Override
 	public void setProfilPengguna(ProfilPengguna profilPengguna) {
 		this.profilPengguna = profilPengguna;
 	}
 
 	@Override
-	public String getIdPemesanan() {
+	public UUID getIdPemesanan() {
 		return this.idPemesanan;
 	}
 
-	public void setIdPemesanan(String idPemesanan) {
+	@Override
+	public void setIdPemesanan(UUID idPemesanan) {
 		this.idPemesanan = idPemesanan;
 	}
 
@@ -132,7 +137,7 @@ public class PemesananImpl extends PemesananComponent {
 
 	@Override
 	public void setDetail(String detail) {
-		return this.detail = detail;
+		this.detail = detail;
 	}
 
 	@Override
@@ -146,7 +151,7 @@ public class PemesananImpl extends PemesananComponent {
 	}
 
 	@Override
-	public KamarImpl getKamar() {
+	public Kamar getKamar() {
 		return this.kamar;
 	}
 
@@ -156,7 +161,7 @@ public class PemesananImpl extends PemesananComponent {
 	}
 
 	@Override
-	public ProfilPenggunaImpl getProfilPengguna() {
+	public ProfilPengguna getProfilPengguna() {
 		return this.profilPengguna;
 	}
 
