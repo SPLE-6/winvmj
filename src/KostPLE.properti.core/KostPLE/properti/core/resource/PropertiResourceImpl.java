@@ -43,7 +43,11 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
     public HashMap<String, Object> getProperti(VMJExchange vmjExchange){
     	Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		String propertiStr = vmjExchange.getGETParam("propertiId");
-		System.out.println(propertiStr);
+		
+		if (propertiStr == "") {
+			propertiStr = (String) requestBody.get("propertiId");
+		} 
+		
 		UUID propertiId = UUID.fromString(propertiStr);
 		return propertiServiceImpl.getPropertiById(propertiId).toHashMap();
 	}

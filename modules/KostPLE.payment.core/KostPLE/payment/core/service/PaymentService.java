@@ -1,17 +1,14 @@
-package KostPLE.payment.core.service;
+package KostPLE.payment.core;
 import java.util.*;
 
-import KostPLE.payment.core.model.Payment;
+import KostPLE.payment.core.Payment;
 import vmj.routing.route.VMJExchange;
 
 public interface PaymentService {
-	Payment createPayment(Map<String, Object> requestBody);
-	Payment createPayment(Map<String, Object> requestBody, Map<String, Object> response);
-	HashMap<String, Object> getPayment(Map<String, Object> requestBody);
-    List<HashMap<String,Object>> savePayment(Map<String, Object> requestBody);
-    HashMap<String, Object> updatePayment(Map<String, Object> requestBody);
-    HashMap<String, Object> getPaymentById(String id);
-    List<HashMap<String,Object>> getAllPayment(Map<String, Object> requestBody);
-    List<HashMap<String,Object>> deletePayment(Map<String, Object> requestBody);
+	Payment savePayment(Map<String, Object> requestBody);
+    Payment updatePayment(Map<String, Object> requestBody);
+	Payment getPaymentById(UUID id);
+    List<Payment> getAllPayment();
+    List<Payment> deletePayment(UUID id);
 	List<HashMap<String, Object>> transformListToHashMap(List<Payment> List);
 }

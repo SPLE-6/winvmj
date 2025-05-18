@@ -1,4 +1,4 @@
-package KostPLE.payment.core.model;
+package KostPLE.payment.core;
 
 import java.lang.Math;
 import java.util.*;
@@ -8,7 +8,7 @@ import vmj.routing.route.VMJExchange;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import KostPLE.pemesanan.core.PemesananImpl;
+import KostPLE.pemesanan.core.Pemesanan;
 
 import javax.persistence.Column;
 import javax.persistence.ForeignKey;
@@ -18,24 +18,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
-@Entity(name="_impl")
-@Table(name="_impl")
+@Entity(name="payment_impl")
+@Table(name="payment_impl")
 public class PaymentImpl extends PaymentComponent {
 
-	public PaymentImpl(String idPayment, Float amount, boolean status, Date createdAt, PemesananImpl pemesananimpl) {
+	public PaymentImpl(UUID idPayment, Float amount, boolean status, Date createdAt, Pemesanan pemesanan) {
 		this.idPayment = idPayment;
 		this.amount = amount;
 		this.status = status;
 		this.createdAt = createdAt;
-		this.pemesananimpl = pemesananimpl;
+		this.pemesanan = pemesanan;
 	}
 
-	public PaymentImpl(Float amount, boolean status, Date createdAt, PemesananImpl pemesananimpl) {
-		this.idPayment =  UUID.randomUUID().toString();
+	public PaymentImpl(Float amount, boolean status, Date createdAt, Pemesanan pemesanan) {
+		this.idPayment =  UUID.randomUUID();
 		this.amount = amount;
 		this.status = status;
 		this.createdAt = createdAt;
-		this.pemesananimpl = pemesananimpl;
+		this.pemesanan = pemesanan;
 	}
 
 	public PaymentImpl() { }
@@ -55,69 +55,59 @@ public class PaymentImpl extends PaymentComponent {
 		Map.put("amount",getAmount());
 		Map.put("status",getStatus());
 		Map.put("createdAt",getCreatedAt());
-		Map.put("pemesananimpl",getPemesananimpl());
+		Map.put("pemesanan",getPemesanan());
 
         return Map;
     }
 
 	@Override
-	public void setPemesananimpl(PemesananImpl pemesananimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setPemesananimpl'");
+	public void setPemesanan(Pemesanan pemesanan) {
+		this.pemesanan = pemesanan;
 	}
 
 	@Override
-	public String getIdPayment() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getIdPayment'");
+	public UUID getIdPayment() {
+		return this.idPayment;
 	}
 
 	@Override
-	public void setIdPayment(String idPayment) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setIdPayment'");
+	public void setIdPayment(UUID idPayment) {
+		this.idPayment = idPayment;
 	}
 
 	@Override
 	public Float getAmount() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getAmount'");
+		return this.amount;
 	}
 
 	@Override
 	public void setAmount(Float amount) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setAmount'");
+		this.amount = amount;
 	}
 
 	@Override
 	public boolean getStatus() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getStatus'");
+		return this.status;
 	}
 
 	@Override
 	public void setStatus(boolean status) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
+		this.status = status;
 	}
 
 	@Override
 	public Date getCreatedAt() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getCreatedAt'");
+		return this.createdAt;
 	}
 
 	@Override
 	public void setCreatedAt(Date createdAt) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setCreatedAt'");
+		this.createdAt = createdAt;
 	}
 
 	@Override
-	public PemesananImpl getPemesananimpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPemesananimpl'");
+	public Pemesanan getPemesanan() {
+		return this.pemesanan;
 	}
 
 

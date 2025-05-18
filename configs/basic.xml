@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
 	<feature automatic="selected" name="KostPLE"/>
-	<feature name="Payment"/>
+	<feature automatic="selected" name="Payment"/>
 	<feature name="PaymentVA"/>
-	<feature name="PaymentKredit"/>
+	<feature manual="selected" name="PaymentKredit"/>
 	<feature automatic="selected" name="KatalogKost"/>
 	<feature automatic="selected" name="InformasiKost"/>
 	<feature name="PengajuanSurvey"/>

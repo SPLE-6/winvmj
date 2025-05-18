@@ -1,7 +1,6 @@
-package KostPLE.payment.core.resource;
+package KostPLE.payment.core;
 import java.util.*;
 
-import KostPLE.payment.core.model.Payment;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
@@ -12,24 +11,24 @@ public abstract class PaymentResourceDecorator extends PaymentResourceComponent{
         this.record = record;
     }
 
-    public Payment create(VMJExchange vmjExchange){
-		return record.create(vmjExchange);
+    public HashMap<String, Object> savePayment(VMJExchange vmjExchange){
+		return record.savePayment(vmjExchange);
 	}
 
-    public HashMap<String, Object> update(VMJExchange vmjExchange){
-		return record.update(vmjExchange);
+    public HashMap<String, Object> updatePayment(VMJExchange vmjExchange){
+		return record.updatePayment(vmjExchange);
 	}
 
-    public HashMap<String, Object> get(VMJExchange vmjExchange){
-		return record.get(vmjExchange);
+    public HashMap<String, Object> getPayment(VMJExchange vmjExchange){
+		return record.getPayment(vmjExchange);
 	}
 
-    public List<HashMap<String,Object>> getAll(VMJExchange vmjExchange){
-		return record.getAll(vmjExchange);
+    public List<HashMap<String,Object>> getAllPayment(VMJExchange vmjExchange){
+		return record.getAllPayment(vmjExchange);
 	}
 
-    public List<HashMap<String,Object>> delete(VMJExchange vmjExchange){
-		return record.delete(vmjExchange);
+    public List<HashMap<String,Object>> deletePayment(VMJExchange vmjExchange){
+		return record.deletePayment(vmjExchange);
 	}
 
 	public void Pay() {

@@ -1,4 +1,4 @@
-package KostPLE.payment.core.model;
+package KostPLE.payment.core;
 
 import java.util.*;
 import vmj.routing.route.Route;
@@ -12,21 +12,21 @@ import javax.persistence.Table;
 
 import KostPLE.pemesanan.core.Pemesanan;
 import KostPLE.pemesanan.core.PemesananComponent;
-import KostPLE.pemesanan.core.PemesananImpl;
+
 
 import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="_comp")
+@Table(name="payment_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PaymentComponent implements Payment{
 	@Id
-	public String idPayment; 
+	public UUID idPayment; 
 	public Float amount;
 	public boolean status;
 	public Date createdAt;
-	@ManyToOne(targetEntity=PemesananComponent.class)
-	public Pemesanan pemesananimpl;
+	@ManyToOne(targetEntity=KostPLE.pemesanan.core.PemesananComponent.class)
+	public Pemesanan pemesanan;
 	protected String objectName = PaymentComponent.class.getName();
 
 	public PaymentComponent() {
@@ -34,17 +34,17 @@ public abstract class PaymentComponent implements Payment{
 	} 
 
 	public PaymentComponent(
-        String idPayment, Float amount, boolean status, Date createdAt, PemesananImpl pemesananimpl
+         UUID idPayment, Float amount, boolean status, Date createdAt, Pemesanan pemesanan
     ) {
         this.idPayment = idPayment;
         this.amount = amount;
         this.status = status;
         this.createdAt = createdAt;
-        this.pemesananimpl = pemesananimpl;
+        this.pemesanan = pemesanan;
     }
 
-	public abstract String getIdPayment();
-	public abstract void setIdPayment(String idPayment);
+	public abstract UUID getIdPayment();
+	public abstract void setIdPayment(UUID idPayment);
 	
 	public abstract Float getAmount();
 	public abstract void setAmount(Float amount);
@@ -55,8 +55,8 @@ public abstract class PaymentComponent implements Payment{
 	public abstract Date getCreatedAt();
 	public abstract void setCreatedAt(Date createdAt);
 	
-	public abstract PemesananImpl getPemesananimpl();
-	public abstract void setPemesananimpl(PemesananImpl pemesananimpl);
+	public abstract Pemesanan getPemesanan();
+	public abstract void setPemesanan(Pemesanan pemesanan);
 	
  
 	public abstract void Pay();
@@ -70,7 +70,7 @@ public abstract class PaymentComponent implements Payment{
             " amount='" + getAmount() + "'" +
             " status='" + getStatus() + "'" +
             " createdAt='" + getCreatedAt() + "'" +
-            " pemesananimpl='" + getPemesananimpl() + "'" +
+            " pemesanan='" + getPemesanan() + "'" +
             "}";
     }
 	

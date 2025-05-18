@@ -1,4 +1,4 @@
-package KostPLE.payment.paymentkredit.model;
+package KostPLE.payment.paymentkredit;
 
 import java.util.*;
 import vmj.routing.route.Route;
@@ -9,10 +9,9 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 
 
-import KostPLE.payment.core.model.PaymentDecorator;
-import KostPLE.pemesanan.core.PemesananImpl;
-import KostPLE.payment.core.model.Payment;
-import KostPLE.payment.core.model.PaymentComponent;
+import KostPLE.payment.core.*;
+import KostPLE.pemesanan.core.Pemesanan;
+
 
 @Entity(name="payment_paymentkredit")
 @Table(name="payment_paymentkredit")
@@ -38,61 +37,90 @@ public class PaymentImpl extends PaymentDecorator {
 		this.provider = provider;
 		this.ccv = ccv;
 	}
+	
+	
+	public int getAccountNumber() {
+		return this.accountNumber;
+	}
 
-
-	public void Pay() {
-		// TODO: implement this method
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	
+	public String getProvider() {
+		return this.provider = provider;
+	}
+	
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+	
+	public String getCcv() {
+		return this.ccv;
+	}
+	
+	public void setCcv(String ccv) {
+		this.ccv = ccv;
+	}
+	
+	@Override
+	public void setPemesanan(Pemesanan pemesanan) {
+		this.pemesanan = pemesanan;
 	}
 
 	@Override
-	public void setPemesananimpl(PemesananImpl pemesananimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setPemesananimpl'");
+	public UUID getIdPayment() {
+		return this.idPayment;
 	}
 
-	public String getIdPayment() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getIdPayment'");
+	@Override
+	public void setIdPayment(UUID idPayment) {
+		this.idPayment = idPayment;
 	}
 
-	public void setIdPayment(String idPayment) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setIdPayment'");
-	}
-
+	@Override
 	public Float getAmount() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getAmount'");
+		return this.amount;
 	}
 
+	@Override
 	public void setAmount(Float amount) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setAmount'");
+		this.amount = amount;
 	}
 
+	@Override
 	public boolean getStatus() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getStatus'");
+		return this.status;
 	}
 
+	@Override
 	public void setStatus(boolean status) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
+		this.status = status;
 	}
 
+	@Override
 	public Date getCreatedAt() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getCreatedAt'");
+		return this.createdAt;
 	}
 
+	@Override
 	public void setCreatedAt(Date createdAt) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setCreatedAt'");
+		this.createdAt = createdAt;
 	}
 
-	public PemesananImpl getPemesananimpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPemesananimpl'");
+	@Override
+	public Pemesanan getPemesanan() {
+		return this.pemesanan;
 	}
+	
+	
+	
+	
+	
+
+
+
+
+
 
 }

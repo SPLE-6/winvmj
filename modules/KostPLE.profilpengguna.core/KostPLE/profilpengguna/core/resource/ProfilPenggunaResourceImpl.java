@@ -22,9 +22,7 @@ public class ProfilPenggunaResourceImpl extends ProfilPenggunaResourceComponent{
     public HashMap<String,Object> saveProfilPengguna(VMJExchange vmjExchange) {
     if (vmjExchange.getHttpMethod().equals("POST")) {
         HashMap<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload();
-        System.out.println("K: " + requestBody);
         ProfilPengguna result = profilpenggunaServiceImpl.saveProfilPengguna(requestBody);
-        System.out.println("H: " + result);
         return result.toHashMap();
     }
     throw new NotFoundException("Route not found");

@@ -1,5 +1,13 @@
 package KostPLE.pemesanan.core;
+
 import java.util.*;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+
+import java.util.Date;
 import com.google.gson.Gson;
 import java.util.*;
 import java.util.logging.Logger;
@@ -28,23 +36,61 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 
     public Pemesanan savePemesanan(Map<String, Object> requestBody){
 		UUID idPemesanan = UUID.randomUUID();
-		String statusPemesanan = (String) requestBody.get("statusPemesanan");
+		String statusPemesanan = "In Progress";
 		String detail = (String) requestBody.get("detail");
-		Date startDate = (Date) requestBody.get("startDate");
-		Date endDate = (Date) requestBody.get("endDate");
-		Float totalPay = (Float) requestBody.get("totalPay");
+	
+		Date startDate = null;
+		Date endDate = null;
+		try {
+			String startDateStr = (String) requestBody.get("startDate");
+			String endDateStr = (String) requestBody.get("endDate");
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
+			startDate = sdf.parse(startDateStr);
+			endDate = sdf.parse(endDateStr);
+
+			// lanjutkan dengan penggunaan startDate dan endDate di sini...
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Format tanggal tidak valid: " + e.getMessage());
+		}
 		
 		
 		Date createdAt = new Date();
 		
-		String idProfilPenggunaStr = (String) requestBody.get("idPofilPengguna");
+
+		
+		
+		String idProfilPenggunaStr = (String) requestBody.get("idProfilPengguna");
+
 		UUID idProfilPengguna = UUID.fromString(idProfilPenggunaStr);
 		
+		
+
 		String idKamarStr = (String) requestBody.get("idKamar");
 		UUID idKamar = UUID.fromString(idKamarStr);
 		
 		ProfilPengguna profilPengguna = profilPenggunaService.getProfilPenggunaById(idProfilPengguna);
 		Kamar kamar = kamarService.getKamarById(idKamar);
+		
+		kamar.setIsAvailable(false);
+		
+		LocalDate start = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate end = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		int months = (int) ChronoUnit.MONTHS.between(start, end);
+		
+
+		// Ambil harga per bulan dari kamar
+		float pricePerMonth = kamar.getHargaKamar(); // asumsi method-nya getPrice()
+		
+		
+		// Hitung total bayar
+		Float totalPay = pricePerMonth * months;
+		
+
 
 		
 		//to do: fix association attributes
