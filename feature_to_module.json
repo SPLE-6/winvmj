@@ -5,9 +5,10 @@
   "PaymentKredit": ["KostPLE.payment.paymentkredit"],
   "KatalogKost": ["KostPLE.properti.core", "KostPLE.kamar.core"],
   "SewaKost": ["KostPLE.pemesanan.core"],
-  "SewaViaApp": ["KostPLE.pemesanan.sewakostviaapp"],
+  "SewaViaApp": ["KostPLE.pemesanan.sewaviaapp"],
   "KostAktifPenyewa": ["KostPLE.pemesanan.core"],
   "InformasiTagihan": ["KostPLE.pemesanan.informasitagihan"],
   "PropertiPemilik": ["KostPLE.properti.core"],
   "LaporanKeuangan": ["KostPLE.properti.laporan"]
 }
+

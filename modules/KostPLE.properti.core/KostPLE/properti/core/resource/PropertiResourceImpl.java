@@ -45,7 +45,7 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
 		String propertiStr = vmjExchange.getGETParam("propertiId");
 		
 		if (propertiStr == "") {
-			String propertiStr = (String) body.get("propertiId");
+			propertiStr = (String) requestBody.get("propertiId");
 		} 
 		
 		UUID propertiId = UUID.fromString(propertiStr);

@@ -26,6 +26,10 @@ import KostPLE.profilpengguna.ProfilPenggunaResourceFactory;
 import KostPLE.profilpengguna.core.ProfilPenggunaResource;
 import KostPLE.profilpengguna.ProfilPenggunaServiceFactory;
 import KostPLE.profilpengguna.core.ProfilPenggunaService;
+import KostPLE.payment.PaymentResourceFactory;
+import KostPLE.payment.core.PaymentResource;
+import KostPLE.payment.PaymentServiceFactory;
+import KostPLE.payment.core.PaymentService;
 import KostPLE.properti.PropertiResourceFactory;
 import KostPLE.properti.core.PropertiResource;
 import KostPLE.properti.PropertiServiceFactory;
@@ -80,6 +84,11 @@ public class Basic {
 		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaComponent.class);
 		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaDecorator.class);
 		configuration.addAnnotatedClass(KostPLE.profilpengguna.core.ProfilPenggunaImpl.class);
+		configuration.addAnnotatedClass(KostPLE.payment.core.Payment.class);
+		configuration.addAnnotatedClass(KostPLE.payment.core.PaymentComponent.class);
+		configuration.addAnnotatedClass(KostPLE.payment.core.PaymentDecorator.class);
+		configuration.addAnnotatedClass(KostPLE.payment.core.PaymentImpl.class);
+		configuration.addAnnotatedClass(KostPLE.payment.paymentva.PaymentImpl.class);
 		configuration.addAnnotatedClass(KostPLE.properti.core.Properti.class);
 		configuration.addAnnotatedClass(KostPLE.properti.core.PropertiComponent.class);
 		configuration.addAnnotatedClass(KostPLE.properti.core.PropertiDecorator.class);
@@ -92,6 +101,7 @@ public class Basic {
 		configuration.addAnnotatedClass(KostPLE.pemesanan.core.PemesananComponent.class);
 		configuration.addAnnotatedClass(KostPLE.pemesanan.core.PemesananDecorator.class);
 		configuration.addAnnotatedClass(KostPLE.pemesanan.core.PemesananImpl.class);
+		configuration.addAnnotatedClass(KostPLE.pemesanan.sewaviaapp.PemesananImpl.class);
 
 		Map<String, Object> featureModelMappings = mappingFeatureModel();
 		Gson gson = new Gson();
@@ -138,6 +148,22 @@ public class Basic {
             .createProfilPenggunaResource("KostPLE.profilpengguna.core.ProfilPenggunaResourceImpl"
                 );
 			
+        PaymentService paymentPayment2Service = PaymentServiceFactory
+            .createPaymentService("KostPLE.payment.core.PaymentServiceImpl"
+            	);		
+
+        PaymentResource paymentPayment2Resource = PaymentResourceFactory
+            .createPaymentResource("KostPLE.payment.core.PaymentResourceImpl"
+                );
+			
+        PaymentService paymentvaPayment2Service = PaymentServiceFactory
+            .createPaymentService("KostPLE.payment.paymentva.PaymentServiceImpl"
+            	, paymentPayment2Service);		
+
+        PaymentResource paymentvaPayment2Resource = PaymentResourceFactory
+            .createPaymentResource("KostPLE.payment.paymentva.PaymentResourceImpl"
+                , paymentPayment2Resource, paymentPayment2Service);
+			
         PropertiService propertiProperti2Service = PropertiServiceFactory
             .createPropertiService("KostPLE.properti.core.PropertiServiceImpl"
             	);		
@@ -162,6 +188,14 @@ public class Basic {
             .createPemesananResource("KostPLE.pemesanan.core.PemesananResourceImpl"
                 );
 			
+        PemesananService sewaviaappPemesanan2Service = PemesananServiceFactory
+            .createPemesananService("KostPLE.pemesanan.sewaviaapp.PemesananServiceImpl"
+            	, pemesananPemesanan2Service);		
+
+        PemesananResource sewaviaappPemesanan2Resource = PemesananResourceFactory
+            .createPemesananResource("KostPLE.pemesanan.sewaviaapp.PemesananResourceImpl"
+                , pemesananPemesanan2Resource, pemesananPemesanan2Service);
+			
         PropertiService propertiProperti4Service = PropertiServiceFactory
             .createPropertiService("KostPLE.properti.core.PropertiServiceImpl"
             	);		
@@ -176,6 +210,12 @@ public class Basic {
 		
 		System.out.println("propertiProperti4Service endpoints binding");
 		Router.route(propertiProperti4Service);
+		
+		System.out.println("sewaviaappPemesanan2Resource endpoints binding");
+		Router.route(sewaviaappPemesanan2Resource);
+		
+		System.out.println("sewaviaappPemesanan2Service endpoints binding");
+		Router.route(sewaviaappPemesanan2Service);
 		
 		System.out.println("pemesananPemesanan2Resource endpoints binding");
 		Router.route(pemesananPemesanan2Resource);
@@ -194,6 +234,18 @@ public class Basic {
 		
 		System.out.println("propertiProperti2Service endpoints binding");
 		Router.route(propertiProperti2Service);
+		
+		System.out.println("paymentvaPayment2Resource endpoints binding");
+		Router.route(paymentvaPayment2Resource);
+		
+		System.out.println("paymentvaPayment2Service endpoints binding");
+		Router.route(paymentvaPayment2Service);
+		
+		System.out.println("paymentPayment2Resource endpoints binding");
+		Router.route(paymentPayment2Resource);
+		
+		System.out.println("paymentPayment2Service endpoints binding");
+		Router.route(paymentPayment2Service);
 		
 		System.out.println("profilpenggunaProfilPengguna2Resource endpoints binding");
 		Router.route(profilpenggunaProfilPengguna2Resource);
@@ -217,6 +269,18 @@ public class Basic {
 					KostPLE.profilpengguna.core.ProfilPenggunaComponent.class.getName()
 				});
 				put("deltas", new String[] {
+				});
+			}}
+        );
+
+		featureModelMappings.put(
+            KostPLE.payment.core.PaymentComponent.class.getName(),
+			new HashMap<String, String[]>() {{
+				put("components", new String[] {
+					KostPLE.payment.core.PaymentComponent.class.getName()
+				});
+				put("deltas", new String[] {
+					KostPLE.payment.paymentva.PaymentImpl.class.getName()
 				});
 			}}
         );
@@ -250,44 +314,11 @@ public class Basic {
 					KostPLE.pemesanan.core.PemesananComponent.class.getName()
 				});
 				put("deltas", new String[] {
+					KostPLE.pemesanan.sewaviaapp.PemesananImpl.class.getName()
 				});
 			}}
         );
 
-		featureModelMappings.put(
-	            vmj.auth.model.core.UserComponent.class.getName(),
-				new HashMap<String, String[]>() {{
-					put("components", new String[] {
-						vmj.auth.model.core.UserComponent.class.getName()
-					});
-					put("deltas", new String[] {
-						vmj.auth.model.passworded.UserImpl.class.getName()
-					});
-				}}
-	        );
-	        
-	    featureModelMappings.put(
-				vmj.auth.model.core.RoleComponent.class.getName(),
-				new HashMap<String, String[]>() {{
-					put("components", new String[] {
-						vmj.auth.model.core.RoleComponent.class.getName()
-					});
-					put("deltas", new String[] {
-					});
-				}}
-	        );
-	    
-	    featureModelMappings.put(
-				vmj.auth.model.core.UserRoleComponent.class.getName(),
-				new HashMap<String, String[]>() {{
-					put("components", new String[] {
-						vmj.auth.model.core.UserRoleComponent.class.getName()
-					});
-					put("deltas", new String[] {
-					});
-				}}
-	        );
-	    
 		return featureModelMappings;
 	}
 

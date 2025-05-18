@@ -13,5 +13,6 @@ module kostple.product.basic {
     requires KostPLE.properti.core;
     requires KostPLE.kamar.core;
     requires KostPLE.pemesanan.core;
+    requires KostPLE.pemesanan.sewaviaapp;
 
 }

@@ -9,151 +9,122 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 
 import KostPLE.pemesanan.core.PemesananDecorator;
-import KostPLE.profilpengguna.core.ProfilPenggunaImpl;
-import KostPLE.kamar.core.KamarImpl;
 import KostPLE.pemesanan.core.Pemesanan;
 import KostPLE.pemesanan.core.PemesananComponent;
+import KostPLE.kamar.core.Kamar;
+import KostPLE.profilpengguna.core.ProfilPengguna;
 
 @Entity(name="pemesanan_sewaviaapp")
 @Table(name="pemesanan_sewaviaapp")
 public class PemesananImpl extends PemesananDecorator {
 
-	public Float downPayment;
+	protected int totalHarga;
+	protected int downPayment;
 	public PemesananImpl() {
         super();
     }
     
-    public PemesananImpl(Float downPayment) {
+    public PemesananImpl(int downPayment) {
     	super();
 		this.downPayment = downPayment;
     }
 	
-	public PemesananImpl(PemesananComponent record, Float downPayment) {
+	public PemesananImpl(PemesananComponent record, int downPayment) {
 		super(record);
 		this.downPayment = downPayment;
 	}
 
-
-	public void sumTotal() {
+	public int sumTotal() {
 		// TODO: implement this method
+		int dp = totalHarga / 10;
+		setTotalHarga(totalHarga-dp);
+		setDownPayment(dp);
+		return totalHarga;
 	}
 
-	public void addNewPesanan() {
-		// TODO: implement this method
+	public void setTotalHarga(int totalHarga) {
+		this.totalHarga = totalHarga;
+	}
+	public int getTotalHarga() {
+		return totalHarga;
+	}
+	public int getDownPayment() {
+		return downPayment;
+	}
+	public void setDownPayment(int downPayment) {
+		this.downPayment = downPayment;
 	}
 
-	@Override
-	public void setKamarImpl(KamarImpl kamarimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setKamarImpl'");
+	public void setProfilPengguna(ProfilPengguna profilPengguna) {
+		this.profilPengguna = profilPengguna;
 	}
 
-	@Override
-	public void setProfilpenggunaimpl(ProfilPenggunaImpl profilpenggunaimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setProfilpenggunaimpl'");
+	public UUID getIdPemesanan() {
+		return this.idPemesanan;
 	}
 
-	@Override
-	public String getIdPemesanan() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getIdPemesanan'");
+	public void setIdPemesanan(UUID idPemesanan) {
+		this.idPemesanan = idPemesanan;
 	}
 
-	@Override
-	public void setIdPemesanan(String idPemesanan) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setIdPemesanan'");
-	}
-
-	@Override
 	public Date getStartDate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getStartDate'");
+		return this.startDate;
 	}
 
-	@Override
 	public void setStartDate(Date startDate) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setStartDate'");
+		this.startDate = startDate;
 	}
 
-	@Override
 	public Date getEndDate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getEndDate'");
+		return endDate;
 	}
 
-	@Override
 	public void setEndDate(Date endDate) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setEndDate'");
+		this.endDate = endDate;
 	}
 
-	@Override
 	public Float getTotalPay() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getTotalPay'");
+		return this.totalPay;
 	}
 
-	@Override
 	public void setTotalPay(Float totalPay) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setTotalPay'");
+		this.totalPay = totalPay;
 	}
 
-	@Override
 	public String getStatusPemesanan() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getStatusPemesanan'");
+		return this.statusPemesanan;
 	}
 
-	@Override
 	public void setStatusPemesanan(String statusPemesanan) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setStatusPemesanan'");
+		this.statusPemesanan = statusPemesanan;
 	}
 
-	@Override
 	public String getDetail() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getDetail'");
+		return this.detail;
 	}
 
-	@Override
 	public void setDetail(String detail) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setDetail'");
+		this.detail = detail;
 	}
 
-	@Override
 	public Date getCreatedAt() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getCreatedAt'");
+		return this.createdAt;
 	}
 
-	@Override
 	public void setCreatedAt(Date createdAt) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setCreatedAt'");
+		this.createdAt = createdAt;
 	}
 
-	@Override
-	public KamarImpl getKamarImpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getKamarImpl'");
+	public Kamar getKamar() {
+		return this.kamar;
 	}
 
-	@Override
-	public void setKamarimpl(KamarImpl kamarimpl) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setKamarimpl'");
+	public void setKamar(Kamar kamar) {
+		this.kamar = kamar;
 	}
 
-	@Override
-	public ProfilPenggunaImpl getProfilPenggunaImpl() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getProfilPenggunaImpl'");
+	public ProfilPengguna getProfilPengguna() {
+		return this.profilPengguna;
 	}
-
+	
 }
