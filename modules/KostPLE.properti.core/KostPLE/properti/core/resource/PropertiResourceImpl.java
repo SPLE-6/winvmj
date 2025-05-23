@@ -45,7 +45,7 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
     @Route(url="call/properti/detail")
     public HashMap<String, Object> getProperti(VMJExchange vmjExchange){
     	Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		String propertiStr = vmjExchange.getGETParam("propertiId");
+		String propertiStr = vmjExchange.getGETParam("idProperti");
 		
 		if (propertiStr == "") {
 			propertiStr = (String) requestBody.get("propertiId");

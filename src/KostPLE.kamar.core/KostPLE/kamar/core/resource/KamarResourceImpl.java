@@ -48,6 +48,22 @@ public class KamarResourceImpl extends KamarResourceComponent {
 		return result.toHashMap();
 
 	}
+	
+	@Route(url = "call/kamar/list-kamar")
+	public List<HashMap<String, Object>> getAllKamarByIdProperti(VMJExchange vmjExchange) {
+		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+		String propertiStr = vmjExchange.getGETParam("idProperti");
+		
+		if (propertiStr == "") {
+			propertiStr = (String) requestBody.get("propertiId");
+		} 
+		
+		UUID propertiId = UUID.fromString(propertiStr);
+
+		
+		List<Kamar> kamarList = kamarServiceImpl.getAllKamarByProperti(propertiId);
+		return kamarServiceImpl.transformListToHashMap(kamarList);
+	}
 
 	// @Restriced(permission = "")
 	@Route(url = "call/kamar/detail")

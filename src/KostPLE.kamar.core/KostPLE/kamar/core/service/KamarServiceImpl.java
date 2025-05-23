@@ -11,6 +11,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
+
 
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
@@ -119,6 +121,18 @@ public class KamarServiceImpl extends KamarServiceComponent {
 	public List<Kamar> getAllKamar() {
 		List<Kamar> kamarList = Repository.getAllObject("kamar_impl");
 		return kamarList;
+	}
+	
+	public List<Kamar> getAllKamarByProperti(UUID propertiId) {
+		List<Kamar> kamarList = Repository.getAllObject("kamar_impl");
+		return kamarList;
+
+//		return kamarList.stream()
+//	            .filter(kamar -> 
+//	                kamar.getProperti() != null && 
+//	                propertiId.equals(kamar.getProperti().getIdProperti()))
+//	            .collect(Collectors.toList());
+
 	}
 
 	public List<HashMap<String, Object>> transformListToHashMap(List<Kamar> List) {

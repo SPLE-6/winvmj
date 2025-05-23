@@ -24,6 +24,9 @@ public abstract class KamarResourceComponent implements KamarResource {
     public abstract HashMap<String, Object> getKamar(VMJExchange vmjExchange);
 
     public abstract List<HashMap<String, Object>> getAllKamar(VMJExchange vmjExchange);
+    
+    public abstract List<HashMap<String, Object>> getAllKamarByIdProperti(VMJExchange vmjExchange);
+
 
     public abstract List<HashMap<String, Object>> deleteKamar(VMJExchange vmjExchange);
 

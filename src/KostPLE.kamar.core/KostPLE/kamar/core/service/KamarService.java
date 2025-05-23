@@ -14,6 +14,8 @@ public interface KamarService {
 
 
     Kamar getKamarById(UUID id);
+    
+    List<Kamar> getAllKamarByProperti(UUID propertiId);
 
     List<Kamar> getAllKamar();
 

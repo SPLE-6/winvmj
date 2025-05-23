@@ -14,8 +14,8 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
 		return record.savePemesanan(requestBody);
 	}
     
-	public Pemesanan savePemesananByUser(Map<String, Object> requestBody, String email) {
-		return record.savePemesananByUser(requestBody, email);
+	public Pemesanan savePemesananByUser(Map<String, Object> requestBody, String email, UUID kamarId) {
+		return record.savePemesananByUser(requestBody, email, kamarId);
 	}
 
 
@@ -26,6 +26,11 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
     public Pemesanan updatePemesanan(Map<String, Object> requestBody){
 		return record.updatePemesanan(requestBody);
 	}
+    
+    public Pemesanan updateStatusPemesanan(UUID id) {
+    	return record.updateStatusPemesanan(id);
+    }
+
 
     public List<HashMap<String,Object>> transformListToHashMap(List<Pemesanan> List){
 		return record.transformListToHashMap(List);

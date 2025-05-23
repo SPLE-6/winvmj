@@ -32,6 +32,10 @@ public abstract class KamarResourceDecorator extends KamarResourceComponent {
 	public List<HashMap<String, Object>> getAllKamar(VMJExchange vmjExchange) {
 		return record.getAllKamar(vmjExchange);
 	}
+	
+    public List<HashMap<String, Object>> getAllKamarByIdProperti(VMJExchange vmjExchange){
+    	return record.getAllKamarByIdProperti(vmjExchange);
+    }
 
 	public List<HashMap<String, Object>> deleteKamar(VMJExchange vmjExchange) {
 		return record.deleteKamar(vmjExchange);

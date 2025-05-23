@@ -13,6 +13,8 @@ public interface KamarResource {
     HashMap<String, Object> getKamar(VMJExchange vmjExchange);
 
     List<HashMap<String, Object>> getAllKamar(VMJExchange vmjExchange);
+    
+    List<HashMap<String, Object>> getAllKamarByIdProperti(VMJExchange vmjExchange);
 
     List<HashMap<String, Object>> deleteKamar(VMJExchange vmjExchange);
 

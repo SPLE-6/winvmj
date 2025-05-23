@@ -32,8 +32,10 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
     public HashMap<String,Object> savePemesananByUser(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 	    	String email = vmjExchange.getAuthPayload().getEmail();
+	    	String kamarStr = vmjExchange.getGETParam("idKamar");
+			UUID kamarId = UUID.fromString(kamarStr);
 		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload(); 
-			Pemesanan result = pemesananServiceImpl.savePemesananByUser(requestBody, email);
+			Pemesanan result = pemesananServiceImpl.savePemesananByUser(requestBody, email, kamarId);
 			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");

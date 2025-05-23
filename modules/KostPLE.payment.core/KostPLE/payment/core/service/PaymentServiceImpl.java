@@ -44,6 +44,7 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 		
 		Pemesanan pemesanan = pemesananService.getPemesananById(idPemesanan);
 		
+		pemesanan = pemesananService.updateStatusPemesanan(idPemesanan);
 		
 		//to do: fix association attributes
 		Payment payment = paymentFactory.createPayment(

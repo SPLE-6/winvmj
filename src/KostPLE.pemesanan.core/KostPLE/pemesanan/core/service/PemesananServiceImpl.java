@@ -106,43 +106,39 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		return pemesanan;
 	}
     
-    public Pemesanan savePemesananByUser(Map<String, Object> requestBody, String email) {
+    public Pemesanan savePemesananByUser(Map<String, Object> requestBody, String email, UUID kamarId) {
     	UUID idPemesanan = UUID.randomUUID();
 		String statusPemesanan = "In Progress";
 		String detail = (String) requestBody.get("detail");
 	
 		Date startDate = null;
 		Date endDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 		try {
-			String startDateStr = (String) requestBody.get("startDate");
-			String endDateStr = (String) requestBody.get("endDate");
+		    String startDateStr = (String) requestBody.get("startDate");
+		    String endDateStr = (String) requestBody.get("endDate");
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-
-			startDate = sdf.parse(startDateStr);
-			endDate = sdf.parse(endDateStr);
-
-			// lanjutkan dengan penggunaan startDate dan endDate di sini...
+		    startDate = sdf.parse(startDateStr);
+		    endDate = sdf.parse(endDateStr);
 
 		} catch (ParseException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Format tanggal tidak valid: " + e.getMessage());
+		    e.printStackTrace();
+		    throw new RuntimeException("Format tanggal tidak valid: " + e.getMessage());
 		}
 		
 		
 		Date createdAt = new Date();
 		
-		String idKamarStr = (String) requestBody.get("idKamar");
-		UUID idKamar = UUID.fromString(idKamarStr);
 		
 		ProfilPengguna profilPengguna = profilPenggunaService.getProfilPenggunaByEmail(email);
-		Kamar kamar = kamarService.getKamarById(idKamar);
+		Kamar kamar = kamarService.getKamarById(kamarId);
 		
 		if (kamar.getIsAvailable() == false) {
 			throw new RuntimeException("Kamar sudah dipesan atau tidak tersedia.");
 		}
 		
-		kamar = kamarService.updateStatusKamar(idKamar);
+		kamar = kamarService.updateStatusKamar(kamarId);
 
 		LocalDate start = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate end = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -186,6 +182,18 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		pemesanan.setStatusPemesanan((String) requestBody.get("statusPemesanan"));
 		pemesanan.setDetail((String) requestBody.get("detail"));
 		
+		Repository.updateObject(pemesanan);
+		
+		//to do: fix association attributes
+		
+		return pemesanan;
+		
+	}
+    
+    public Pemesanan updateStatusPemesanan(UUID id){
+		Pemesanan pemesanan = Repository.getObject(id);
+		
+		pemesanan.setStatusPemesanan("Success");
 		Repository.updateObject(pemesanan);
 		
 		//to do: fix association attributes
