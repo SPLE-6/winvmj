@@ -6,11 +6,11 @@
 	<feature manual="selected" name="PaymentKredit"/>
 	<feature automatic="selected" name="KatalogKost"/>
 	<feature automatic="selected" name="InformasiKost"/>
-	<feature name="PengajuanSurvey"/>
+	<feature manual="selected" name="PengajuanSurvey"/>
 	<feature automatic="selected" name="ProfilPengguna"/>
 	<feature automatic="selected" name="SewaKost"/>
-	<feature name="SewaViaApp"/>
-	<feature manual="selected" name="SewaViaWa"/>
+	<feature manual="selected" name="SewaViaApp"/>
+	<feature name="SewaViaWa"/>
 	<feature name="KostAktifPenyewa"/>
 	<feature name="InformasiTagihan"/>
 	<feature name="PerpanjanganSewa"/>

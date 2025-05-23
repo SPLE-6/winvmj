@@ -60,8 +60,12 @@ public class KamarResourceImpl extends KamarResourceComponent {
 		
 		UUID propertiId = UUID.fromString(propertiStr);
 
+		System.out.println("INI propertId: " + propertiId);
+
 		
 		List<Kamar> kamarList = kamarServiceImpl.getAllKamarByProperti(propertiId);
+		
+		System.out.println("INI kamarList: " + kamarList);
 		return kamarServiceImpl.transformListToHashMap(kamarList);
 	}
 

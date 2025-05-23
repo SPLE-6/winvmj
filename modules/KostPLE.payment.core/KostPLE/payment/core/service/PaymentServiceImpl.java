@@ -31,7 +31,7 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 	private PaymentFactory paymentFactory = new PaymentFactory();
 	PemesananService pemesananService = new PemesananServiceImpl();
 	
-    public Payment savePayment(Map<String, Object> requestBody){
+    public Payment savePayment(Map<String, Object> requestBody, UUID idPemesanan){
     	
 
 		UUID idPayment = UUID.randomUUID();
@@ -39,8 +39,6 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 		
 		Date createdAt = new Date();
 		
-		String idPemesananStr = (String) requestBody.get("idPemesananStr");
-		UUID idPemesanan = UUID.fromString(idPemesananStr);
 		
 		Pemesanan pemesanan = pemesananService.getPemesananById(idPemesanan);
 		

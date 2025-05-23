@@ -18,8 +18,11 @@ public class PaymentResourceImpl extends PaymentResourceComponent{
     @Route(url="call/payment/save")
     public HashMap<String,Object> savePayment(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload(); 
-			Payment result = paymentServiceImpl.savePayment(requestBody);
+		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload();
+		    String pemesananStr = vmjExchange.getGETParam("idPemesanan");
+		    UUID idPemesanan = UUID.fromString(pemesananStr);
+		    System.out.println("INI ID: " + idPemesanan);
+			Payment result = paymentServiceImpl.savePayment(requestBody, idPemesanan);
 			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");

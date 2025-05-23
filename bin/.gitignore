@@ -1,5 +1,8 @@
 /KostPLE.kamar.core/
-/kostple.product.basic/
+/KostPLE.payment.core/
+/KostPLE.payment.paymentkredit/
 /KostPLE.pemesanan.core/
+/KostPLE.pemesanan.sewaviaapp/
 /KostPLE.profilpengguna.core/
 /KostPLE.properti.core/
+/kostple.product.kost/

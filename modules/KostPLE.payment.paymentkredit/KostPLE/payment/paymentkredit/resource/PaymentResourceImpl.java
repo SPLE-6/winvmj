@@ -23,7 +23,9 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		}
 		
 		Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload();
-		Payment result = ((PaymentServiceImpl) paymentService).savePayment(requestBody);
+		String pemesananStr = vmjExchange.getGETParam("idPemesanan");
+		UUID idPemesanan = UUID.fromString(pemesananStr);
+		Payment result = ((PaymentServiceImpl) paymentService).savePayment(requestBody, idPemesanan);
 		return result.toHashMap();
 	}
 

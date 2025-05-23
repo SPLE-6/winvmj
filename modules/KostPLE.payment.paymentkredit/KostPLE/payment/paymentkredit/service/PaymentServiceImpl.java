@@ -20,11 +20,11 @@ public class PaymentServiceImpl extends PaymentServiceDecorator {
 
 
     @Override
-    public Payment savePayment(Map<String, Object> requestBody) {
-        int accountNumber = ((Double) requestBody.get("accountNumber")).intValue();;
+    public Payment savePayment(Map<String, Object> requestBody, UUID idPemesanan) {
+    	int accountNumber = Integer.parseInt((String) requestBody.get("accountNumber"));
         String provider = (String) requestBody.get("provider");
         String cvv = (String) requestBody.get("cvv");
-        Payment payment = record.savePayment(requestBody);
+        Payment payment = record.savePayment(requestBody, idPemesanan);
         Payment paymentKredit = PaymentFactory.createPayment(
         		"KostPLE.payment.paymentkredit.PaymentImpl",
         		payment,

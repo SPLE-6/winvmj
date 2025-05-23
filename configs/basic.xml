@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
 	<feature automatic="selected" name="KostPLE"/>
-	<feature name="Payment"/>
+	<feature automatic="selected" manual="selected" name="Payment"/>
 	<feature name="PaymentVA"/>
-	<feature name="PaymentKredit"/>
+	<feature manual="selected" name="PaymentKredit"/>
 	<feature automatic="selected" name="KatalogKost"/>
 	<feature automatic="selected" name="InformasiKost"/>
-	<feature manual="selected" name="PengajuanSurvey"/>
+	<feature name="PengajuanSurvey"/>
 	<feature automatic="selected" name="ProfilPengguna"/>
 	<feature automatic="selected" name="SewaKost"/>
-	<feature name="SewaViaApp"/>
-	<feature manual="selected" name="SewaViaWa"/>
+	<feature manual="selected" name="SewaViaApp"/>
+	<feature name="SewaViaWa"/>
 	<feature name="KostAktifPenyewa"/>
 	<feature name="InformasiTagihan"/>
 	<feature name="PerpanjanganSewa"/>

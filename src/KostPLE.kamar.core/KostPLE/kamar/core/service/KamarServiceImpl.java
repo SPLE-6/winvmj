@@ -125,13 +125,12 @@ public class KamarServiceImpl extends KamarServiceComponent {
 	
 	public List<Kamar> getAllKamarByProperti(UUID propertiId) {
 		List<Kamar> kamarList = Repository.getAllObject("kamar_impl");
-		return kamarList;
 
-//		return kamarList.stream()
-//	            .filter(kamar -> 
-//	                kamar.getProperti() != null && 
-//	                propertiId.equals(kamar.getProperti().getIdProperti()))
-//	            .collect(Collectors.toList());
+		return kamarList.stream()
+	            .filter(kamar -> 
+	                kamar.getProperti() != null && 
+	                propertiId.equals(kamar.getProperti().getIdProperti()))
+	            .collect(Collectors.toList());
 
 	}
 

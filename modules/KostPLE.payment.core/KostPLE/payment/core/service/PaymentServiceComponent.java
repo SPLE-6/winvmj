@@ -12,7 +12,7 @@ public abstract class PaymentServiceComponent implements PaymentService{
         this.Repository = new RepositoryUtil<Payment>(KostPLE.payment.core.PaymentComponent.class);
     }	
 
-    public abstract Payment savePayment(Map<String, Object> requestBody);
+    public abstract Payment savePayment(Map<String, Object> requestBody, UUID idPemesanan);
 	public abstract Payment updatePayment(Map<String, Object> requestBody);
 	public abstract Payment getPaymentById(UUID id);
 	public abstract List<Payment> getAllPayment();

@@ -5,7 +5,7 @@ import KostPLE.payment.core.Payment;
 import vmj.routing.route.VMJExchange;
 
 public interface PaymentService {
-	Payment savePayment(Map<String, Object> requestBody);
+	Payment savePayment(Map<String, Object> requestBody, UUID idpemesanan);
     Payment updatePayment(Map<String, Object> requestBody);
 	Payment getPaymentById(UUID id);
     List<Payment> getAllPayment();

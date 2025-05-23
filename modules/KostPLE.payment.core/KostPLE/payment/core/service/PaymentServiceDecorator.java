@@ -10,8 +10,8 @@ public abstract class PaymentServiceDecorator extends PaymentServiceComponent{
         this.record = record;
     }
 
-	public Payment savePayment(Map<String, Object> requestBody){
-		return record.savePayment(requestBody);
+	public Payment savePayment(Map<String, Object> requestBody, UUID idPemesanan){
+		return record.savePayment(requestBody, idPemesanan);
 	}
 
 

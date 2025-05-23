@@ -86,6 +86,10 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		// Hitung total bayar
 		Float totalPay = pricePerMonth * months;
 		
+		if (totalPay < pricePerMonth) {
+			totalPay = pricePerMonth;
+		}
+		
 
 
 		
@@ -153,6 +157,10 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		// Hitung total bayar
 		Float totalPay = pricePerMonth * months;
 		
+		
+		if (totalPay < pricePerMonth) {
+			totalPay = pricePerMonth;
+		}
 
 
 		
