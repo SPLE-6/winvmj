@@ -189,7 +189,6 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		
 		pemesanan.setStatusPemesanan((String) requestBody.get("statusPemesanan"));
 		pemesanan.setDetail((String) requestBody.get("detail"));
-		
 		Repository.updateObject(pemesanan);
 		
 		//to do: fix association attributes
