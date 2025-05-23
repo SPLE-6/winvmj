@@ -3,14 +3,14 @@
 	<feature automatic="selected" name="KostPLE"/>
 	<feature automatic="selected" name="Payment"/>
 	<feature manual="selected" name="PaymentVA"/>
-	<feature name="PaymentKredit"/>
+	<feature manual="selected" name="PaymentKredit"/>
 	<feature automatic="selected" name="KatalogKost"/>
 	<feature automatic="selected" name="InformasiKost"/>
 	<feature name="PengajuanSurvey"/>
 	<feature automatic="selected" name="ProfilPengguna"/>
 	<feature automatic="selected" name="SewaKost"/>
 	<feature manual="selected" name="SewaViaApp"/>
-	<feature manual="selected" name="SewaViaWa"/>
+	<feature name="SewaViaWa"/>
 	<feature name="KostAktifPenyewa"/>
 	<feature name="InformasiTagihan"/>
 	<feature name="PerpanjanganSewa"/>

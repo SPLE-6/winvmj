@@ -1,5 +1,11 @@
-package KostPLE.payment.core.service;
+package KostPLE.payment.core;
 import java.util.*;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+
 import com.google.gson.Gson;
 import java.util.*;
 import java.util.logging.Logger;
@@ -15,91 +21,64 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.payment.PaymentFactory;
-import KostPLE.payment.core.model.Payment;
-import KostPLE.payment.core.repository.PaymentRepository;
+
+import KostPLE.pemesanan.core.*;
 import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class PaymentServiceImpl extends PaymentServiceComponent{
 
-    public Payment save(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Payment payment = create(vmjExchange.getPayload());
-		PaymentRepository.saveObject(payment);
-		return payment;
-	}
+	private PaymentFactory paymentFactory = new PaymentFactory();
+	PemesananService pemesananService = new PemesananServiceImpl();
+	
+    public Payment savePayment(Map<String, Object> requestBody, UUID idPemesanan){
+    	
 
-    public Payment create(Map<String, Object> requestBody){
-		String idPayment = (String) requestBody.get("idPayment");
-		boolean status = (boolean) requestBody.get("status");
-		String amountStr = (String) requestBody.get("amount");
-		int amount = Integer.parseInt(amountStr);
-		String createdAt = (String) requestBody.get("createdAt");
-		String pemesananimpl= (String) requestBody.get("pemesananimpl");
+		UUID idPayment = UUID.randomUUID();
+		boolean status = true;
+		
+		Date createdAt = new Date();
+		
+		
+		Pemesanan pemesanan = pemesananService.getPemesananById(idPemesanan);
+		
+		pemesanan = pemesananService.updateStatusPemesanan(idPemesanan);
 		
 		//to do: fix association attributes
-		Payment payment = PaymentFactory.create(
-		idPayment
-		, amount
+		Payment payment = paymentFactory.createPayment(
+		"KostPLE.payment.core.PaymentImpl"
+		,idPayment
 		, status
 		, createdAt
-		, pemesananimpl
+		, pemesanan
 		);
-		PaymentRepository.saveObject(payment);
-		return payment ;
-	}
-
-    public Payment create(VMJExchange vmjExchange){
-		String idPayment = (String) vmjExchange.getRequestBodyForm("idPayment");
-		boolean status = (boolean) vmjExchange.getRequestBodyForm("status");
-		String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
-		int amount = Integer.parseInt(amountStr);
-		String createdAt = (String) vmjExchange.getRequestBodyForm("createdAt");
-		String pemesananimpl= (String) vmjExchange.getRequestBodyForm("pemesananimpl");
-		
-		
-		//to do: fix association attributes
-		
-		Payment payment = PaymentFactory.create(idPayment, amount, status, createdAt, pemesananimpl);
+		Repository.saveObject(payment);
 		return payment;
 	}
 
-    public HashMap<String, Object> update(Map<String, Object> requestBody){
-		String id = (String) requestBody.get("idPayment");
-		Payment payment = PaymentRepository.getObject(id);
+    public Payment updatePayment(Map<String, Object> requestBody){
+		String idStr = (String) requestBody.get("idPayment");
+		UUID id = UUID.fromString(idStr);
+		Payment payment = Repository.getObject(id);
 		
 		payment.setStatus((Boolean) requestBody.get("status"));
 		
-		PaymentRepository.updateObject(payment);
+		Repository.updateObject(payment);
 		
 		//to do: fix association attributes
 		
-		return payment.toHashMap();
+		return payment;
 		
 	}
 
-    public HashMap<String, Object> get(Map<String, Object> requestBody){
-		List<HashMap<String, Object>> list = getAll(requestBody);
-		for (HashMap<String, Object> payment : list){
-			String record_id = ((String) payment.get("record_id"));
-			if (record_id.equals(requestBody.get("idPayment"))){
-				return payment;
-			}
-		}
-		return null;
+	public Payment getPaymentById(UUID id){
+		Payment payment = Repository.getObject(id);
+		return payment;
 	}
 
-	public HashMap<String, Object> getById(String id, VMJExchange vmjExchange){
-		Payment payment = PaymentRepository.getObject(id);
-		return payment.toHashMap();
-	}
-
-    public List<HashMap<String,Object>> getAll(Map<String, Object> requestBody){
-		String table = (String) requestBody.get("table_name");
-		List<Payment> List = PaymentRepository.getAllObject(table);
-		return transformListToHashMap(List);
+    public List<Payment> getAllPayment(){
+		List<Payment> paymentList = Repository.getAllObject("payment_impl");
+		return paymentList;
 	}
 
 	@Override
@@ -112,10 +91,9 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
         return resultList;
 	}
 
-    public List<HashMap<String,Object>> delete(Map<String, Object> requestBody){
-		String id = ((String) requestBody.get("id"));
-		PaymentRepository.deleteObject(id);
-		return getAll(requestBody);
+    public List<Payment> deletePayment(UUID paymentId){
+		Repository.deleteObject(paymentId);
+		return getAllPayment();
 	}
 
 	public void Pay() {
@@ -124,66 +102,6 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 
 	public void Cancel() {
 		// TODO: implement this method
-	}
-
-	@Override
-	public Payment createPayment(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
-	}
-
-	@Override
-	public Payment createPayment(Map<String, Object> requestBody,
-			Map<String, Object> response) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
-	}
-
-	@Override
-	public HashMap<String, Object> getPayment(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPayment'");
-	}
-
-	@Override
-	public List<HashMap<String, Object>> savePayment(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'savePayment'");
-	}
-
-	@Override
-	public HashMap<String, Object> updatePayment(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
-	}
-
-	public HashMap<String, Object> getPaymentById(String id) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPaymentById'");
-	}
-
-	@Override
-	public List<HashMap<String, Object>> getAllPayment(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getAllPayment'");
-	}
-
-	@Override
-	public List<HashMap<String, Object>> deletePayment(Map<String, Object> requestBody) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'deletePayment'");
-	}
-
-	@Override
-	public Payment create(Map<String, Object> requestBody, Map<String, Object> response) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'create'");
-	}
-
-	@Override
-	public HashMap<String, Object> getById(int id) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getById'");
 	}
 
 }

@@ -15,6 +15,7 @@ public abstract class PropertiServiceComponent implements PropertiService{
 
     public abstract Properti saveProperti(Map<String, Object> requestBody);
 	public abstract Properti updateProperti(Map<String, Object> requestBody);
+    public abstract List<Properti> getAllPropertiByUser(String email);
     public abstract List<Properti> getAllProperti();
     public abstract List<HashMap<String, Object>> transformListToHashMap(List<Properti> List);
     public abstract List<Properti> deleteProperti(UUID id);

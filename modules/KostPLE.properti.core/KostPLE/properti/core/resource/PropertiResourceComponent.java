@@ -20,5 +20,6 @@ public abstract class PropertiResourceComponent implements PropertiResource{
     public abstract HashMap<String, Object> getProperti(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllProperti(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> deleteProperti(VMJExchange vmjExchange);
+    public abstract List<HashMap<String, Object>> getAllPropertiByUser(VMJExchange vmjExchange);
 
 }

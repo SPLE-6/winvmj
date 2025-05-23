@@ -1,65 +1,79 @@
-package KostPLE.payment.core.resource;
+package KostPLE.payment.core;
 import java.util.*;
 
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import KostPLE.payment.PaymentFactory;
-import KostPLE.payment.core.model.Payment;
+import KostPLE.payment.core.Payment;
 import vmj.auth.annotations.Restricted;
 //add other required packages
-import KostPLE.payment.core.service.PaymentServiceImpl;
+import KostPLE.payment.core.PaymentServiceImpl;
 
 public class PaymentResourceImpl extends PaymentResourceComponent{
 	
-	private PaymentServiceImpl ServiceImpl = new PaymentServiceImpl();
+	private PaymentServiceImpl paymentServiceImpl = new PaymentServiceImpl();
 
 	// @Restriced(permission = "")
-    @Route(url="call/payment")
-    public Payment create(VMJExchange vmjExchange){
+    @Route(url="call/payment/save")
+    public HashMap<String,Object> savePayment(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Payment result = ServiceImpl.create(requestBody);
-			return result;
+		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload();
+		    String pemesananStr = vmjExchange.getGETParam("idPemesanan");
+		    UUID idPemesanan = UUID.fromString(pemesananStr);
+		    System.out.println("INI ID: " + idPemesanan);
+			Payment result = paymentServiceImpl.savePayment(requestBody, idPemesanan);
+			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
     // @Restriced(permission = "")
     @Route(url="call/payment/update")
-    public HashMap<String, Object> update(VMJExchange vmjExchange){
+    public HashMap<String, Object> updatePayment(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")){
 			return null;
 		}
-		return ServiceImpl.update(requestBody);
-		
+		Payment result =  paymentServiceImpl.updatePayment(requestBody);
+		return result.toHashMap();
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/payment/detail")
-    public HashMap<String, Object> get(VMJExchange vmjExchange){
+    public HashMap<String, Object> getPayment(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return ServiceImpl.get(requestBody);
+		String paymentIdStr = vmjExchange.getGETParam("paymentId");
+		
+		if (paymentIdStr == "") {
+			paymentIdStr = (String) requestBody.get("paymentId");
+		} 
+		
+		UUID paymentId = UUID.fromString(paymentIdStr);
+		return paymentServiceImpl.getPaymentById(paymentId).toHashMap();
 	}
 
 	// @Restriced(permission = "")
     @Route(url="call/payment/list")
-    public List<HashMap<String,Object>> getAll(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return ServiceImpl.getAll(requestBody);
+    public List<HashMap<String,Object>> getAllPayment(VMJExchange vmjExchange){
+    	List<Payment> paymentList = paymentServiceImpl.getAllPayment();
+		return paymentServiceImpl.transformListToHashMap(paymentList);
 	}
 
     
 	// @Restriced(permission = "")
     @Route(url="call/payment/delete")
-    public List<HashMap<String,Object>> delete(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
+    public List<HashMap<String,Object>> deletePayment(VMJExchange vmjExchange){
+    	HashMap<String, Object> body = (HashMap<String, Object>) vmjExchange.getPayload(); 
+		String paymentIdStr = (String) body.get("paymentId");
+		UUID paymentId = UUID.fromString(paymentIdStr);
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
 		
-		return ServiceImpl.delete(requestBody);
+		List <Payment> paymentList =  paymentServiceImpl.deletePayment(paymentId);
+		return paymentServiceImpl.transformListToHashMap(paymentList);
+
 	}
 
 	public void Pay() {
@@ -70,39 +84,5 @@ public class PaymentResourceImpl extends PaymentResourceComponent{
 		// TODO: implement this method
 	}
 
-	@Override
-	public List<HashMap<String, Object>> savePayment(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'savePayment'");
-	}
-
-	@Override
-	public HashMap<String, Object> updatePayment(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
-	}
-
-	@Override
-	public HashMap<String, Object> getPayment(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getPayment'");
-	}
-
-	@Override
-	public List<HashMap<String, Object>> getAllPayment(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getAllPayment'");
-	}
-
-	@Override
-	public List<HashMap<String, Object>> deletePayment(VMJExchange vmjExchange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'deletePayment'");
-	}
-
-	@Override
-	public HashMap<String, Object> createPayment(VMJExchange vmjExhange) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
-	}
+	
 }

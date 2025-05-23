@@ -1,12 +1,12 @@
 {
   "ProfilPengguna": ["KostPLE.profilpengguna.core"],
-  "Payment": ["KostPLE.payment.core"],
-  "PaymentVA": ["KostPLE.payment.paymentva"],
-  "PaymentKredit": ["KostPLE.payment.paymentkredit"],
   "KatalogKost": ["KostPLE.properti.core", "KostPLE.kamar.core"],
+  "KostAktifPenyewa": ["KostPLE.pemesanan.core"],
+  "Payment": ["KostPLE.payment.core"],
+  "PaymentKredit": ["KostPLE.payment.paymentkredit"],
+  "PaymentVA": ["KostPLE.payment.paymentva"],
   "SewaKost": ["KostPLE.pemesanan.core"],
   "SewaViaApp": ["KostPLE.pemesanan.sewaviaapp"],
-  "KostAktifPenyewa": ["KostPLE.pemesanan.core"],
   "InformasiTagihan": ["KostPLE.pemesanan.informasitagihan"],
   "PropertiPemilik": ["KostPLE.properti.core"],
   "LaporanKeuangan": ["KostPLE.properti.laporan"]

@@ -7,10 +7,14 @@ import vmj.routing.route.VMJExchange;
 public interface KamarResource {
 
     HashMap<String, Object> updateKamar(VMJExchange vmjExchange);
+    
+    HashMap<String, Object> updateStatusKamar(VMJExchange vmjExchange);
 
     HashMap<String, Object> getKamar(VMJExchange vmjExchange);
 
     List<HashMap<String, Object>> getAllKamar(VMJExchange vmjExchange);
+    
+    List<HashMap<String, Object>> getAllKamarByIdProperti(VMJExchange vmjExchange);
 
     List<HashMap<String, Object>> deleteKamar(VMJExchange vmjExchange);
 

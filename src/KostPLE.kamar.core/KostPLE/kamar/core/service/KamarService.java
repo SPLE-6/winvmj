@@ -9,8 +9,13 @@ public interface KamarService {
     Kamar saveKamar(Map<String, Object> requestBody);
 
     Kamar updateKamar(Map<String, Object> requestBody);
+    
+    Kamar updateStatusKamar(UUID id);
+
 
     Kamar getKamarById(UUID id);
+    
+    List<Kamar> getAllKamarByProperti(UUID propertiId);
 
     List<Kamar> getAllKamar();
 

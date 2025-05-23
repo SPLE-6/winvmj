@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+	<feature automatic="selected" name="KostPLE"/>
+	<feature automatic="selected" name="Payment"/>
+	<feature name="PaymentVA"/>
+	<feature manual="selected" name="PaymentKredit"/>
+	<feature automatic="selected" name="KatalogKost"/>
+	<feature automatic="selected" name="InformasiKost"/>
+	<feature name="PengajuanSurvey"/>
+	<feature automatic="selected" name="ProfilPengguna"/>
+	<feature automatic="selected" name="SewaKost"/>
+	<feature manual="selected" name="SewaViaApp"/>
+	<feature name="SewaViaWa"/>
+	<feature name="KostAktifPenyewa"/>
+	<feature name="InformasiTagihan"/>
+	<feature name="PerpanjanganSewa"/>
+	<feature automatic="selected" name="PropertiPemilik"/>
+	<feature automatic="selected" name="DaftarProperti"/>
+	<feature name="LaporanKeuangan"/>
+</configuration>

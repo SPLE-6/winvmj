@@ -1,8 +1,6 @@
-package KostPLE.payment.core.service;
+package KostPLE.payment.core;
 import java.util.*;
 
-import KostPLE.payment.core.model.Payment;
-import KostPLE.payment.core.model.PaymentImpl;
 import vmj.routing.route.VMJExchange;
 
 public abstract class PaymentServiceDecorator extends PaymentServiceComponent{
@@ -12,40 +10,30 @@ public abstract class PaymentServiceDecorator extends PaymentServiceComponent{
         this.record = record;
     }
 
-	public Payment create(Map<String, Object> requestBody){
-		return record.create(requestBody);
+	public Payment savePayment(Map<String, Object> requestBody, UUID idPemesanan){
+		return record.savePayment(requestBody, idPemesanan);
 	}
 
-    public Payment create(Map<String, Object> requestBody, Map<String, Object> response){
-		return record.create(requestBody, response);
+
+	public List<Payment> getAllPayment(){
+		return record.getAllPayment();
 	}
 
-	public HashMap<String, Object> get(Map<String, Object> requestBody){
-		return record.get(requestBody);
-	}
 
-	public List<HashMap<String,Object>> getAll(Map<String, Object> requestBody){
-		return record.getAll(requestBody);
-	}
-
-    public Payment save(VMJExchange vmjExchange){
-		return record.save(vmjExchange);
-	}
-
-    public HashMap<String, Object> update(Map<String, Object> requestBody){
-		return record.update(requestBody);
+    public Payment updatePayment(Map<String, Object> requestBody){
+		return record.updatePayment(requestBody);
 	}
 
     public List<HashMap<String,Object>> transformListToHashMap(List<Payment> List){
 		return record.transformListToHashMap(List);
 	}
 
-    public List<HashMap<String,Object>> delete(Map<String, Object> requestBody){
-		return record.delete(requestBody);
+    public List<Payment> deletePayment(UUID paymentId){
+		return record.deletePayment(paymentId);
 	}
 
-	public HashMap<String, Object> getById(int id){
-        return record.getById(id);
+	public Payment getPaymentById(UUID id){
+        return record.getPaymentById(id);
     }
 
 	public void Pay() {

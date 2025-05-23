@@ -11,6 +11,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
+
 
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
@@ -49,16 +51,59 @@ public class KamarServiceImpl extends KamarServiceComponent {
 	}
 
 	public Kamar updateKamar(Map<String, Object> requestBody) {
-		String idStr = (String) requestBody.get("idKamar");
-		UUID id = UUID.fromString(idStr);
-		Kamar kamar = Repository.getObject(id);
+	    String idStr = (String) requestBody.get("idKamar");
+	    UUID id = UUID.fromString(idStr);
+	    Kamar kamar = Repository.getObject(id);
 
-		kamar.setIsAvailable((boolean) requestBody.get("isAvailable"));
-		kamar.setTipeKamar((String) requestBody.get("tipeKamar"));
-		kamar.setDeskripsiKamar((String) requestBody.get("deskripsiKamar"));
-		kamar.setFotoUrlKamar((String) requestBody.get("fotoUrlKamar"));
-		kamar.setHargaKamar((Float) requestBody.get("hargaKamar"));
-		kamar.setProperti((Properti) requestBody.get("properti"));
+	    if (kamar == null) {
+	        throw new RuntimeException("Kamar dengan ID tersebut tidak ditemukan.");
+	    }
+
+	    if (requestBody.containsKey("isAvailable")) {
+	        kamar.setIsAvailable((boolean) requestBody.get("isAvailable"));
+	    }
+
+	    if (requestBody.containsKey("tipeKamar")) {
+	        kamar.setTipeKamar((String) requestBody.get("tipeKamar"));
+	    }
+
+	    if (requestBody.containsKey("deskripsiKamar")) {
+	        kamar.setDeskripsiKamar((String) requestBody.get("deskripsiKamar"));
+	    }
+
+	    if (requestBody.containsKey("fotoUrlKamar")) {
+	        kamar.setFotoUrlKamar((String) requestBody.get("fotoUrlKamar"));
+	    }
+
+	    if (requestBody.containsKey("hargaKamar")) {
+	        kamar.setHargaKamar((Float) requestBody.get("hargaKamar"));
+	    }
+
+	    if (requestBody.containsKey("properti")) {
+	        kamar.setProperti((Properti) requestBody.get("properti"));
+	    }
+
+	    Repository.updateObject(kamar);
+
+	    return kamar;
+	}
+	
+	public Kamar updateStatusKamar(UUID id) {
+		Kamar kamar = Repository.getObject(id);
+		
+		
+		System.out.println("INI KAMAR:" +  kamar);
+		
+		if (kamar.getIsAvailable() == true) {
+			System.out.println("MASIUK SINI");
+
+			kamar.setIsAvailable(false);
+		} else {
+			System.out.println("MASIUK SANA");
+			kamar.setIsAvailable(true);
+		}
+		
+		
 
 		Repository.updateObject(kamar);
 
@@ -76,6 +121,17 @@ public class KamarServiceImpl extends KamarServiceComponent {
 	public List<Kamar> getAllKamar() {
 		List<Kamar> kamarList = Repository.getAllObject("kamar_impl");
 		return kamarList;
+	}
+	
+	public List<Kamar> getAllKamarByProperti(UUID propertiId) {
+		List<Kamar> kamarList = Repository.getAllObject("kamar_impl");
+
+		return kamarList.stream()
+	            .filter(kamar -> 
+	                kamar.getProperti() != null && 
+	                propertiId.equals(kamar.getProperti().getIdProperti()))
+	            .collect(Collectors.toList());
+
 	}
 
 	public List<HashMap<String, Object>> transformListToHashMap(List<Kamar> List) {

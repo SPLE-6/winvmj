@@ -4,11 +4,13 @@ import java.util.*;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
+import vmj.auth.core.*;
+import vmj.auth.annotations.Restricted;
+
 import KostPLE.pemesanan.PemesananFactory;
 //import prices.auth.vmj.annotations.Restricted;
 //add other required packages
 import KostPLE.pemesanan.core.Pemesanan;
-import KostPLE.pemesanan.core.PemesananServiceImpl;
 
 public class PemesananResourceImpl extends PemesananResourceComponent{
 	
@@ -20,6 +22,20 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload(); 
 			Pemesanan result = pemesananServiceImpl.savePemesanan(requestBody);
+			return result.toHashMap();
+		}
+		throw new NotFoundException("Route tidak ditemukan");
+	}
+    
+    @Restricted(permissionName= "")
+    @Route(url="call/pemesanan/save-user")
+    public HashMap<String,Object> savePemesananByUser(VMJExchange vmjExchange){
+		if (vmjExchange.getHttpMethod().equals("POST")) {
+	    	String email = vmjExchange.getAuthPayload().getEmail();
+	    	String kamarStr = vmjExchange.getGETParam("idKamar");
+			UUID kamarId = UUID.fromString(kamarStr);
+		    Map<String, Object> requestBody = (HashMap<String, Object>) vmjExchange.getPayload(); 
+			Pemesanan result = pemesananServiceImpl.savePemesananByUser(requestBody, email, kamarId);
 			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");
@@ -50,6 +66,14 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
     public List<HashMap<String,Object>> getAllPemesanan(VMJExchange vmjExchange){
 		List <Pemesanan> pemesananList = pemesananServiceImpl.getAllPemesanan();
 		return pemesananServiceImpl.transformListToHashMap(pemesananList);
+	}
+    
+    @Restricted(permissionName= "")
+    @Route(url="call/pemesanan/user-properti")
+    public List<HashMap<String,Object>> getAllPemesananByUser(VMJExchange vmjExchange){
+    	String email = vmjExchange.getAuthPayload().getEmail();
+    	List <Pemesanan> pemesananList = pemesananServiceImpl.getAllPemesananByUser(email);
+    	return pemesananServiceImpl.transformListToHashMap(pemesananList);
 	}
 
     

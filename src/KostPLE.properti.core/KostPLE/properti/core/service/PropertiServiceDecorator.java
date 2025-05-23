@@ -19,6 +19,11 @@ public abstract class PropertiServiceDecorator extends PropertiServiceComponent{
 	public List<Properti> getAllProperti(){
 		return record.getAllProperti();
 	}
+	
+    public List<Properti> getAllPropertiByUser(String email){
+    	return record.getAllPropertiByUser(email);
+    }
+
 
     public Properti updateProperti(Map<String, Object> requestBody){
 		return record.updateProperti(requestBody);

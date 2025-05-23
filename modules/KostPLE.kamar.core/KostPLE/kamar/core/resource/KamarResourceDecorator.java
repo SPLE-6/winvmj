@@ -19,6 +19,11 @@ public abstract class KamarResourceDecorator extends KamarResourceComponent {
 	public HashMap<String, Object> updateKamar(VMJExchange vmjExchange) {
 		return record.updateKamar(vmjExchange);
 	}
+	
+    public HashMap<String, Object> updateStatusKamar(VMJExchange vmjExchange){
+    	return record.updateStatusKamar(vmjExchange);
+    }
+
 
 	public HashMap<String, Object> getKamar(VMJExchange vmjExchange) {
 		return record.getKamar(vmjExchange);
@@ -27,6 +32,10 @@ public abstract class KamarResourceDecorator extends KamarResourceComponent {
 	public List<HashMap<String, Object>> getAllKamar(VMJExchange vmjExchange) {
 		return record.getAllKamar(vmjExchange);
 	}
+	
+    public List<HashMap<String, Object>> getAllKamarByIdProperti(VMJExchange vmjExchange){
+    	return record.getAllKamarByIdProperti(vmjExchange);
+    }
 
 	public List<HashMap<String, Object>> deleteKamar(VMJExchange vmjExchange) {
 		return record.deleteKamar(vmjExchange);
