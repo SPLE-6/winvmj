@@ -15,6 +15,7 @@ public abstract class PemesananServiceComponent implements PemesananService{
 	public abstract Pemesanan savePemesanan(Map<String, Object> requestBody);    
 	public abstract Pemesanan updatePemesanan(Map<String, Object> requestBody);
     public abstract Pemesanan updateStatusPemesanan(UUID id);
+    public abstract Pemesanan updateStatusKamarFromPemesanan(UUID idKamar);
 	public abstract Pemesanan savePemesananByUser(Map<String, Object> requestBody, String email, UUID kamarId);
     public abstract List<Pemesanan> getAllPemesanan();
     public abstract List<Pemesanan> getAllPemesananByUser(String email);

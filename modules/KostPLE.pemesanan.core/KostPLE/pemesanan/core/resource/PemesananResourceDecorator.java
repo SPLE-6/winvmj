@@ -24,6 +24,10 @@ public abstract class PemesananResourceDecorator extends PemesananResourceCompon
 		return record.updatePemesanan(vmjExchange);
 	}
     
+	public HashMap<String, Object> updateStatusKamarFromPemesanan(VMJExchange vmjExchange){
+		return record.updateStatusKamarFromPemesanan(vmjExchange);
+	}
+
     public HashMap<String, Object> getPemesanan(VMJExchange vmjExchange){
 		return record.getPemesanan(vmjExchange);
 	}

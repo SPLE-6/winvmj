@@ -51,6 +51,18 @@ public class PemesananResourceImpl extends PemesananResourceComponent{
 		Pemesanan result = pemesananServiceImpl.updatePemesanan(requestBody);
 		return result.toHashMap();
 	}
+    
+//    @Restricted(permissionName= "")
+    @Route(url="call/pemesanan/update-kamar")
+    public HashMap<String,Object> updateStatusKamarFromPemesanan(VMJExchange vmjExchange){
+		if (vmjExchange.getHttpMethod().equals("PUT")) {
+	    	String pemesananStr = vmjExchange.getGETParam("idPemesanan");
+			UUID pemesananId = UUID.fromString(pemesananStr);
+			Pemesanan result = pemesananServiceImpl.updateStatusKamarFromPemesanan(pemesananId);
+			return result.toHashMap();
+		}
+		throw new NotFoundException("Route tidak ditemukan");
+	}
 
 	// @Restriced(permission = "")
     @Route(url="call/pemesanan/detail")

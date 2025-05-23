@@ -9,6 +9,7 @@ public interface PemesananService {
 	Pemesanan savePemesananByUser(Map<String, Object> requestBody, String email, UUID kamarId);
     Pemesanan updatePemesanan(Map<String, Object> requestBody);
     Pemesanan updateStatusPemesanan(UUID id);
+    Pemesanan updateStatusKamarFromPemesanan(UUID idKamar);
     Pemesanan getPemesananById(UUID id);
     List<Pemesanan> getAllPemesanan();
     List<Pemesanan> getAllPemesananByUser(String email);

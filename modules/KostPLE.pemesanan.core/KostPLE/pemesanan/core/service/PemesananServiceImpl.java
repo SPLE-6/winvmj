@@ -209,6 +209,21 @@ public class PemesananServiceImpl extends PemesananServiceComponent{
 		return pemesanan;
 		
 	}
+    
+    public Pemesanan updateStatusKamarFromPemesanan(UUID id) {
+    	Pemesanan pemesanan = Repository.getObject(id);
+    	
+    	Kamar kamar = pemesanan.getKamar();
+    	UUID kamarId = kamar.getIdKamar();
+    	
+    	Kamar kamarResult = kamarService.getKamarById(kamarId);
+		
+		kamarResult = kamarService.updateStatusKamar(kamarId);
+		
+		pemesanan.setStatusPemesanan("Completed");
+		Repository.updateObject(pemesanan);
+		return pemesanan;
+    }
 
 	public Pemesanan getPemesananById(UUID id){
 		Pemesanan pemesanan = Repository.getObject(id);

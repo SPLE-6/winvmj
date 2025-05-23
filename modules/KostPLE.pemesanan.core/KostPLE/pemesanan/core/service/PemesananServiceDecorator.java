@@ -27,6 +27,11 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
 		return record.updatePemesanan(requestBody);
 	}
     
+    public Pemesanan updateStatusKamarFromPemesanan(UUID idKamar) {
+    	return record.updateStatusKamarFromPemesanan(idKamar);
+    }
+
+    
     public Pemesanan updateStatusPemesanan(UUID id) {
     	return record.updateStatusPemesanan(id);
     }
