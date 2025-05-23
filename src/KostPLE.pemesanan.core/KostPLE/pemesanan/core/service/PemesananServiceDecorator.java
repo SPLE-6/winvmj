@@ -13,6 +13,11 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
     public Pemesanan savePemesanan(Map<String, Object> requestBody){
 		return record.savePemesanan(requestBody);
 	}
+    
+	public Pemesanan savePemesananByUser(Map<String, Object> requestBody, String email) {
+		return record.savePemesananByUser(requestBody, email);
+	}
+
 
 	public List<Pemesanan> getAllPemesanan(){
 		return record.getAllPemesanan();
@@ -33,5 +38,10 @@ public abstract class PemesananServiceDecorator extends PemesananServiceComponen
 	public Pemesanan getPemesananById(UUID pemesananId){
         return record.getPemesananById(pemesananId);
     }
+	
+    public List<Pemesanan> getAllPemesananByUser(String email){
+    	return record.getAllPemesananByUser(email);
+    }
+
 
 }

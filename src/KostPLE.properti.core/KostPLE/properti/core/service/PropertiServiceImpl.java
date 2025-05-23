@@ -85,6 +85,21 @@ public class PropertiServiceImpl extends PropertiServiceComponent{
 		List<Properti> list = Repository.getAllObject("properti_impl");
 		return list;
 	}
+    
+    public List<Properti> getAllPropertiByUser(String email){
+    	List<Properti> allProperti =  getAllProperti();
+    	List<Properti> filteredProperti = new ArrayList<>();
+    	
+    	
+    	for (Properti properti : allProperti) {
+    		ProfilPengguna pengguna = properti.getProfilPengguna();
+            if (pengguna != null && email.equalsIgnoreCase(pengguna.getEmail())) {
+                filteredProperti.add(properti);
+            }
+        }
+
+        return filteredProperti;
+    }
 
 	@Override
 	public List<HashMap<String, Object>> transformListToHashMap(List<Properti> list){

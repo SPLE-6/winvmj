@@ -4,9 +4,12 @@ import java.util.*;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
-import KostPLE.properti.PropertiFactory;
-import KostPLE.properti.core.PropertiServiceImpl;
+import vmj.auth.core.*;
 import vmj.auth.annotations.Restricted;
+
+import KostPLE.properti.PropertiFactory;
+import KostPLE.properti.core.Properti;
+
 
 
 //add other required packages
@@ -37,7 +40,7 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
 		return result.toHashMap();
 		
 	}
-
+    
 	// @Restriced(permission = "")
     @Route(url="call/properti/detail")
     public HashMap<String, Object> getProperti(VMJExchange vmjExchange){
@@ -51,6 +54,14 @@ public class PropertiResourceImpl extends PropertiResourceComponent{
 		UUID propertiId = UUID.fromString(propertiStr);
 		return propertiServiceImpl.getPropertiById(propertiId).toHashMap();
 	}
+    
+    @Restricted(permissionName= "")
+    @Route(url="call/properti/user-properti")
+    public List<HashMap<String, Object>> getAllPropertiByUser(VMJExchange vmjExchange){
+    	String email = vmjExchange.getAuthPayload().getEmail();
+    	List <Properti> propertiList = propertiServiceImpl.getAllPropertiByUser(email);
+    	return propertiServiceImpl.transformListToHashMap(propertiList);
+    }
 
 	// @Restriced(permission = "")
     @Route(url="call/properti/list")

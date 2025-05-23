@@ -7,6 +7,8 @@ import vmj.routing.route.VMJExchange;
 public interface KamarResource {
 
     HashMap<String, Object> updateKamar(VMJExchange vmjExchange);
+    
+    HashMap<String, Object> updateStatusKamar(VMJExchange vmjExchange);
 
     HashMap<String, Object> getKamar(VMJExchange vmjExchange);
 

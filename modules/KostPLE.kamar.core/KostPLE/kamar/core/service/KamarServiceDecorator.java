@@ -22,6 +22,11 @@ public abstract class KamarServiceDecorator extends KamarServiceComponent {
 	public Kamar updateKamar(Map<String, Object> requestBody) {
 		return record.updateKamar(requestBody);
 	}
+	
+    public Kamar updateStatusKamar(UUID id) {
+    	return record.updateStatusKamar(id);
+    }
+
 
 	public List<HashMap<String, Object>> transformListToHashMap(List<Kamar> kamarList) {
 		return record.transformListToHashMap(kamarList);

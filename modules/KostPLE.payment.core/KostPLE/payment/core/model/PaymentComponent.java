@@ -22,7 +22,6 @@ import javax.persistence.ManyToOne;
 public abstract class PaymentComponent implements Payment{
 	@Id
 	public UUID idPayment; 
-	public Float amount;
 	public boolean status;
 	public Date createdAt;
 	@ManyToOne(targetEntity=KostPLE.pemesanan.core.PemesananComponent.class)
@@ -34,10 +33,9 @@ public abstract class PaymentComponent implements Payment{
 	} 
 
 	public PaymentComponent(
-         UUID idPayment, Float amount, boolean status, Date createdAt, Pemesanan pemesanan
+         UUID idPayment, boolean status, Date createdAt, Pemesanan pemesanan
     ) {
         this.idPayment = idPayment;
-        this.amount = amount;
         this.status = status;
         this.createdAt = createdAt;
         this.pemesanan = pemesanan;
@@ -45,9 +43,6 @@ public abstract class PaymentComponent implements Payment{
 
 	public abstract UUID getIdPayment();
 	public abstract void setIdPayment(UUID idPayment);
-	
-	public abstract Float getAmount();
-	public abstract void setAmount(Float amount);
 	
 	public abstract boolean getStatus();
 	public abstract void setStatus(boolean status);
@@ -67,7 +62,6 @@ public abstract class PaymentComponent implements Payment{
     public String toString() {
         return "{" +
             " idPayment='" + getIdPayment() + "'" +
-            " amount='" + getAmount() + "'" +
             " status='" + getStatus() + "'" +
             " createdAt='" + getCreatedAt() + "'" +
             " pemesanan='" + getPemesanan() + "'" +

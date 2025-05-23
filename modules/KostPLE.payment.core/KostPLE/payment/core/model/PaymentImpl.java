@@ -22,17 +22,15 @@ import javax.persistence.OneToMany;
 @Table(name="payment_impl")
 public class PaymentImpl extends PaymentComponent {
 
-	public PaymentImpl(UUID idPayment, Float amount, boolean status, Date createdAt, Pemesanan pemesanan) {
+	public PaymentImpl(UUID idPayment, boolean status, Date createdAt, Pemesanan pemesanan) {
 		this.idPayment = idPayment;
-		this.amount = amount;
 		this.status = status;
 		this.createdAt = createdAt;
 		this.pemesanan = pemesanan;
 	}
 
-	public PaymentImpl(Float amount, boolean status, Date createdAt, Pemesanan pemesanan) {
+	public PaymentImpl(boolean status, Date createdAt, Pemesanan pemesanan) {
 		this.idPayment =  UUID.randomUUID();
-		this.amount = amount;
 		this.status = status;
 		this.createdAt = createdAt;
 		this.pemesanan = pemesanan;
@@ -52,7 +50,6 @@ public class PaymentImpl extends PaymentComponent {
 	public HashMap<String, Object> toHashMap() {
         HashMap<String, Object> Map = new HashMap<String,Object>();
 		Map.put("idPayment",getIdPayment());
-		Map.put("amount",getAmount());
 		Map.put("status",getStatus());
 		Map.put("createdAt",getCreatedAt());
 		Map.put("pemesanan",getPemesanan());
@@ -75,15 +72,6 @@ public class PaymentImpl extends PaymentComponent {
 		this.idPayment = idPayment;
 	}
 
-	@Override
-	public Float getAmount() {
-		return this.amount;
-	}
-
-	@Override
-	public void setAmount(Float amount) {
-		this.amount = amount;
-	}
 
 	@Override
 	public boolean getStatus() {

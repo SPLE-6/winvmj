@@ -21,7 +21,7 @@ public class PaymentServiceImpl extends PaymentServiceDecorator {
 
     @Override
     public Payment savePayment(Map<String, Object> requestBody) {
-        int accountNumber = (int) requestBody.get("accountNumber");
+        int accountNumber = ((Double) requestBody.get("accountNumber")).intValue();;
         String provider = (String) requestBody.get("provider");
         String cvv = (String) requestBody.get("cvv");
         Payment payment = record.savePayment(requestBody);

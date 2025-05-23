@@ -35,6 +35,19 @@ public class KamarResourceImpl extends KamarResourceComponent {
 		return result.toHashMap();
 
 	}
+	
+	@Route(url = "call/kamar/update-status")
+	public HashMap<String, Object> updateStatusKamar(VMJExchange vmjExchange) {
+		HashMap<String, Object> requestBody =(HashMap<String, Object>) vmjExchange.getPayload();
+		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+			return null;
+		}
+		String idKamarStr = (String) requestBody.get("idKamar");
+		UUID idKamar = UUID.fromString(idKamarStr);
+		Kamar result = kamarServiceImpl.updateStatusKamar(idKamar);
+		return result.toHashMap();
+
+	}
 
 	// @Restriced(permission = "")
 	@Route(url = "call/kamar/detail")

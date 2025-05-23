@@ -19,6 +19,11 @@ public abstract class KamarResourceDecorator extends KamarResourceComponent {
 	public HashMap<String, Object> updateKamar(VMJExchange vmjExchange) {
 		return record.updateKamar(vmjExchange);
 	}
+	
+    public HashMap<String, Object> updateStatusKamar(VMJExchange vmjExchange){
+    	return record.updateStatusKamar(vmjExchange);
+    }
+
 
 	public HashMap<String, Object> getKamar(VMJExchange vmjExchange) {
 		return record.getKamar(vmjExchange);

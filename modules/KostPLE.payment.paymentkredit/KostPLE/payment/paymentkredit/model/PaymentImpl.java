@@ -79,16 +79,6 @@ public class PaymentImpl extends PaymentDecorator {
 	}
 
 	@Override
-	public Float getAmount() {
-		return this.amount;
-	}
-
-	@Override
-	public void setAmount(Float amount) {
-		this.amount = amount;
-	}
-
-	@Override
 	public boolean getStatus() {
 		return this.status;
 	}

@@ -1,5 +1,11 @@
 package KostPLE.payment.core;
 import java.util.*;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+
 import com.google.gson.Gson;
 import java.util.*;
 import java.util.logging.Logger;
@@ -26,21 +32,26 @@ public class PaymentServiceImpl extends PaymentServiceComponent{
 	PemesananService pemesananService = new PemesananServiceImpl();
 	
     public Payment savePayment(Map<String, Object> requestBody){
+    	
+
 		UUID idPayment = UUID.randomUUID();
-		boolean status = (boolean) requestBody.get("status");
-		String amountStr = (String) requestBody.get("amount");
-		int amount = Integer.parseInt(amountStr);
-		String createdAt = (String) requestBody.get("createdAt");
-		String pemesananimpl= (String) requestBody.get("pemesananimpl");
+		boolean status = true;
+		
+		Date createdAt = new Date();
+		
+		String idPemesananStr = (String) requestBody.get("idPemesananStr");
+		UUID idPemesanan = UUID.fromString(idPemesananStr);
+		
+		Pemesanan pemesanan = pemesananService.getPemesananById(idPemesanan);
+		
 		
 		//to do: fix association attributes
 		Payment payment = paymentFactory.createPayment(
 		"KostPLE.payment.core.PaymentImpl"
 		,idPayment
-		, amount
 		, status
 		, createdAt
-		, pemesananimpl
+		, pemesanan
 		);
 		Repository.saveObject(payment);
 		return payment;

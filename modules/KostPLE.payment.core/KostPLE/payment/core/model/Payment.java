@@ -8,8 +8,6 @@ import KostPLE.pemesanan.core.Pemesanan;
 public interface Payment {
 	public UUID getIdPayment();
 	public void setIdPayment(UUID idPayment);
-	public Float getAmount();
-	public void setAmount(Float amount);
 	public boolean getStatus();
 	public void setStatus(boolean status);
 	public Date getCreatedAt();

@@ -7,6 +7,7 @@ public interface PropertiResource {
 	HashMap<String,Object> saveProperti(VMJExchange vmjExchange);
     HashMap<String, Object> updateProperti(VMJExchange vmjExchange);
     HashMap<String, Object> getProperti(VMJExchange vmjExchange);
+    List<HashMap<String, Object>> getAllPropertiByUser(VMJExchange vmjExchange);
     List<HashMap<String,Object>> getAllProperti(VMJExchange vmjExchange);
     List<HashMap<String,Object>> deleteProperti(VMJExchange vmjExchange);
 }

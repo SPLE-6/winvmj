@@ -16,6 +16,9 @@ public abstract class KamarServiceComponent implements KamarService {
     public abstract Kamar saveKamar(Map<String, Object> requestBody);
 
     public abstract Kamar updateKamar(Map<String, Object> requestBody);
+    
+    public abstract Kamar updateStatusKamar(UUID id);
+
 
     public abstract List<Kamar> getAllKamar();
 

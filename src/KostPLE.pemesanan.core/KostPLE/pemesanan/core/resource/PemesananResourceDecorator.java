@@ -14,11 +14,16 @@ public abstract class PemesananResourceDecorator extends PemesananResourceCompon
     public HashMap<String, Object> savePemesanan(VMJExchange vmjExchange){
 		return record.savePemesanan(vmjExchange);
 	}
+    
+	public HashMap<String,Object> savePemesananByUser(VMJExchange vmjExchange){
+		return record.savePemesananByUser(vmjExchange);
+	}
+
 
     public HashMap<String, Object> updatePemesanan(VMJExchange vmjExchange){
 		return record.updatePemesanan(vmjExchange);
 	}
-
+    
     public HashMap<String, Object> getPemesanan(VMJExchange vmjExchange){
 		return record.getPemesanan(vmjExchange);
 	}
@@ -26,6 +31,11 @@ public abstract class PemesananResourceDecorator extends PemesananResourceCompon
     public List<HashMap<String,Object>> getAllPemesanan(VMJExchange vmjExchange){
 		return record.getAllPemesanan(vmjExchange);
 	}
+    
+    public List<HashMap<String,Object>> getAllPemesananByUser(VMJExchange vmjExchange){
+    	return record.getAllPemesananByUser(vmjExchange);
+    }
+
 
     public List<HashMap<String,Object>> deletePemesanan(VMJExchange vmjExchange){
 		return record.deletePemesanan(vmjExchange);

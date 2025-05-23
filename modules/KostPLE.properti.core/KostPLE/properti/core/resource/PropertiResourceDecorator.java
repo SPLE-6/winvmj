@@ -30,5 +30,10 @@ public abstract class PropertiResourceDecorator extends PropertiResourceComponen
     public List<HashMap<String,Object>> deleteProperti(VMJExchange vmjExchange){
 		return record.deleteProperti(vmjExchange);
 	}
+    
+    public List<HashMap<String, Object>> getAllPropertiByUser(VMJExchange vmjExchange){
+    	return record.getAllPropertiByUser(vmjExchange);
+    }
+
 
 }
